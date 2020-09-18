@@ -1,0 +1,255 @@
+$bgColor:#292726;
+$themeColor:#fd7e14;
+body{
+    font-family: 'Libre Baskerville', sans-serif;
+    color:#f6f5f5;
+    background-color:$bgColor;
+    
+    h1, h2, h3, h4, h5, h6{
+        font-family:'Oswald', sans-serif;
+        font-weight:200;
+        line-height:1.75em;
+        text-transform: uppercase;
+    }
+
+    h1{font-size:4rem;line-height:2em;margin:0;}
+    h2{font-size:3.5rem;}
+    h3{font-size:3rem;}
+    h4{font-size:2.5rem;}
+    h5{font-size:2rem;}
+    h6{font-size:1.5rem;}
+
+    .italic{font-style:italic;}
+    .light{font-weight:300;}
+    .bold{font-weight: 600;}
+
+    small, p{line-height:1.75em;}
+
+    table{width:100%; max-width:500px;border-collapse: collapse;}
+    th, td{padding:10px;border:1px solid #111111;}
+    th{background-color:#f6f5f588;} 
+
+
+    form .btn{padding:4px 12px;}
+    .btn{
+        font-family:'Oswald', sans-serif;
+        font-size:1.2rem;
+        text-transform: uppercase;
+    }
+
+    /*fix colors btn bootstrap */
+    .btn-primary:focus, .btn-primary.focus,
+    .btn-primary.disabled, .btn-primary:disabled,
+    .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+    .show > .btn-primary.dropdown-toggle,
+    .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-primary.dropdown-toggle:focus {
+        box-shadow: 0 0 0 0.2rem #fd7e14aa;
+        border-color:$themeColor;
+    }
+    a:hover{color:darken($themeColor, 20%);}
+    
+
+    /*==============================*/
+    /*=========== HEADER ===========*/
+    /*==============================*/
+    header{
+        padding-bottom:100px;
+
+        .navbar{
+            padding-left:0;
+            padding-right:0;
+            font-family:'Oswald', sans-serif;
+            font-weight:300;
+
+            .navbar-brand{
+                font-size:3rem;
+                line-height: 4rem;
+                text-transform: uppercase;
+                font-weight:300;
+            }
+
+            .navbar-toggler{
+                border-color:#f6f5f588;
+                color: #f6f5f5;
+            }
+
+            #navbarSupportedContent{
+                justify-content:end;
+                .navbar-nav{
+                    .nav-link{font-size:1.5rem;}
+                    .nav-link:hover,
+                    .nav-link:focus{color:#f6f5f5;}
+                }
+            }
+        }
+        article{
+            p{margin-top:24px;}
+            .btn{margin:30px 0;}
+        } 
+
+        /*form login*/
+        #hpLogin{
+            margin-top:18px;
+            background-color: #f6f5f577;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        &#headerLivres{
+            min-height:0;
+            /*h1:after{
+                content:'';
+                width:100px;
+                height:3px;
+                background-color: $themeColor;
+                display:block;
+            }*/
+        }
+        &#headerPage404{
+            height:100vh;
+        }
+
+    }
+    /*==============================*/
+    /*============ MAIN ============*/
+    /*==============================*/
+    main{
+        background-color:$bgColor;
+
+        /*soulignement orange sur titres h2*/
+        h2:after{
+            content:'';
+            width:100px;
+            height:3px;
+            background-color: $themeColor;
+            display:block;
+            margin-bottom: 30px;
+        }
+
+        section{
+            padding-top:30px;
+            
+            /*cards bootstrap*/
+            .card-columns,
+            .card-deck{
+                padding:30px 0 0 0;
+            }
+            
+            .card{
+                .card-subtitle{
+                    color:$themeColor;
+                }
+
+                h5{
+                    color:$themeColor;
+                    line-height:1.25em;
+                }
+
+                img{
+                    object-fit: cover;
+                    width: 100%;
+                    height: 300px;
+                    object-position: top;
+                }
+
+                p{
+                    color:$bgColor;
+                }
+
+                .card-body{
+                    .btn{
+                        margin:0px 5px 10px 0;
+                    }
+                }
+            }
+            /*mods carousel pour homepage*/
+            .carousel-inner{
+                .carousel-item{
+                    padding:20px 0;
+
+                    .carousel-caption{
+                        display:block !important;
+
+                        img{
+                            max-width:250px;
+                            margin:auto;
+                        }
+                    }
+
+                    > img{
+                        height:600px;
+                    }
+                }
+                
+            }
+            /*#carouselCards{
+                .carousel-control-prev{
+                    margin-left:-150px;
+                }
+                .carousel-control-next{
+                    margin-right:-150px;
+                }
+            }*/
+            .derniersAjouts{
+                background-color:$bgColor;
+            }
+            #listeCategories{
+                li{
+                    /*display:inline-block;*/
+                    a{
+                        font-family:'Oswald', sans-serif;
+                        font-size:1.5rem;
+                        font-weight:200;
+                        line-height:1.75em;
+                        text-transform: uppercase;
+                        padding:15px 15px 15px 0;
+                    }
+                } 
+            } 
+            .paginationElementLoader{
+                display: flex;
+                width: 100%;
+                align-content: center;
+                justify-content: center;
+                padding: 0 0 30px 0;
+
+            }
+            &#detailsLivre{
+                img{
+                    width:100%;
+                    max-width:350px ;
+                }
+                small{
+                    margin-bottom:1rem;
+                }
+            }
+        }
+        /*mods images sur liste auteurs*/
+        .media{
+            figure{
+                max-width:200px;
+                width: auto;
+                height: auto;
+            }
+        }
+        select *.formOption{font-family: 'Libre Baskerville', sans-serif;}
+    }
+    /*===============================*/
+    /*============FOOTER ============*/
+    /*===============================*/
+    footer{
+        background:$bgColor;
+        padding:30px 0;
+        form{
+            margin-bottom:30px;
+        }
+    }
+
+    /*Page livre*/
+    &#pageLivre{
+
+    }
+
+}
+

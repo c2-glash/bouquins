@@ -1,0 +1,160 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+{% set headerh1 = 'Bienvenue sur Bouquins' %}
+{% set headerh5 = 'Bouquins permet la gestion du prêt et du suivi de ses livres.' %}
+{% set headerp = 'Si certains ouvrages t\'intéressent, ou que tu désires aussi faire partager les livres qui ramassent la poussière sur tes étagères, l\'inscription se passe ici : ' %}
+{% set headerbtntext = 'Inscription' %}
+{% set headerbtnlink = '' %}
+{% set displayLoginForm = true %}
+
+{% block body %}
+
+{% include './layout/header.html.twig' %}
+    <main>
+        <section class="container">
+            <h2>Classique : La Roue du Temps</h2>
+        </section>
+        <section>
+            <div class="containerParallax">
+                <div id="classiquesBg" class="parallaxElement parallaxBack">
+                </div>
+                <div class="parallaxElement parallaxBase">
+                    <div class="container">
+                        <div id="carouselSlideControls" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselSlideControls" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselSlideControls" data-slide-to="1"></li>
+                                <li data-target="#carouselSlideControls" data-slide-to="2"></li>
+                                <li data-target="#carouselSlideControls" data-slide-to="3"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="{{ 'images/blank_bg.png' }}" alt="First slide">
+                                    <a href="#">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <img class="d-block" src="{{ 'images/larouedutemps1.jpg' }}" alt="First slide">
+                                            <h5>La Roue du Temps - L’Œil du monde</h5>
+                                            <p>Robert Jordan</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="{{ 'images/blank_bg.png' }}" alt="second slide">
+                                    <a href="#">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <img class="d-block" src="{{ 'images/larouedutemps2.jpg' }}" alt="Second slide">
+                                            <h5>La Roue du Temps - La Grande Quête</h5>
+                                            <p>Robert Jordan</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="{{ 'images/blank_bg.png' }}" alt="third slide">
+                                    <a href="#"></a>
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <img class="d-block" src="{{ 'images/larouedutemps3.jpg' }}" alt="Third slide">
+                                            <h5>La Roue du Temps - Le Dragon réincarné</h5>
+                                            <p>Robert Jordan</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="{{ 'images/blank_bg.png' }}" alt="fourth slide">
+                                    <a href="#">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <img class="d-block" src="{{ 'images/larouedutemps4.jpg' }}" alt="Third slide">
+                                            <h5>La Roue du Temps - Un lever de ténèbres</h5>
+                                            <p>Robert Jordan</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselSlideControls" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Précédent</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselSlideControls" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Suivant</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <h2>Les derniers ajouts</h2>
+        </section>
+        <section>
+            <div class="containerParallax">
+                <div id="derniersAjoutsBg" class="parallaxElement parallaxBack">
+                </div>
+                <div class="parallaxElement parallaxBase">
+                    <div class="container">
+                        <div class="card-deck">
+                            <div class="card mb-4">
+                                <div class="card-img-container">
+                                    <img class="card-img-top" src="{{ 'images/leSeigneurDesAnneaux.jpg' }}" alt="Couverture Le seigneur des anneaux">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Le Seigneur des Anneaux</h5>
+                                    <p class="card-text">Auteur : J. R. R. Tolkien</p>
+                                    <a href="livre.html" class="btn btn-primary">Détails</a>
+                                    <a href="#" class="btn btn-primary">Emprunter</a>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Ajouté à Bouquins il y a 1 an</small>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-img-container">
+                                    <img class="card-img-top" src="{{ 'images/hyperion1.jpg' }}" alt="Couverture Hyperion 1">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Hyperion</h5>
+                                    <p class="card-text">Auteur : Dan Simmons</p>
+                                    <a href="livre.html" class="btn btn-primary">Détails</a>
+                                    <a href="#" class="btn btn-primary">Emprunter</a>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Ajouté à Bouquins il y a 2 ans</small>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-img-container">
+                                    <img class="card-img-top" src="{{ 'images/hyperion2.jpg' }}" alt="Card image cap">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Hyperion 2</h5>
+                                    <p class="card-text">Auteur : Dan Simmons</p>
+                                    <a href="livre.html" class="btn btn-primary">Détails</a>
+                                    <a href="#" class="btn btn-primary">Emprunter</a>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Ajouté à Bouquins il y a 2 ans</small>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-img-container">
+                                    <img class="card-img-top" src="{{ 'images/januavera.jpg' }}" alt="Card image cap">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Janua Vera</h5>
+                                    <p class="card-text">Auteur : Jean-Philippe Jaworski</p>
+                                    <a href="livre.html" class="btn btn-primary">Détails</a>
+                                    <a href="#" class="btn btn-primary">Emprunter</a>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Ajouté à Bouquins il y a 2 ans</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include './layout/footer.html.twig' %}
+{% endblock %}

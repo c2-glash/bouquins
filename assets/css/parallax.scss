@@ -1,0 +1,175 @@
+/*================================*/
+/*=========== PARALLAX ===========*/
+/*================================*/
+$bgColor:rgba(41, 39, 38, 0.667); 
+@mixin backgroundWithOverlay($src, $color, $color2: null, $dir: to right) {
+    @if $color2 == null {
+        background-image: linear-gradient($dir, $color, $color), url($src);
+    } @else {
+        background-image: linear-gradient($dir, $color, $color2), url($src);
+    }
+    background-size: cover;
+    background-position: center;
+}
+/*Parallax global pour la page*/
+body{
+    overflow:hidden;
+    .containerParallax{
+        height: 100vh;
+        overflow-x: hidden; 
+        overflow-y: auto;
+        -webkit-perspective: 1px;
+        perspective: 1px;
+        .parallaxElement{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .parallaxBase{
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            position:relative;
+        }
+        .parallaxBack {
+            transform: translateZ(-1px) scale(2.1);
+            background-size:cover;
+            padding:50vh 0;
+        }
+    }
+    /*parallax pour les éléments du main*/
+    main{
+        .containerParallax{
+            overflow: hidden;
+            height: auto;
+            .parallaxBase{
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+                height:auto;
+            }
+        }
+    } 
+    /*BG parallax header*/
+    &#pageAccueil{
+        #headerBg {
+            @include backgroundWithOverlay(
+                '../img/janko-ferlic-sfL_QOnmy00-unsplash.jpg', 
+                $bgColor
+            );
+            filter:contrast(1.25);
+            background-position: top center;
+        }
+        #classiquesBg {
+            @include backgroundWithOverlay(
+                '../img/whelloftimebg.jpg',
+                $bgColor
+            );
+            transform: translateZ(-1px) scale(4);
+            filter:contrast(1.25);
+            background-size: cover;
+            background-position: top center;
+        }
+        #derniersAjoutsBg {
+            @include backgroundWithOverlay(
+                '../img/the-great-grass-sea-sabin-boykinov-deviantart.jpg',
+                $bgColor
+            );
+            transform: translateZ(-1px) scale(4);
+            filter:contrast(1.25);
+            background-size: cover;
+            background-position: top center;
+        }
+    }
+
+    #headerPage404Bg {
+        @include backgroundWithOverlay(
+            '../img/thomas-cole-the-course-of-empire-the-destruction-of-empire.jpg',
+            $bgColor
+        );
+        filter:contrast(1.25);
+        background-position: center;
+    }
+    #headerAuteurBg {
+        @include backgroundWithOverlay(
+            '../img/aaron-burden-y02jEX_B0O0-unsplash.jpg',
+            $bgColor
+        );
+        filter:contrast(1.25);
+        background-position: bottom center;
+    }
+    #headerAuteursBg {
+        @include backgroundWithOverlay(
+            '../img/giammarco-boscaro-zeH-ljawHtg-unsplash.jpg',
+            $bgColor
+        );
+        filter:contrast(1.25);
+        background-position: center;
+    }
+    &#pageLivres{
+        #headerBg {
+            @include backgroundWithOverlay(
+                '../img/taylor-D9_QOTmbFAg-unsplash.jpg',
+                $bgColor
+            );
+            filter:contrast(1.25);
+            background-position: center;
+        }
+        #livresBg{
+            @include backgroundWithOverlay(
+                '../img/anthony-delanoix-oIexNVYiTow-unsplash.jpg',
+                $bgColor
+            );
+            transform: translateZ(-1px) scale(4);
+            filter:contrast(1.25);
+            background-position: center;
+            background-size: cover; 
+        }
+    }
+    #headerLivreBg {
+        @include backgroundWithOverlay(
+            '../img/januavera.jpg',
+            $bgColor
+        );
+        filter:contrast(1.25) blur(2px);
+        background-position: center;
+    }
+    #duMemeAuteurBg{
+        @include backgroundWithOverlay(
+            '../img/cederic-vandenberghe-21DP3hytVHw-unsplash.jpg',
+            $bgColor
+        );
+        transform: translateZ(-1px) scale(4);
+        filter:contrast(1.25);
+        background-position: center;
+        background-size: cover; 
+    }
+    #headerCategoriesBg {
+        @include backgroundWithOverlay(
+            '../img/j-zamora-GWOTvo3qq7U-unsplash.jpg',
+            $bgColor
+        );
+        filter:contrast(1.25)   ;
+        background-position: center;
+    }
+    #fantasyBg{
+        @include backgroundWithOverlay(
+            '../img/jeff-finley-bK8Wlaq7NaA-unsplash.jpg',
+            $bgColor
+        );
+        transform: translateZ(-1px) scale(4);
+        filter:contrast(1.25);
+        background-position: center;
+        background-size: cover; 
+    }
+    #scienceFictionBg{
+        @include backgroundWithOverlay(
+            '../img/nasa-rTZW4f02zY8-unsplash.jpg',
+            $bgColor
+        );
+        transform: translateZ(-1px) scale(4);
+        filter:contrast(1.25);
+        background-position: center;
+        background-size: cover; 
+    }
+}

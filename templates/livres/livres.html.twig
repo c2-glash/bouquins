@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livres{% endblock %}
+{% set headerh1 = 'Liste des livres' %}
+{% set headerh5 = 'Cette page regroupe liste tous les livres actuellement disponibles à l\'emprunt.' %}
+{% set headerp = 'Vous avez un nouveau livre? Ajoutez-le ici : ' %}
+{% set headerbtntext = 'Ajouter un livre' %}
+{% set headerbtnlink = '' %}
+{% set displayLoginForm = false %}
+{% block body %}
+
+
+{% include './layout/header.html.twig' %}
+
+
+<main>
+    <section class="container d-flex justify-content-between">
+        <h2>Tous les livres : </h2>
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="triLivres">Trier les livres par : </label>
+                <select class="custom-select form-control mx-sm-3" id="triLivres">
+                    <option class="formOption" selected>...</option>
+                    <option class="formOption" value="1">Catégorie</option>
+                    <option class="formOption" value="2">Date d'ajout</option>
+                    <option class="formOption" value="3">Auteur</option>
+                    <option class="formOption" value="4">Titre</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Trier</button>
+    </section>
+    <section>
+        <div class="containerParallax">
+            <div id="livresBg" class="parallaxElement parallaxBack">
+            </div>
+            <div class="parallaxElement parallaxBase">
+                <div class="container">
+        
+                    <div class="card-deck">
+                        {% for livre in liste_livres %}
+                            <div class="card mb-4">
+                            <div class="card-img-container">
+                                <img class="card-img-top" src="images/{{livre.urlCouverture}}" alt="Couverture {{livre.titre}}">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{livre.titre}}</h5>
+                                
+                                <p class="card-text">
+                                Auteur : 
+                                {% for auteur in livre.auteurs %}
+                                    {{auteur.nom}}
+                                {% endfor %}
+                                </p>
+                                <a href="livre.html" class="btn btn-primary">Détails</a>
+                                <a href="#" class="btn btn-primary">Emprunter</a>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        
+                        <div class="paginationElementLoader"><button class="btn btn-primary">Charger plus de livres</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+{% include './layout/footer.html.twig' %}
+{% endblock %}
