@@ -98,13 +98,25 @@ body{
         filter:contrast(1.25);
         background-position: bottom center;
     }
-    #headerAuteursBg {
-        @include backgroundWithOverlay(
-            '../img/giammarco-boscaro-zeH-ljawHtg-unsplash.jpg',
-            $bgColor
-        );
-        filter:contrast(1.25);
-        background-position: center;
+    &#pageAuteurs{
+        #headerBg {
+            @include backgroundWithOverlay(
+                '../img/giammarco-boscaro-zeH-ljawHtg-unsplash.jpg',
+                $bgColor
+            );
+            filter:contrast(1.25);
+            background-position: center;
+        }
+        #auteursBg {
+            @include backgroundWithOverlay(
+                '../img/henry-be-lc7xcWebECc-unsplash.jpg',
+                $bgColor
+            );
+            transform: translateZ(-1px) scale(4);
+            filter:contrast(1.25);
+            background-position: center;
+            background-size: cover; 
+        }
     }
     &#pageLivres{
         #headerBg {

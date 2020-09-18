@@ -14,20 +14,22 @@
 
 
 <main>
-    <section class="container d-flex justify-content-between">
+    <section class="container">
         <h2>Tous les livres : </h2>
-        <form class="form-inline">
+        <form class="form-inline recherche-livres">
             <div class="form-group">
-                <label for="triLivres">Trier les livres par : </label>
+                <label for="triLivres">Rechercher des livres par : </label>
                 <select class="custom-select form-control mx-sm-3" id="triLivres">
                     <option class="formOption" selected>...</option>
-                    <option class="formOption" value="1">Catégorie</option>
-                    <option class="formOption" value="2">Date d'ajout</option>
-                    <option class="formOption" value="3">Auteur</option>
-                    <option class="formOption" value="4">Titre</option>
+                    <option class="formOption" value="1">Titre</option>
+                    <option class="formOption" value="2">Auteur</option>
+                    <option class="formOption" value="3">Catégorie</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Trier</button>
+            <div class="form-group">
+                <input type="text" class="form-control" id="recherche" placeholder="Recherche" />
+            </div>
+            <button type="submit" class="btn btn-primary">Lancer la recherche</button>
     </section>
     <section>
         <div class="containerParallax">
@@ -36,7 +38,7 @@
             <div class="parallaxElement parallaxBase">
                 <div class="container">
         
-                    <div class="card-deck">
+                    <div class="card-deck react-livres">
                         {% for livre in liste_livres %}
                             <div class="card mb-4">
                             <div class="card-img-container">
@@ -48,7 +50,7 @@
                                 <p class="card-text">
                                 Auteur : 
                                 {% for auteur in livre.auteurs %}
-                                    {{auteur.nom}}
+                                    {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
                                 {% endfor %}
                                 </p>
                                 <a href="livre.html" class="btn btn-primary">Détails</a>

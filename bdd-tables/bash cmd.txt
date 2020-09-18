@@ -1,0 +1,66 @@
+
+symfony serve -d -> démarrage server symfony en local et en fond
+symfony server:stop -> stop server
+
+symfony server:ca:install -> a faire une fois par machine pour le serv php
+
+composer create-project symfony/skeleton:"4.4.*" . 	-> setup base dans le dossiser actuel
+composer require maker --dev 				-> pour maker
+composer require twig 					-> pour les templates twig
+composer require orm 					-> pour installation doctrine
+
+/*Package utilisation react*/
+composer require symfony/webpack-encore-bundle 		-> installer webpack encore bundle + yarn
+yarn install 						-> installer yarn
+Décommenter .enableReactPreset() dans wabpack.config.js a la racine du projet
+yarn add @babel/preset-react --dev 			-> babel pour react en v dev.
+yarn add react react-dom 				-> dom react
+npm install @babel/plugin-proposal-class-properties	-> autocomplete classes React
+
+
+symfony new Bouquins-dev --full
+
+aymericmayeux@evogue.fr
+
+
+
+composer require sensio -> pour installation sensio ?
+
+
+
+
+
+
+php bin/console make:entity --no-ansi -> pour créer une entité avec maker
+=
+--no-ansi = a ajouter aux commandes pour virer le style
+--no-interaction =  a ajouter aux commandes pour ne pas avoir de confirmation
+
+php bin/console make:controller -> pour creer un controller
+php bin/console make:migration -> creation des requetes SQL pour créer les tables des entités
+php bin/console doctrine:migrations:migrate -> creation de table(s) dans la DB
+
+php bin/console make:fixture -> pour créer du contenu bidon, avec un nom associé
+php bin/console doctrine:fixtures:load  -> pour charger le contenu bidon dans la bdd
+
+composer require security -> ajout composant security
+php bin/console make:user -> creation entité user, avec user repo, + package security
+php bin/console make:auth -> creation du systeme de connexion /login, logout
+php bin/console debug:config framework cache -> pour config debug
+php bin/console make:form : creation de class de form
+
+security.yaml : pour faire heriter les roles : 
+role_hierarchy :
+	ROLE_MANAGER: [ROLE_1, ROLE_2]
+
+composer require form validator : form pour les formulaires, validator pour validation de données
+
+Ajouter une colonne en NOT NULL sur une table avec des lignes existantes:
+1. Ajouter la colonne en DEFAULT NULL
+2. Donner une valeur à toutes les lignes (utiliser l'id si UNIQUE)
+3. modifier la colonne pour la mettre en NOT NULL
+
+
+requete bind auteurs / livres  : INSERT INTO `auteur_livre` (`auteur_id`, `livre_id`) VALUES (1, 1);
+
+

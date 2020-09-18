@@ -27,7 +27,7 @@ class LivreRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('l')
             ->orderBy('l.titre', 'ASC')
-            ->setMaxResults(10)
+            ->setMaxResults(12)
             ->getQuery()
             ->getResult()
         ;
