@@ -8,6 +8,9 @@
 /src/.preload.php
 /var/
 /vendor/
+//
+/bash cmd.txt
+/Nouveau projet symfony react.txt
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
