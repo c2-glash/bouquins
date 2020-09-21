@@ -11,6 +11,7 @@
 //
 /bash cmd.txt
 /Nouveau projet symfony react.txt
+.env
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

@@ -9,14 +9,44 @@
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
-    <body id={{ "page" ~ block('title') }}>
+    {# id body généré par page + titre de la page sans espaces #}
+    <body   {% if pageClass is defined %}
+                id={{ "page" ~ pageClass }}
+            {% else %}
+                id={{ "page" ~ block('title')|replace({' ': ''}) }}
+            {% endif %}
+    >
         <div class="containerParallax">
-            <div id="headerBg" class="parallaxElement parallaxBack">
+            <div id="headerBg" 
+                {# si la var pageType est définie sur le template de page #}
+                {% if pageType is defined %}
+                    class="pageLivre parallaxElement parallaxBack"
+
+                    {# si la page est une page Livre #}
+                    {% if pageType == 'Livre' %}
+                        style="background-image: linear-gradient(to right, rgba(41,39,38,0.667), rgba(41,39,38,0.667)),url('/images/{{livre.urlCouverture}}');"
+                    {% endif %}
+
+                    {# si la page est une page Auteur #}
+                    {% if pageType == 'Auteur' %}
+                        style="background-image: linear-gradient(to right, rgba(41,39,38,0.667), rgba(41,39,38,0.667)),url('/images/{{auteur.urlPhoto}}');"
+                    {% endif %}
+
+                    {# si la page est une page Catégorie #}
+                    {% if pageType == 'Categorie' %}
+                        style="background-image: linear-gradient(to right, rgba(41,39,38,0.667), rgba(41,39,38,0.667)),url('/images/{{categorie.urlIllustration}}');"
+                    {% endif %}
+
+                {# sinon pour les pages classiques #}s
+                {% else %}
+                    class="parallaxElement parallaxBack"
+                {% endif %}
+            >
             </div>
             <div class="parallaxElement parallaxBase">
-                {% block body %}{% endblock %}
-
-
+                {% block body %}
+                    {# elements templates pages #}
+                {% endblock %}
 
                 {% block js %}
                     {{ encore_entry_script_tags('app') }}

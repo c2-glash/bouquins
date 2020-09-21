@@ -21,9 +21,10 @@
         -moz-column-count:3;
         column-count:3;
     }
-    main section#detailsLivre img{
-        margin-top:-218px;
-    }
+}
+@media (max-width: 768px) {
+    #imageUne{margin-top:0px !important;}
+    body h1{font-size:3rem;}
 }
 @media (min-width: 992px) {
     .card-deck .card {

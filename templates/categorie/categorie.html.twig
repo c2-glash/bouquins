@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{categorie.nom}}{% endblock %}
+{% set headerh1 = 'Catégorie : ' ~ categorie.nom %}
+{% set headerp = categorie.description %}
+{% set pageType = 'Categorie' %}
+
+{% block body %}
+
+{% include './layout/header.html.twig' %}
+    <main>
+        <section class="container">
+            <h2>Tous les livres de type {{categorie.nom}} :</h2>
+        </section>
+        <section>
+            <div class="containerParallax">
+                <div id="categoriesBg" class="parallaxElement parallaxBack">
+                </div>
+                <div class="parallaxElement parallaxBase">
+                    <div class="container">
+                        <div class="card-columns">
+                            {% for livre in categorie.livres %}
+                                <div class="card mb-4">
+                                    <div class="card-img-container">
+                                        <img class="card-img-top"src="/images/{{livre.urlCouverture}}" alt="Card image cap">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{livre.titre}}</h5>
+                                        <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
+                                        <a href="#" class="btn btn-primary">Emprunter</a>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% include './layout/footer.html.twig' %}
+{% endblock %}

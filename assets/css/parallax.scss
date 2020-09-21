@@ -90,14 +90,7 @@ body{
         filter:contrast(1.25);
         background-position: center;
     }
-    #headerAuteurBg {
-        @include backgroundWithOverlay(
-            '../img/aaron-burden-y02jEX_B0O0-unsplash.jpg',
-            $bgColor
-        );
-        filter:contrast(1.25);
-        background-position: bottom center;
-    }
+
     &#pageAuteurs{
         #headerBg {
             @include backgroundWithOverlay(
@@ -117,6 +110,30 @@ body{
             background-position: center;
             background-size: cover; 
         }
+    }
+    &#pageCategories{
+        #headerBg {
+            @include backgroundWithOverlay(
+                '../img/lucas-van-oort-bv6svakgbGM-unsplash.jpg',
+                $bgColor
+            );
+            filter:contrast(1.25) brightness(0.7);
+            background-position: center;
+        }
+        #categoriesBg {
+            @include backgroundWithOverlay(
+                '../img/ruchindra-gunasekara-GK8x_XCcDZg-unsplash.jpg',
+                $bgColor
+            );
+            transform: translateZ(-1px) scale(4);
+            filter:contrast(1.25);
+            background-position: center;
+            background-size: cover; 
+        }
+    }
+    #headerBg.pageLivre{
+        filter: contrast(1.25) blur(2px);
+        background-position: center;
     }
     &#pageLivres{
         #headerBg {

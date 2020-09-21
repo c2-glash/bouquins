@@ -30,9 +30,14 @@ class Categorie
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Livre::class, mappedBy="categories")
+     * @ORM\ManyToMany(targetEntity=Livre::class, inversedBy="categories")
      */
     private $livres;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $urlIllustration;
 
     public function __construct()
     {
@@ -92,6 +97,18 @@ class Categorie
             $this->livres->removeElement($livre);
             $livre->removeCategory($this);
         }
+
+        return $this;
+    }
+
+    public function getUrlIllustration(): ?string
+    {
+        return $this->urlIllustration;
+    }
+
+    public function setUrlIllustration(?string $urlIllustration): self
+    {
+        $this->urlIllustration = $urlIllustration;
 
         return $this;
     }

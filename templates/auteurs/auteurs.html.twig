@@ -5,43 +5,39 @@
 {% set headerh5 = 'Cette page liste tous les auteurs des livres disponibles.' %}
 {% set headerp = 'L\'auteur que vous recherchez n\'est pas encore listé? Ajoutez-le ici : ' %}
 {% set headerbtntext = 'Ajouter un auteur' %}
-{% set headerbtnlink = '' %}
-{% set displayLoginForm = false %}
+
 {% block body %}
 
-
 {% include './layout/header.html.twig' %}
-
-
-<main>
-    <section class="container">
-        <h2>Tous les auteurs : </h2>
-    </section>
-    <section>
-        <div class="containerParallax">
-            <div id="auteursBg" class="parallaxElement parallaxBack">
-            </div>
-            <div class="parallaxElement parallaxBase">
-                <div class="container">
-                    {% for auteur in liste_auteurs %}
-                        <div class="media">
-                            <figure class="figure mr-3">
-                                <img src="images/{{auteur.urlPhoto}}" class="figure-img img-fluid rounded" alt="{{auteur.prenom}} {{auteur.nom}}">
-                                <figcaption class="figure-caption">{{auteur.prenom}} {{auteur.nom}}</figcaption>
-                            </figure>
-                            <div class="media-body">
-                                <h5 class="mt-0">{{auteur.prenom}} {{auteur.nom}}</h5>
-                                <p>{{auteur.description}}</p>
-                                <a class="btn btn-primary" href="auteur.html" role="button">Détails de l'auteur</a>
+    <main>
+        <section class="container">
+            <h2>Tous les auteurs : </h2>
+        </section>
+        <section>
+            <div class="containerParallax">
+                <div id="auteursBg" class="parallaxElement parallaxBack">
+                </div>
+                <div class="parallaxElement parallaxBase">
+                    <div class="container">
+                        {% for auteur in liste_auteurs %}
+                            <div class="media">
+                                <figure class="figure mr-3">
+                                    <img src="images/{{auteur.urlPhoto}}" class="figure-img img-fluid rounded" alt="{{auteur.prenom}} {{auteur.nom}}">
+                                    <figcaption class="figure-caption">{{auteur.prenom}} {{auteur.nom}}</figcaption>
+                                </figure>
+                                <div class="media-body">
+                                    <h5 class="mt-0">{{auteur.prenom}} {{auteur.nom}}</h5>
+                                    <p>{{auteur.description}}</p>
+                                    <a class="btn btn-primary" href="auteur.html" role="button">Détails de l'auteur</a>
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                    
-                    <div class="paginationElementLoader"><button class="btn btn-primary">Charger plus d'auteurs</button></div>
+                        {% endfor %}
+                        
+                        <div class="paginationElementLoader"><button class="btn btn-primary">Charger plus d'auteurs</button></div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
 {% include './layout/footer.html.twig' %}
 {% endblock %}

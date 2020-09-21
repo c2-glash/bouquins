@@ -1,6 +1,16 @@
 $colorThemeDark:#292726;
 $colorThemeOrange:#fd7e14;
 $colorThemeClear:#f6f5f5;
+
+* {
+    box-sizing: border-box;
+    outline: none;
+    text-decoration: none;
+    transition: all 0.2s ease 0s;
+}
+a:hover {
+    text-decoration: none;
+}
 body{
     font-family: 'Libre Baskerville', sans-serif;
     color:$colorThemeClear;
@@ -110,6 +120,9 @@ body{
         &#headerPage404{
             height:100vh;
         }
+        .layoutHeader2{
+            h1{line-height:1.5em;}
+        }
 
     }
     /*==============================*/
@@ -216,13 +229,20 @@ body{
                 padding: 0 0 30px 0;
 
             }
-            &#detailsLivre{
+            &#detailsLivre, &#detailsAuteur{
                 img{
                     width:100%;
-                    max-width:350px ;
+                    vertical-align: top;
                 }
                 small{
                     margin-bottom:1rem;
+                }
+            }
+            &#detailsAuteur{
+                img{
+                    height:300px;
+                    object-fit: cover;
+                    object-position: top;
                 }
             }
             #recherche{
@@ -261,11 +281,5 @@ body{
             margin-bottom:30px;
         }
     }
-
-    /*Page livre*/
-    &#pageLivre{
-
-    }
-
 }
 

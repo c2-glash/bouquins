@@ -84,14 +84,6 @@ body #headerPage404Bg {
   background-position: center;
 }
 
-body #headerAuteurBg {
-  background-image: linear-gradient(to right, rgba(41, 39, 38, 0.667), rgba(41, 39, 38, 0.667)), url("../img/aaron-burden-y02jEX_B0O0-unsplash.jpg");
-  background-size: cover;
-  background-position: center;
-  filter: contrast(1.25);
-  background-position: bottom center;
-}
-
 body#pageAuteurs #headerBg {
   background-image: linear-gradient(to right, rgba(41, 39, 38, 0.667), rgba(41, 39, 38, 0.667)), url("../img/giammarco-boscaro-zeH-ljawHtg-unsplash.jpg");
   background-size: cover;
@@ -108,6 +100,29 @@ body#pageAuteurs #auteursBg {
   filter: contrast(1.25);
   background-position: center;
   background-size: cover;
+}
+
+body#pageCategories #headerBg {
+  background-image: linear-gradient(to right, rgba(41, 39, 38, 0.667), rgba(41, 39, 38, 0.667)), url("../img/lucas-van-oort-bv6svakgbGM-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: contrast(1.25) brightness(0.7);
+  background-position: center;
+}
+
+body#pageCategories #categoriesBg {
+  background-image: linear-gradient(to right, rgba(41, 39, 38, 0.667), rgba(41, 39, 38, 0.667)), url("../img/ruchindra-gunasekara-GK8x_XCcDZg-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+  transform: translateZ(-1px) scale(4);
+  filter: contrast(1.25);
+  background-position: center;
+  background-size: cover;
+}
+
+body #headerBg.pageLivre {
+  filter: contrast(1.25) blur(2px);
+  background-position: center;
 }
 
 body#pageLivres #headerBg {

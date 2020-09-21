@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% if auteur.prenom is defined %}{{auteur.prenom}} {% endif %}{{auteur.nom}}{% endblock %}
+{% set nomAuteur = auteur.nom %}
+{% set prenomAuteur = auteur.prenom %}
+{% set headerh1 = prenomAuteur ~ ' ' ~ nomAuteur %}
+{% set layoutHeader2 = true %}
+{% set pageType = 'Auteur' %}
+
+{% block body %}
+
+{% include './layout/header.html.twig' %}
+    <main>
+        <section id="detailsAuteur" class="container">
+            <div class="row">
+                <div class="col col-12 col-sm-4">
+                    <img src="/images/{{auteur.urlPhoto}}" id="imageUne" alt="Photo {% if auteur.prenom is defined %}{{auteur.prenom}} {% endif %}{{auteur.nom}}">
+                </div>
+                <div class="col col-12 col-sm-8">
+                    <p>{{auteur.description}}</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="container">
+            <h2>Livres de l'auteur</h2>
+        </section>
+        <section>
+            <div class="containerParallax">
+                <div id="duMemeAuteurBg" class="parallaxElement parallaxBack">
+                </div>
+                <div class="parallaxElement parallaxBase">
+                    <div class="container">
+                        <div class="card-columns">
+                            {% for livre in auteur.livres %}
+                                <div class="card mb-4">
+                                    <div class="card-img-container">
+                                        <img class="card-img-top"src="/images/{{livre.urlCouverture}}" alt="Card image cap">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{livre.titre}}</h5>
+                                        <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
+                                        <a href="#" class="btn btn-primary">Emprunter</a>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% include './layout/footer.html.twig' %}
+{% endblock %}

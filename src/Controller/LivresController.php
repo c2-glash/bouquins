@@ -11,7 +11,7 @@ class LivresController extends AbstractController
     /**
      * @Route("/livres", name="livres")
      */
-    public function index(LivreRepository $repository)
+    public function pageLivres(LivreRepository $repository)
     {
         return $this->render('livres/livres.html.twig', [
             'liste_livres' => $repository->findLivres(),

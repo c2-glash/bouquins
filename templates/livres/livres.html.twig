@@ -1,12 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Livres{% endblock %}
-{% set headerh1 = 'Liste des livres' %}
+{% set headerh1 = 'Les livres' %}
 {% set headerh5 = 'Cette page regroupe liste tous les livres actuellement disponibles à l\'emprunt.' %}
 {% set headerp = 'Vous avez un nouveau livre? Ajoutez-le ici : ' %}
 {% set headerbtntext = 'Ajouter un livre' %}
-{% set headerbtnlink = '' %}
-{% set displayLoginForm = false %}
+
 {% block body %}
 
 
@@ -53,8 +52,8 @@
                                     {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
                                 {% endfor %}
                                 </p>
-                                <a href="livre.html" class="btn btn-primary">Détails</a>
-                                <a href="#" class="btn btn-primary">Emprunter</a>
+                                <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
+                                <a href="/livre/{{livre.id}}" class="btn btn-primary">Emprunter</a>
                             </div>
                             <div class="card-footer">
                                 <small class="text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
