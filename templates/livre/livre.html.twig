@@ -52,62 +52,30 @@
                     <div class="container">
                         <div class="card-columns">
 
-                            <div class="card mb-4">
-                                <div class="card-img-container">
-                                    <img class="card-img-top"src="/images/januavera.jpg" alt="Card image cap">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Janua Vera</h5>
-                                    <p class="card-text">Auteur : Jean-Philippe Jaworski</p>
-                                    <a href="livre.html" class="btn btn-primary">Détails</a>
-                                    <a href="#" class="btn btn-primary">Emprunter</a>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Ajouté à Bouquins il y a 2 ans</small>
-                                </div>
-                            </div>
-                            <div class="card mb-4">
-                                <div class="card-img-container">
-                                    <img class="card-img-top"src="/images/gagnerlaguerre.jpg" alt="Card image cap">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Gagner la guerre</h5>
-                                    <p class="card-text">Auteur : Jean-Philippe Jaworski</p>
-                                    <a href="livre.html" class="btn btn-primary">Détails</a>
-                                    <a href="#" class="btn btn-primary">Emprunter</a>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Ajouté à Bouquins il y a 2 ans</small>
-                                </div>
-                            </div>
-                            <div class="card mb-4">
-                                <div class="card-img-container">
-                                    <img class="card-img-top"src="/images/memepasmort.jpg" alt="Card image cap">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Même pas mort</h5>
-                                    <p class="card-text">Auteur : Jean-Philippe Jaworski</p>
-                                    <a href="livre.html" class="btn btn-primary">Détails</a>
-                                    <a href="#" class="btn btn-primary">Emprunter</a>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Ajouté à Bouquins il y a 2 ans</small>
-                                </div>
-                            </div>
-                            <div class="card mb-4">
-                                <div class="card-img-container">
-                                    <img class="card-img-top"src="/images/chasseroyale.jpg" alt="Card image cap">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Chasse royale</h5>
-                                    <p class="card-text">Auteur : Jean-Philippe Jaworski</p>
-                                    <a href="livre.html" class="btn btn-primary">Détails</a>
-                                    <a href="#" class="btn btn-primary">Emprunter</a>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Ajouté à Bouquins il y a 2 ans</small>
-                                </div>
-                            </div>
+                            {# pour chaque auteur du livre#}
+                            {% for auteur in livre.auteurs %}
+
+                                {# pour chaque livre de l'auteur #}
+                                {% for livreAuteur in auteur.livres %}
+
+                                    <div class="card mb-4">
+                                        <div class="card-img-container">
+                                            <img class="card-img-top"src="/images/{{ livreAuteur.urlCouverture }}" alt="Card image cap">
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{livreAuteur.titre}}</h5>
+                                            <a href="/livre/{{livreAuteur.id}}" class="btn btn-primary">Détails</a>
+                                            <a href="#" class="btn btn-primary">Emprunter</a>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Ajouté à Bouquins le {{ livreAuteur.dateAjout|date("d/m/Y") }}</small>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+
+                            {% endfor %}
+
                         </div>
                     </div>
                 </div>
