@@ -39,6 +39,11 @@
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">{{livre.titre}}</h5>
+                                        <p class="card-text"><b>Catégorie</b> : 
+                                            {% for categorie in livre.categories %}
+                                                {{categorie.nom}}
+                                            {% endfor %}
+                                        </p>
                                         <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
                                         <a href="#" class="btn btn-primary">Emprunter</a>
                                     </div>

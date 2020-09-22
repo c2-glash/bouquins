@@ -50,6 +50,9 @@ body{
                 color:$colorThemeClear;}
         }
         .btn{padding:4px 12px;}
+        .custom-file-label::after {
+            content:'Parcourir';
+        }
     }
     .btn{
         font-family:'Oswald', sans-serif;
@@ -68,8 +71,9 @@ body{
         border-color:$colorThemeOrange;
     }
     a:hover{color:darken($colorThemeOrange, 20%);}
-    
-
+    section{
+        padding-top:30px;
+    }
     /*==============================*/
     /*=========== HEADER ===========*/
     /*==============================*/
@@ -151,8 +155,6 @@ body{
         }
 
         section{
-            padding-top:30px;
-            
             /*cards bootstrap*/
             .card-columns,
             .card-deck{

@@ -103,6 +103,10 @@ body form .btn {
   padding: 4px 12px;
 }
 
+body form .custom-file-label::after {
+  content: 'Parcourir';
+}
+
 body .btn {
   font-family: 'Oswald', sans-serif;
   font-size: 1.2rem;
@@ -121,6 +125,10 @@ body .show > .btn-primary.dropdown-toggle:focus {
 
 body a:hover {
   color: #aa4e01;
+}
+
+body section {
+  padding-top: 30px;
 }
 
 body header {
@@ -210,7 +218,6 @@ body main h2:after {
 }
 
 body main section {
-  padding-top: 30px;
   /*cards bootstrap*/
   /*mods carousel pour homepage*/
   /*#carouselCards{

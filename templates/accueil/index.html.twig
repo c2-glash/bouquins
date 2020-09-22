@@ -102,9 +102,14 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ livre.titre }}</h5>
                                         <p class="card-text">
-                                        Auteur : 
+                                        <b>Auteur</b> : 
                                             {% for auteur in livre.auteurs %}
                                                 {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
+                                            {% endfor %}
+                                        </p>
+                                        <p class="card-text"><b>Catégorie</b> : 
+                                            {% for categorie in livre.categories %}
+                                                {{categorie.nom}}
                                             {% endfor %}
                                         </p>
                                         <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>

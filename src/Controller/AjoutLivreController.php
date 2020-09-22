@@ -61,16 +61,6 @@ class AjoutLivreController extends AbstractController
             }
             //set de la date d'ajout du livre
             $livre->setDateAjout(new \DateTime());
-            
-            //$auteur = $livre->getAuteurs()[0];
-
-            //$livre->removeAuteur($auteur);
-
-            //$livre->addAuteur($auteur);
-
-            //$livre->getAuteurs()[0]->addLivre($livre);
-            //dd($livre);
-            //dd($livre->getAuteurs()[0], $livre->getAuteurs()[0]->getLivres()->toArray());
 
             $manager->persist($livre);
             $manager->flush();

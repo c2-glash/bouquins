@@ -37,6 +37,11 @@
                         style="background-image: linear-gradient(to right, rgba(41,39,38,0.667), rgba(41,39,38,0.667)),url('{{ asset('build/images/' ~ categorie.urlIllustration) }}');"
                     {% endif %}
 
+                    {# si la page est une page de gestion du compte #}
+                    {% if pageType == 'GestionCompte' %}
+                        style="background-image: linear-gradient(to right, rgba(41,39,38,0.667), rgba(41,39,38,0.667)),url('{{ asset('build/images/henry-be--Pg63JThyCg-unsplash.jpg') }}');"
+                    {% endif %}
+
                 {# sinon pour les pages classiques #}s
                 {% else %}
                     class="parallaxElement parallaxBack"

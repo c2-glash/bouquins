@@ -21,6 +21,11 @@
                             {% if auteur.prenom is defined %}{{auteur.prenom}} {% endif %}{{auteur.nom}}{% if livre.auteurs|length > 1 %},{% endif %}
                         {% endfor %}
                     </h4>
+                    <p class="card-text"><b>Catégorie</b> : 
+                        {% for categorie in livre.categories %}
+                            {{categorie.nom}}
+                        {% endfor %}
+                    </p>
                     <p>{{livre.description}}</p>
                     <small class="form-text text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
                     <a href="#" class="btn btn-primary">Emprunter</a>
@@ -64,6 +69,11 @@
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">{{livreAuteur.titre}}</h5>
+                                            <p class="card-text"><b>Catégorie</b> : 
+                                                {% for categorie in livreAuteur.categories %}
+                                                    {{categorie.nom}}
+                                                {% endfor %}
+                                            </p>
                                             <a href="/livre/{{livreAuteur.id}}" class="btn btn-primary">Détails</a>
                                             <a href="#" class="btn btn-primary">Emprunter</a>
                                         </div>

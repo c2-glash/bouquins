@@ -27,6 +27,7 @@ class LivreFormType extends AbstractType
                 'label' => 'Couverture (image .jpg / .png)',
                 'mapped' => false,
                 'required' => false,
+
                 'constraints' => [
                     new File([
                         'maxSize' => '600k',
