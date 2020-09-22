@@ -14,7 +14,7 @@
         <section id="detailsAuteur" class="container">
             <div class="row">
                 <div class="col col-12 col-sm-4">
-                    <img src="/images/{{auteur.urlPhoto}}" id="imageUne" alt="Photo {% if auteur.prenom is defined %}{{auteur.prenom}} {% endif %}{{auteur.nom}}">
+                    <img src="{{ asset('build/images/' ~ auteur.urlPhoto) }}" id="imageUne" alt="Photo {% if auteur.prenom is defined %}{{auteur.prenom}} {% endif %}{{auteur.nom}}">
                 </div>
                 <div class="col col-12 col-sm-8">
                     <p>{{auteur.description}}</p>
@@ -35,7 +35,7 @@
                             {% for livre in auteur.livres %}
                                 <div class="card mb-4">
                                     <div class="card-img-container">
-                                        <img class="card-img-top"src="/images/{{livre.urlCouverture}}" alt="Card image cap">
+                                        <img class="card-img-top"src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Card image cap">
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">{{livre.titre}}</h5>

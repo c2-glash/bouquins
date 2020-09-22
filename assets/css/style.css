@@ -89,6 +89,16 @@ body th {
   background-color: #f6f5f588;
 }
 
+body form .alert-primary {
+  background-color: #fd7e14;
+  border-color: #fd7e14;
+  color: #292726;
+}
+
+body form .alert-primary a {
+  color: #f6f5f5;
+}
+
 body form .btn {
   padding: 4px 12px;
 }

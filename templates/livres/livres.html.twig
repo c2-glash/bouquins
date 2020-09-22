@@ -41,7 +41,7 @@
                         {% for livre in liste_livres %}
                             <div class="card mb-4">
                             <div class="card-img-container">
-                                <img class="card-img-top" src="images/{{livre.urlCouverture}}" alt="Couverture {{livre.titre}}">
+                                <img class="card-img-top" src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Couverture {{livre.titre}}">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{livre.titre}}</h5>

@@ -30,40 +30,40 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="{{ 'images/blank_bg.png' }}" alt="First slide">
+                                    <img class="d-block w-100" src="{{ asset('build/images/blank_bg.png') }}" alt="First slide">
                                     <a href="#">
                                         <div class="carousel-caption d-none d-md-block">
-                                            <img class="d-block" src="{{ 'images/larouedutemps1.jpg' }}" alt="First slide">
+                                            <img class="d-block" src="{{ asset('build/images/larouedutemps1.jpg') }}" alt="First slide">
                                             <h5>La Roue du Temps - L’Œil du monde</h5>
                                             <p>Robert Jordan</p>
                                         </div>
                                     </a>
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="{{ 'images/blank_bg.png' }}" alt="second slide">
+                                    <img class="d-block w-100" src="{{ asset('build/images/blank_bg.png') }}" alt="second slide">
                                     <a href="#">
                                         <div class="carousel-caption d-none d-md-block">
-                                            <img class="d-block" src="{{ 'images/larouedutemps2.jpg' }}" alt="Second slide">
+                                            <img class="d-block" src="{{ asset('build/images/larouedutemps2.jpg') }}" alt="Second slide">
                                             <h5>La Roue du Temps - La Grande Quête</h5>
                                             <p>Robert Jordan</p>
                                         </div>
                                     </a>
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="{{ 'images/blank_bg.png' }}" alt="third slide">
+                                    <img class="d-block w-100" src="{{ asset('build/images/blank_bg.png') }}" alt="third slide">
                                     <a href="#"></a>
                                         <div class="carousel-caption d-none d-md-block">
-                                            <img class="d-block" src="{{ 'images/larouedutemps3.jpg' }}" alt="Third slide">
+                                            <img class="d-block" src="{{ asset('build/images/larouedutemps3.jpg') }}" alt="Third slide">
                                             <h5>La Roue du Temps - Le Dragon réincarné</h5>
                                             <p>Robert Jordan</p>
                                         </div>
                                     </a>
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="{{ 'images/blank_bg.png' }}" alt="fourth slide">
+                                    <img class="d-block w-100" src="{{ asset('build/images/blank_bg.png') }}" alt="fourth slide">
                                     <a href="#">
                                         <div class="carousel-caption d-none d-md-block">
-                                            <img class="d-block" src="{{ 'images/larouedutemps4.jpg' }}" alt="Third slide">
+                                            <img class="d-block" src="{{ asset('build/images/larouedutemps4.jpg') }}" alt="Third slide">
                                             <h5>La Roue du Temps - Un lever de ténèbres</h5>
                                             <p>Robert Jordan</p>
                                         </div>
@@ -93,62 +93,29 @@
                 <div class="parallaxElement parallaxBase">
                     <div class="container">
                         <div class="card-deck">
-                            <div class="card mb-4">
-                                <div class="card-img-container">
-                                    <img class="card-img-top" src="{{ 'images/leSeigneurDesAnneaux.jpg' }}" alt="Couverture Le seigneur des anneaux">
+
+                            {% for livre in derniers_ajouts %}
+                                <div class="card mb-4">
+                                    <div class="card-img-container">
+                                        <img class="card-img-top" src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Couverture Le seigneur des anneaux">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ livre.titre }}</h5>
+                                        <p class="card-text">
+                                        Auteur : 
+                                            {% for auteur in livre.auteurs %}
+                                                {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
+                                            {% endfor %}
+                                        </p>
+                                        <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
+                                        <a href="/livre/{{livre.id}}" class="btn btn-primary">Emprunter</a>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Le Seigneur des Anneaux</h5>
-                                    <p class="card-text">Auteur : J. R. R. Tolkien</p>
-                                    <a href="livre.html" class="btn btn-primary">Détails</a>
-                                    <a href="#" class="btn btn-primary">Emprunter</a>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Ajouté à Bouquins il y a 1 an</small>
-                                </div>
-                            </div>
-                            <div class="card mb-4">
-                                <div class="card-img-container">
-                                    <img class="card-img-top" src="{{ 'images/hyperion1.jpg' }}" alt="Couverture Hyperion 1">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Hyperion</h5>
-                                    <p class="card-text">Auteur : Dan Simmons</p>
-                                    <a href="livre.html" class="btn btn-primary">Détails</a>
-                                    <a href="#" class="btn btn-primary">Emprunter</a>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Ajouté à Bouquins il y a 2 ans</small>
-                                </div>
-                            </div>
-                            <div class="card mb-4">
-                                <div class="card-img-container">
-                                    <img class="card-img-top" src="{{ 'images/hyperion2.jpg' }}" alt="Card image cap">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Hyperion 2</h5>
-                                    <p class="card-text">Auteur : Dan Simmons</p>
-                                    <a href="livre.html" class="btn btn-primary">Détails</a>
-                                    <a href="#" class="btn btn-primary">Emprunter</a>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Ajouté à Bouquins il y a 2 ans</small>
-                                </div>
-                            </div>
-                            <div class="card mb-4">
-                                <div class="card-img-container">
-                                    <img class="card-img-top" src="{{ 'images/januavera.jpg' }}" alt="Card image cap">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Janua Vera</h5>
-                                    <p class="card-text">Auteur : Jean-Philippe Jaworski</p>
-                                    <a href="livre.html" class="btn btn-primary">Détails</a>
-                                    <a href="#" class="btn btn-primary">Emprunter</a>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Ajouté à Bouquins il y a 2 ans</small>
-                                </div>
-                            </div>
+                            {% endfor %}
+
                         </div>
                     </div>
                 </div>

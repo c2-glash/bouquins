@@ -41,7 +41,16 @@ body{
     th{background-color:#f6f5f588;} 
 
 
-    form .btn{padding:4px 12px;}
+    form{
+        .alert-primary{
+            background-color: rgba(253, 126, 20, 77);
+            border-color: $colorThemeOrange;
+            color:$colorThemeDark;
+            a{
+                color:$colorThemeClear;}
+        }
+        .btn{padding:4px 12px;}
+    }
     .btn{
         font-family:'Oswald', sans-serif;
         font-size:1.2rem;

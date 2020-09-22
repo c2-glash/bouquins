@@ -12,10 +12,10 @@
         <section id="detailsLivre" class="container">
             <div class="row">
                 <div class="col col-12 col-sm-4">
-                    <img src="/images/{{livre.urlCouverture}}"  id="imageUne" alt="Couverture {{livre.titre}}">
+                    <img src="{{ asset('build/images/' ~ livre.urlCouverture) }}"  id="imageUne" alt="Couverture {{livre.titre}}">
                 </div>
                 <div class="col col-12 col-sm-8">
-                    <h4>Par : 
+                    <h4>Auteur : 
                         {# affichage du nom et prenom des l'auteurs si le prenom est défini #}
                         {% for auteur in livre.auteurs %}
                             {% if auteur.prenom is defined %}{{auteur.prenom}} {% endif %}{{auteur.nom}}{% if livre.auteurs|length > 1 %},{% endif %}
@@ -60,7 +60,7 @@
 
                                     <div class="card mb-4">
                                         <div class="card-img-container">
-                                            <img class="card-img-top"src="/images/{{ livreAuteur.urlCouverture }}" alt="Card image cap">
+                                            <img class="card-img-top"src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Card image cap">
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">{{livreAuteur.titre}}</h5>

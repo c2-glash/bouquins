@@ -20,12 +20,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/categories/">Les catégories</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Emprunter un livre</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Ajouter un livre</a>
-                        </li>
+                        {% if app.user %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Emprunter un livre</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Ajouter un livre</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>
@@ -46,27 +48,52 @@
                                 {% if headerh5 is defined %}
                                     <h5>{{headerh5}}</h5>
                                 {% endif %}
-                                {% if headerp is defined %}
-                                    <p>{{headerp}}</p>
-                                {% endif %}
-                                {% if headerbtntext is defined %}
-                                    <a class="btn btn-primary" href="{% if headerbtnlink is defined %}{{ headerbtnlink }}{% endif %}" role="button">{{ headerbtntext }}</a>
+                                {% if app.user %}
+                                    {% if headerp is defined %}
+                                        <p>{{headerp}}</p>
+                                    {% endif %}
+                                    {% if headerbtntext is defined %}
+                                        <a class="btn btn-primary" href="{% if headerbtnlink is defined %}{{ headerbtnlink }}{% endif %}" role="button">{{ headerbtntext }}</a>
+                                    {% endif %}
                                 {% endif %}
                             </article>
                         {% endif %}
                     </div>
                     {% if displayLoginForm is defined %}
                         <div class="col col-12 col-md-4">
-                            <form id="hpLogin">
+
+                            {# formulaire de connexion #}
+                            <form method="post" id="hpLogin">
                                 <h5>Connexion</h5>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="login" placeholder="Identifiant">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" id="login" placeholder="Mot de passe">
-                                </div>
-                                <input type="submit" class="btn btn-primary" role="button" value="Connexion"/>
+
+                                {# si l'utilisateur est déjà connecté #}
+                                {% if app.user %}
+                                    <div class="alert alert-primary">
+                                        Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+                                    </div>
+                                {% endif %}
+
+                                {# si une erreur survient #}
+                                {% if login_error() %}
+                                    <div class="alert alert-danger">{{ login_error().messageKey|trans(login_error().messageData, 'security') }}</div>
+                                {% endif %}
+
+                                {% if not app.user %}
+                                    <div class="form-group">
+                                        <input class="form-control" type="email" value="{{ last_username ?? '' }}" name="loginEmail" id="inputEmail" placeholder="Identifiant" required autofocus>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input class="form-control" type="password" name="loginPassword" id="inputPassword" placeholder ="Mot de passe" required>
+                                    </div>
+
+                                    {# un champ caché pour la protection des failles CSRF #}
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                                    <input type="submit" class="btn btn-primary" role="button" value="Connexion">
+                                {% endif %}
                             </form>
+                            
                         </div>
                     {% endif %}
                 {% endif %}

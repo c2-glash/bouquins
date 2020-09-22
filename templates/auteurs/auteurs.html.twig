@@ -2,7 +2,7 @@
 
 {% block title %}Auteurs{% endblock %}
 {% set headerh1 = 'Les auteurs' %}
-{% set headerh5 = 'Cette page liste tous les auteurs des livres disponibles.' %}
+{% set headerh5 = 'Cette page liste tous les auteurs des livres listés sur Bouquins.' %}
 {% set headerp = 'L\'auteur que vous recherchez n\'est pas encore listé? Ajoutez-le ici : ' %}
 {% set headerbtntext = 'Ajouter un auteur' %}
 
@@ -22,13 +22,13 @@
                         {% for auteur in liste_auteurs %}
                             <div class="media">
                                 <figure class="figure mr-3">
-                                    <img src="images/{{auteur.urlPhoto}}" class="figure-img img-fluid rounded" alt="{{auteur.prenom}} {{auteur.nom}}">
+                                    <img src="{{ asset('build/images/' ~ auteur.urlPhoto) }}" class="figure-img img-fluid rounded" alt="{{auteur.prenom}} {{auteur.nom}}">
                                     <figcaption class="figure-caption">{{auteur.prenom}} {{auteur.nom}}</figcaption>
                                 </figure>
                                 <div class="media-body">
                                     <h5 class="mt-0">{{auteur.prenom}} {{auteur.nom}}</h5>
                                     <p>{{auteur.description}}</p>
-                                    <a class="btn btn-primary" href="auteur.html" role="button">Détails de l'auteur</a>
+                                    <a class="btn btn-primary" href="auteur/{{auteur.id}}" role="button">Détails de l'auteur</a>
                                 </div>
                             </div>
                         {% endfor %}

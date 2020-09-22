@@ -12,6 +12,21 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Livre[]    findAll()
  * @method Livre[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
+/*
+    1. requete SQL pour récupérer les ids des auteurs et faire un rand dessus
+
+    /*connextion a la BDD    
+
+    
+    
+    $idAuteur = $result->fetchColumn();
+
+    2. methode inner join pour joindre 2 tables (jointure interne) et récupérer les livres de l'auteur
+    
+*/
+
+
 class LivreRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -23,25 +38,28 @@ class LivreRepository extends ServiceEntityRepository
      * @return Livre[] Returns an array of Livre objects
      */
     
-    public function findLivres()
+
+    /*public function findLivresAuteur(): ?Livre
+    {
+        $dbConnection = $this->getEntityManager()->getConnection();
+        $idAuteurRand = $dbConnection->executeQuery('SELECT id FROM auteur ORDER BY RAND() LIMIT 0, 1');
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.auteurs = :idauteurrand')
+            ->setParameter('idauteurrand', $idAuteurRand)
+            ->orderBy('l.id', 'ASC')
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult()
+        ;
+    }*/
+
+    public function findDerniersLivres()
     {
         return $this->createQueryBuilder('l')
-            ->orderBy('l.titre', 'ASC')
-            ->setMaxResults(12)
+            ->orderBy('l.date_ajout', 'DESC')
+            ->setMaxResults(4)
             ->getQuery()
             ->getResult()
         ;
     }
-
-    /*
-    public function findOneBySomeField($value): ?Livre
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
