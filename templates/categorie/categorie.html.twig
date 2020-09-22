@@ -18,14 +18,20 @@
                 </div>
                 <div class="parallaxElement parallaxBase">
                     <div class="container">
-                        <div class="card-columns">
+                        <div class="card-deck">
                             {% for livre in categorie.livres %}
                                 <div class="card mb-4">
                                     <div class="card-img-container">
-                                        <img class="card-img-top"src="/images/{{livre.urlCouverture}}" alt="Card image cap">
+                                        <img class="card-img-top"src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Card image cap">
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">{{livre.titre}}</h5>
+                                        <p class="card-text">
+                                        Auteur : 
+                                            {% for auteur in livre.auteurs %}
+                                                {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
+                                            {% endfor %}
+                                        </p>
                                         <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
                                         <a href="#" class="btn btn-primary">Emprunter</a>
                                     </div>

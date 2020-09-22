@@ -41,8 +41,9 @@ class Livre
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * à défaut = false
      */
-    private $est_emprunte;
+    private $est_emprunte = false;
 
     /**
      * @ORM\ManyToMany(targetEntity=Auteur::class, mappedBy="livres")
@@ -50,7 +51,7 @@ class Livre
     private $auteurs;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Categorie::class, inversedBy="livres")
+     * @ORM\ManyToMany(targetEntity=Categorie::class, mappedBy="livres")
      */
     private $categories;
 
@@ -166,6 +167,7 @@ class Livre
     {
         if (!$this->categories->contains($category)) {
             $this->categories[] = $category;
+            $category->addLivre($this);
         }
 
         return $this;
@@ -175,6 +177,7 @@ class Livre
     {
         if ($this->categories->contains($category)) {
             $this->categories->removeElement($category);
+            $category->removeLivre($this);        
         }
 
         return $this;

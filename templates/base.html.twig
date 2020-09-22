@@ -24,17 +24,17 @@
 
                     {# si la page est une page Livre #}
                     {% if pageType == 'Livre' %}
-                        style="background-image: linear-gradient(to right, rgba(41,39,38,0.667), rgba(41,39,38,0.667)),url('/images/{{livre.urlCouverture}}');"
+                        style="background-image: linear-gradient(to right, rgba(41,39,38,0.667), rgba(41,39,38,0.667)),url('{{ asset('build/images/' ~ livre.urlCouverture) }}');"
                     {% endif %}
 
                     {# si la page est une page Auteur #}
                     {% if pageType == 'Auteur' %}
-                        style="background-image: linear-gradient(to right, rgba(41,39,38,0.667), rgba(41,39,38,0.667)),url('/images/{{auteur.urlPhoto}}');"
+                        style="background-image: linear-gradient(to right, rgba(41,39,38,0.667), rgba(41,39,38,0.667)),url('{{ asset('build/images/' ~ auteur.urlPhoto) }}');"
                     {% endif %}
 
                     {# si la page est une page Catégorie #}
                     {% if pageType == 'Categorie' %}
-                        style="background-image: linear-gradient(to right, rgba(41,39,38,0.667), rgba(41,39,38,0.667)),url('/images/{{categorie.urlIllustration}}');"
+                        style="background-image: linear-gradient(to right, rgba(41,39,38,0.667), rgba(41,39,38,0.667)),url('{{ asset('build/images/' ~ categorie.urlIllustration) }}');"
                     {% endif %}
 
                 {# sinon pour les pages classiques #}s

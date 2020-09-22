@@ -77,6 +77,12 @@ class Auteur
 
         return $this;
     }
+    
+    public function getPrenomNom(): ?string
+    {
+        $prenomNom = $this->prenom;
+        return $prenomNom;
+    }
 
     public function getDescription(): ?string
     {
