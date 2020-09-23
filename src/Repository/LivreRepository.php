@@ -37,22 +37,8 @@ class LivreRepository extends ServiceEntityRepository
     /**
      * @return Livre[] Returns an array of Livre objects
      */
-    
 
-    /*public function findLivresAuteur(): ?Livre
-    {
-        $dbConnection = $this->getEntityManager()->getConnection();
-        $idAuteurRand = $dbConnection->executeQuery('SELECT id FROM auteur ORDER BY RAND() LIMIT 0, 1');
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.auteurs = :idauteurrand')
-            ->setParameter('idauteurrand', $idAuteurRand)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(4)
-            ->getQuery()
-            ->getResult()
-        ;
-    }*/
-
+    /*Utilisé par accueilController.php */
     public function findDerniersLivres()
     {
         return $this->createQueryBuilder('l')

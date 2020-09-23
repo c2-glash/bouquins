@@ -5,6 +5,7 @@
         <title>{% block title %}{% endblock %} | Bouquins</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
         <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Oswald:wght@300;400;600&display=swap" rel="stylesheet">
+        {# chargement css #}
         {% block css %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -53,7 +54,9 @@
                     {# elements templates pages #}
                 {% endblock %}
 
+                {#chargement scripts #}
                 {% block js %}
+                    
                     {{ encore_entry_script_tags('app') }}
                 {% endblock %}
             </div>

@@ -5,14 +5,14 @@
 {% set headerh5 = 'Cette page regroupe liste tous les livres actuellement disponibles à l\'emprunt.' %}
 {% set headerp = 'Vous avez un nouveau livre? Ajoutez-le ici : ' %}
 {% set headerbtntext = 'Ajouter un livre' %}
-
+{% set headerbtnlink = '/ajout/livre' %}
 {% block body %}
 
 
 {% include './layout/header.html.twig' %}
 
 
-<main>
+<main id="react-livres">
     <section class="container">
         <h2>Tous les livres : </h2>
         <form class="form-inline recherche-livres">
@@ -29,6 +29,7 @@
                 <input type="text" class="form-control" id="recherche" placeholder="Recherche" />
             </div>
             <button type="submit" class="btn btn-primary">Lancer la recherche</button>
+        </form>
     </section>
     <section>
         <div class="containerParallax">
@@ -37,7 +38,7 @@
             <div class="parallaxElement parallaxBase">
                 <div class="container">
         
-                    <div class="card-deck react-livres">
+                    <div class="card-deck">
                         {% for livre in liste_livres %}
                             <div class="card mb-4">
                             <div class="card-img-container">
@@ -73,6 +74,7 @@
         </div>
 
     </section>
+
 </main>
 {% include './layout/footer.html.twig' %}
 {% endblock %}

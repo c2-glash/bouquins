@@ -14,11 +14,23 @@ class AccueilController extends AbstractController
      */
     public function pageAccueil(LivreRepository $livreRepository, AuteurRepository $auteurRepository)
     {
+        /*recuperation de tous les auteurs */
+        $auteurs = $auteurRepository->findAll();
+        /*creation d'un tableau pour stocker les ids des auteurs et les indexer */
+        $auteursId = array();
+        /*stockage des ids des auteurs dans le tableau*/
+        foreach ($auteurs as $auteur){
+            $auteursId[] = $auteur->getId();
+        }
+        /*rand sur l'intervalle de la taille tableau*/
+        $entreeTableauRand = rand(0, count($auteursId) -1 );
+        /*recuperation de l'id de l'auteur*/
+        $idAuteurRand = $auteursId[$entreeTableauRand];
+
         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
             'derniers_ajouts' => $livreRepository->findDerniersLivres(),
-            'auteur_livres' => $auteurRepository->findAuthorBooks(3),
-
+            'auteur' => $auteurRepository->find($idAuteurRand),
         ]);
     }
 }

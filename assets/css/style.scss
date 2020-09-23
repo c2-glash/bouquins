@@ -79,7 +79,34 @@ body{
     /*==============================*/
     header{
         padding-bottom:100px;
+        &#headerLivres{
+            min-height:0;
+            /*h1:after{
+                content:'';
+                width:100px;
+                height:3px;
+                background-color: $colorThemeOrange;
+                display:block;
+            }*/
+        }
+        &#headerPage404{
+            height:100vh;
+        }
+        article{
+            p{margin-top:24px;}
+            .btn{margin:30px 0;}
+        } 
 
+        /*form login*/
+        #hpLogin{
+            margin-top:18px;
+            background-color: #f6f5f577;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .layoutHeader2{
+            h1{line-height:1.5em;}
+        }
         .navbar{
             padding-left:0;
             padding-right:0;
@@ -107,36 +134,10 @@ body{
                 }
             }
         }
-        article{
-            p{margin-top:24px;}
-            .btn{margin:30px 0;}
-        } 
-
-        /*form login*/
-        #hpLogin{
-            margin-top:18px;
-            background-color: #f6f5f577;
-            padding: 15px;
-            border-radius: 5px;
+        section{
+            padding-top:0px !important; 
         }
-
-        &#headerLivres{
-            min-height:0;
-            /*h1:after{
-                content:'';
-                width:100px;
-                height:3px;
-                background-color: $colorThemeOrange;
-                display:block;
-            }*/
-        }
-        &#headerPage404{
-            height:100vh;
-        }
-        .layoutHeader2{
-            h1{line-height:1.5em;}
-        }
-
+        
     }
     /*==============================*/
     /*============ MAIN ============*/
@@ -208,14 +209,6 @@ body{
                 }
                 
             }
-            /*#carouselCards{
-                .carousel-control-prev{
-                    margin-left:-150px;
-                }
-                .carousel-control-next{
-                    margin-right:-150px;
-                }
-            }*/
             .derniersAjouts{
                 background-color:$colorThemeDark;
             }

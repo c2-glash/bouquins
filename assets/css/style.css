@@ -136,6 +136,40 @@ body header {
   /*form login*/
 }
 
+body header#headerLivres {
+  min-height: 0;
+  /*h1:after{
+                content:'';
+                width:100px;
+                height:3px;
+                background-color: $colorThemeOrange;
+                display:block;
+            }*/
+}
+
+body header#headerPage404 {
+  height: 100vh;
+}
+
+body header article p {
+  margin-top: 24px;
+}
+
+body header article .btn {
+  margin: 30px 0;
+}
+
+body header #hpLogin {
+  margin-top: 18px;
+  background-color: #f6f5f577;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+body header .layoutHeader2 h1 {
+  line-height: 1.5em;
+}
+
 body header .navbar {
   padding-left: 0;
   padding-right: 0;
@@ -168,38 +202,8 @@ body header .navbar #navbarSupportedContent .navbar-nav .nav-link:focus {
   color: #f6f5f5;
 }
 
-body header article p {
-  margin-top: 24px;
-}
-
-body header article .btn {
-  margin: 30px 0;
-}
-
-body header #hpLogin {
-  margin-top: 18px;
-  background-color: #f6f5f577;
-  padding: 15px;
-  border-radius: 5px;
-}
-
-body header#headerLivres {
-  min-height: 0;
-  /*h1:after{
-                content:'';
-                width:100px;
-                height:3px;
-                background-color: $colorThemeOrange;
-                display:block;
-            }*/
-}
-
-body header#headerPage404 {
-  height: 100vh;
-}
-
-body header .layoutHeader2 h1 {
-  line-height: 1.5em;
+body header section {
+  padding-top: 0px !important;
 }
 
 body main {
@@ -220,14 +224,6 @@ body main h2:after {
 body main section {
   /*cards bootstrap*/
   /*mods carousel pour homepage*/
-  /*#carouselCards{
-                .carousel-control-prev{
-                    margin-left:-150px;
-                }
-                .carousel-control-next{
-                    margin-right:-150px;
-                }
-            }*/
 }
 
 body main section .card-columns,

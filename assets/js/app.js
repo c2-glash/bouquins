@@ -5,16 +5,26 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-// any CSS you import will output into a single css file (app.css in this case)
+// CSS compilé dans un seul fichier
 import '../css/bootstrap.css';
 import '../css/style.scss';
 import '../css/responsive.scss';
 import '../css/parallax.scss';
 import '../css/app.css';
+
+//JS compilé dans un seul fichier
 import './bootstrap.js';
-import './livre-auteur.js';
+//import './livre-auteur.js';
 
-// Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-// import $ from 'jquery';
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js'); 
+import React    from 'react';
+import ReactDOM from 'react-dom';
+
+import { SearchBar } from './SearchBar';
+
+//Si le container react-livres est présent sur la page, on lance react
+const reactLivres = document.getElementById('react-livres');
+
+if(reactLivres !== undefined){
+    ReactDOM.render(<SearchBar />, reactLivres);    
+}
