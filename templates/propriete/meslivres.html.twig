@@ -9,37 +9,33 @@
 {% include './layout/header.html.twig' %}
     <main>
         <section class="container">
-            {% for propriete in app.user.proprietes %}
-                
-                <div class="media">
-                    <figure class="figure mr-3">
-                        <img src="{{ asset('build/images/' ~ propriete.livre.urlCouverture) }}" class="figure-img img-fluid rounded" alt="J. R. R. Tolkien">
-                        <figcaption class="figure-caption">J. R. R. Tolkien</figcaption>
-                    </figure>
-                    <div class="media-body">
-                        <h5 class="mt-0">{{propriete.livre.titre}}</h5>
-                        <p><b>Auteur : </b>
-                            {% for auteur in propriete.livre.auteurs %}
-                                {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
-                            {% endfor %}
-                        </p>
-                        <p><b>Categorie : </b>
-                            {% for categorie in propriete.livre.categories %}
-                                {{categorie.nom}}
-                            {% endfor %}
-                        </p>
-                        <p>{{propriete.livre.description}}</p>
-                        
+            <div class="mes-livres-container">
+                {% for propriete in app.user.proprietes %}
+                    
+                    <div class="media mes-livres">
+                        <figure class="figure mr-3">
+                            <img src="{{ asset('build/images/' ~ propriete.livre.urlCouverture) }}" class="figure-img img-fluid rounded" alt="J. R. R. Tolkien">
+                            
+                        </figure>
+                        <div class="media-body">
+                            <h5 class="mt-0">{{propriete.livre.titre}}</h5>
+                            <p><b>Auteur : </b>
+                                {% for auteur in propriete.livre.auteurs %}
+                                    {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
+                                {% endfor %}
+                            <br/><b>Categorie : </b>
+                                {% for categorie in propriete.livre.categories %}
+                                    {{categorie.nom}}
+                                {% endfor %}
+                            </p>
+                            <a href="" class="btn btn-primary">modifier</a> <button class="btn btn-danger">Supprimer</a>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </section>
 
-        <section class="container">
-            <a href="" class="btn btn-primary">Ajouter un livre</a>
-            <a href="" class="btn btn-primary">Ajouter un auteur</a>
-            <a href="" class="btn btn-primary">Ajouter une catégorie</a>
-        </section>
+
     </main>
 {% include './layout/footer.html.twig' %}
 {% endblock %}

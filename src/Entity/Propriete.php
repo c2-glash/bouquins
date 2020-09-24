@@ -19,13 +19,13 @@ class Propriete
 
     /**
      * @ORM\ManyToOne(targetEntity=Livre::class, inversedBy="propriete")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $livre;
 
     /**
      * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="proprietes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $utilisateur;
 

@@ -43,3 +43,9 @@
     column-count: 4;
   }
 }
+
+@media (max-width: 991px) {
+  body main .mes-livres-container .mes-livres {
+    width: calc(100% - 20px);
+  }
+}

@@ -56,7 +56,8 @@ class Livre
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity=Propriete::class, mappedBy="livre", orphanRemoval=true)
+     * CASCADE PERSIST pour ajouter propriété en meme temps que livre avec le form de creation de livre
+     * @ORM\OneToMany(targetEntity=Propriete::class, mappedBy="livre", orphanRemoval=true, cascade={"persist"})
      */
     private $propriete;
 

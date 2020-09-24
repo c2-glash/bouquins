@@ -1,6 +1,7 @@
 $colorThemeDark:#292726;
 $colorThemeOrange:#fd7e14;
 $colorThemeClear:#f6f5f5;
+$colorThemeClearTransparent:rgba(246, 245, 245, 0.5);
 
 * {
     box-sizing: border-box;
@@ -132,6 +133,24 @@ body{
                     .nav-link:hover,
                     .nav-link:focus{color:$colorThemeClear;}
                 }
+            }
+            .nav-item{
+                &.dropdown{
+                    .dropdown-menu{
+                        background-color:transparent;
+                        .dropdown-item{
+                            color: $colorThemeClearTransparent;
+                            font-weight: 300;
+                            font-size: 1.5rem;
+                            padding-left:0.4rem;
+                            &:hover,&:active,&:focus{
+                                background-color:transparent;
+                                color: $colorThemeClear;
+                            }
+                        }
+                    }
+                }
+                .nav-link{color: $colorThemeClearTransparent;}
             }
         }
         section{
@@ -278,22 +297,37 @@ body{
             }
             
         }
-        /*mods images sur liste auteurs*/
+        .mes-livres-container{
+            display:flex;
+            flex-wrap: wrap;
+            margin:0 -10px 0 -10px;
+            .mes-livres{
+                width:calc(50% - 20px);
+                margin:10px;
+                figure{
+                    max-width:120px;
+                    img{height:auto;max-height:200px;}
+                }
+            }
+        }
         .media{
             background-color: $colorThemeClear;
             padding:20px;
             margin:20px 0;
             color: $colorThemeDark;
             border-radius: 0.25rem;
+
             figure{
                 max-width:200px;
                 width: auto;
                 height: auto;
+                margin-bottom:0;
                 img{
                     object-fit: cover;
                     width: 100%;
                     height: 250px;
                     object-position: top;
+                    margin-bottom:0;
                 }
             }
             h5,p{color: $colorThemeDark;}

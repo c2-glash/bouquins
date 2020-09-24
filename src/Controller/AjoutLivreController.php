@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Livre;
+use App\Entity\Propriete;
 use App\Form\LivreFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,8 +62,18 @@ class AjoutLivreController extends AbstractController
             }
             //set de la date d'ajout du livre
             $livre->setDateAjout(new \DateTime());
+            
+            //definition de la propriete avec id user et id livre
+            $propriete = new Propriete();
+            $propriete->setUtilisateur($this->getUser());
 
+            //creation de la propriété à partir de addPropriete() du livre
+            $livre->addPropriete($propriete);
+            
+            //persist pour stocker les donnes en BDD
+            //$manager->persist($propriete);
             $manager->persist($livre);
+            
             $manager->flush();
             //ajout du message en superglobale
             $this->addFlash('success', 'Votre livre a été ajouté.');

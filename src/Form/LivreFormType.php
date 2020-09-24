@@ -31,6 +31,7 @@ class LivreFormType extends AbstractType
                 'constraints' => [
                     new File([
                         'maxSize' => '600k',
+                        'maxSizeMessage' => 'La taille de fichier est limitée à 600Ko, veuillez en upload un plus léger.',
                         'mimeTypes' => [
                             'image/png',
                             'image/jpeg',

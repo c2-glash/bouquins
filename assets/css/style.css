@@ -202,6 +202,26 @@ body header .navbar #navbarSupportedContent .navbar-nav .nav-link:focus {
   color: #f6f5f5;
 }
 
+body header .navbar .nav-item.dropdown .dropdown-menu {
+  background-color: transparent;
+}
+
+body header .navbar .nav-item.dropdown .dropdown-menu .dropdown-item {
+  color: rgba(246, 245, 245, 0.5);
+  font-weight: 300;
+  font-size: 1.5rem;
+  padding-left: 0.4rem;
+}
+
+body header .navbar .nav-item.dropdown .dropdown-menu .dropdown-item:hover, body header .navbar .nav-item.dropdown .dropdown-menu .dropdown-item:active, body header .navbar .nav-item.dropdown .dropdown-menu .dropdown-item:focus {
+  background-color: transparent;
+  color: #f6f5f5;
+}
+
+body header .navbar .nav-item .nav-link {
+  color: rgba(246, 245, 245, 0.5);
+}
+
 body header section {
   padding-top: 0px !important;
 }
@@ -209,7 +229,6 @@ body header section {
 body main {
   background-color: #292726;
   /*soulignement orange sur titres h2*/
-  /*mods images sur liste auteurs*/
 }
 
 body main h2:after {
@@ -341,6 +360,26 @@ body main section .recherche-livres .form-group ul#searchSuggestions li a:hover 
   cursor: pointer;
 }
 
+body main .mes-livres-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px 0 -10px;
+}
+
+body main .mes-livres-container .mes-livres {
+  width: calc(50% - 20px);
+  margin: 10px;
+}
+
+body main .mes-livres-container .mes-livres figure {
+  max-width: 120px;
+}
+
+body main .mes-livres-container .mes-livres figure img {
+  height: auto;
+  max-height: 200px;
+}
+
 body main .media {
   background-color: #f6f5f5;
   padding: 20px;
@@ -353,6 +392,7 @@ body main .media figure {
   max-width: 200px;
   width: auto;
   height: auto;
+  margin-bottom: 0;
 }
 
 body main .media figure img {
@@ -360,6 +400,7 @@ body main .media figure img {
   width: 100%;
   height: 250px;
   object-position: top;
+  margin-bottom: 0;
 }
 
 body main .media h5, body main .media p {
