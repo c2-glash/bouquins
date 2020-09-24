@@ -14,17 +14,15 @@ import '../css/app.css';
 
 //JS compilé dans un seul fichier
 import './bootstrap.js';
-//import './livre-auteur.js';
+import './livre-auteur.js';
 
-
+//react
 import React    from 'react';
 import ReactDOM from 'react-dom';
-
 import { SearchBar } from './SearchBar';
 
 //Si le container react-livres est présent sur la page, on lance react
 const reactLivres = document.getElementById('react-livres');
-
 if(reactLivres !== undefined){
     ReactDOM.render(<SearchBar />, reactLivres);    
 }

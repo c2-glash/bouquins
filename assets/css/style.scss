@@ -249,16 +249,41 @@ body{
                     object-position: top;
                 }
             }
-            #recherche{
-                margin-right: 1rem !important;
+            .recherche-livres{
+                .form-group{
+                    position: relative;
+                    #recherche, #triLivres{
+                        margin: 0 !important;
+                    }
+                    ul.searchSuggestions{
+                        list-style:none;
+                        padding:0px;
+                        background-color: $colorThemeClear;
+                        position: absolute;
+                        width:100%;
+                        z-index:2;
+                        li a{
+                            color: $colorThemeDark;
+                            padding:6px 12px;
+                            display:block;
+                            &:hover{
+                                background-color: $colorThemeOrange;
+                                color: $colorThemeClear;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+                
             }
+            
         }
         /*mods images sur liste auteurs*/
         .media{
             background-color: $colorThemeClear;
             padding:20px;
             margin:20px 0;
-            color:colorThemeDark;
+            color: $colorThemeDark;
             border-radius: 0.25rem;
             figure{
                 max-width:200px;

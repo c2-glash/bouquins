@@ -312,15 +312,40 @@ body main section#detailsAuteur img {
   object-position: top;
 }
 
-body main section #recherche {
-  margin-right: 1rem !important;
+body main section .recherche-livres .form-group {
+  position: relative;
+}
+
+body main section .recherche-livres .form-group #recherche, body main section .recherche-livres .form-group #triLivres {
+  margin: 0 !important;
+}
+
+body main section .recherche-livres .form-group ul.searchSuggestions {
+  list-style: none;
+  padding: 0px;
+  background-color: #f6f5f5;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+body main section .recherche-livres .form-group ul.searchSuggestions li a {
+  color: #292726;
+  padding: 6px 12px;
+  display: block;
+}
+
+body main section .recherche-livres .form-group ul.searchSuggestions li a:hover {
+  background-color: #fd7e14;
+  color: #f6f5f5;
+  cursor: pointer;
 }
 
 body main .media {
   background-color: #f6f5f5;
   padding: 20px;
   margin: 20px 0;
-  color: colorThemeDark;
+  color: #292726;
   border-radius: 0.25rem;
 }
 

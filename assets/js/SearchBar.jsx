@@ -1,4 +1,5 @@
 import React from 'react';
+import { CardLivre } from './components/CardLivre';
 
 
 export class SearchBar extends React.Component
@@ -7,9 +8,11 @@ export class SearchBar extends React.Component
 
     state = {
         search      : '',   // Saisie en cours de l'utilisateur
-        suggestions : []    // Liste des suggestions
+        suggestions : [],   // Liste des suggestions
+        dbdata      : []
     };
 
+    
     // Ne sera exécuté qu'une seule fois, à la construction du composant SearchBar
     componentDidMount()
     {
@@ -24,14 +27,23 @@ export class SearchBar extends React.Component
             {
                 // Stockage des données
                 this.database = jsonResults;
+
+                this.setState(
+                {
+                    dbdata : this.database
+                });
+
             })
+            
     }
 
     onChangeSearch = (event) =>
     {
-        const suggestions = this.database.filter((product) => {
+
+        const suggestions = this.database.filter((livre) => {
             // Garde uniquement les produits contenant la saisie de l'utilisateur.
-            return product.titre.includes(event.target.value);
+            //toLowerCase() pour ignorer la casse lors de la recherche
+            return livre.titre.toLowerCase().includes(event.target.value.toLowerCase());
         });
 
         this.setState(
@@ -39,40 +51,78 @@ export class SearchBar extends React.Component
             search      : event.target.value,   // Enregistrement de la saisie
             suggestions : suggestions           // Enregistrement des suggestions
         });
+        
     }
 
     render()
     {
         // Parcourt la liste des suggestions et les transforme en une liste de <li> JSX.
-        const listItems = this.state.suggestions.map((suggestion, index) => {
-            return <li key={ index }>{ suggestion.titre }</li>
+        const listesuggestions = this.state.suggestions.map((suggestion, index) => {
+            //affichage des résultat à partir de 2 chars dans la recherche 
+            if(this.state.search.length > 1){
+                return <li key={ index }><a href={'/livre/' + suggestion.id }>{ suggestion.titre }</a></li>
+            }
         });
 
-        return(
-            <div className="creact-container">
-                <section className="container">
-                    <h2>Tous les livres :</h2>
-                    <form className="form-inline recherche-livres">
-                        <div className="form-group">
-                            <label htmlFor="recherche">Recherche : </label>
-                            <input type="text" className="form-control mx-sm-3" id="recherche" placeholder="Recherche" value={ this.state.search } onChange={ this.onChangeSearch }/>
-                            
-                            <ul className="searchSuggestions">
-                                { listItems }
-                            </ul>
+        //affichage complet par défaut
+        let cardsSuggestions = this.database.map((livre, index) => {
+            return (
+                <CardLivre 
+                    key =           { index }
+                    titre =         { livre.titre }
+                    description =   { livre.description }
+                    dateAjout =     { livre.dateAjout}
+                    categorie =     { livre.categories[0].nom }
+                    urlCouverture = { livre.url_couverture }
+                    nomAuteur =     { livre.auteurs[0].nom }
+                    prenomAuteur =  { livre.auteurs[0].prenom }
+                ></CardLivre>
+            )
+        });
 
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="triLivres">Rechercher des livres par : </label>
-                            <select className="custom-select form-control mx-sm-3" id="triLivres">
-                                <option className="formOption" value="1" defaultValue>titre de livre</option>
-                                <option className="formOption" value="2">nom de l'auteur</option>
-                                <option className="formOption" value="3">nom de la catégorie</option>
-                            </select>
-                        </div>
-                        
-                        <button type="submit" className="btn btn-primary">Lancer la recherche</button>
-                    </form>
+        let textNoResults = null;
+
+        //affichage des résultat à partir de 2 chars dans la recherche 
+        if(this.state.search.length > 1){
+            cardsSuggestions = this.state.suggestions.map((livre, index) => {
+                return (
+                    <CardLivre 
+                        key =           { index }
+                        titre =         { livre.titre }
+                        description =   { livre.description }
+                        dateAjout =     { livre.dateAjout}
+                        categorie =     { livre.categories[0].nom }
+                        urlCouverture = { livre.url_couverture }
+                        nomAuteur =     { livre.auteurs[0].nom }
+                        prenomAuteur =  { livre.auteurs[0].prenom }
+                    ></CardLivre>
+                )
+            });
+
+            
+            if(cardsSuggestions.length == 0){
+
+                textNoResults = <div className="paginationElementLoader"><button className="btn btn-primary">Aucun résultat pour cette recherche</button></div>;
+            }
+        }
+
+        return(
+            <div id="react-SearchBar">
+                <section className="container">
+                    <div className="creact-container">
+                        <h2>Tous les livres :</h2>
+                        <form className="recherche-livres">
+                            <div className="form-group">
+                                <input type="text" className="form-control mx-sm-3" id="recherche" placeholder="Recherche" value={ this.state.search } onChange={ this.onChangeSearch }/>
+                                <ul className="searchSuggestions">
+
+                                    { listesuggestions }
+
+                                </ul>
+                            </div>
+                        </form>
+                       
+                    </div>
                 </section>
                 <section>
                     <div className="containerParallax">
@@ -83,30 +133,9 @@ export class SearchBar extends React.Component
                     
                                 <div className="card-deck">
                                     
-                                        <div className="card mb-4">
-                                        <div className="card-img-container">
-                                            <img className="card-img-top" src="" alt="Couverture" />
-                                        </div>
-                                        <div className="card-body">
-                                            <h5 className="card-title">
+                                    { cardsSuggestions }
 
-                                            </h5>
-                                            
-                                            <p className="card-text">
-                                            <b>Auteur</b> : 
-                                            
-                                            </p>
-                                            <p className="card-text"><b>Catégorie</b> : 
-                                                
-                                            </p>
-                                            <a href="/livre/{{livre.id}}" className="btn btn-primary">Détails</a>
-                                            <a href="/livre/{{livre.id}}" className="btn btn-primary">Emprunter</a>
-                                        </div>
-                                        <div className="card-footer">
-                                            <small className="text-muted">Ajouté à Bouquins le </small>
-                                        </div>
-                                    </div>
-                                    <div className="paginationElementLoader"><button className="btn btn-primary">Charger plus de livres</button></div>
+                                    { textNoResults }
                                 </div>
                             </div>
                         </div>
@@ -114,6 +143,16 @@ export class SearchBar extends React.Component
                 </section>
             </div>
         );
+        /*
+        <div className="form-group">
+            <label htmlFor="triLivres">Rechercher des livres par : </label>
+            <select className="custom-select form-control mx-sm-3" id="triLivres">
+                <option className="formOption" value="1" defaultValue>titre de livre</option>
+                <option className="formOption" value="2">nom de l'auteur</option>
+                <option className="formOption" value="3">nom de la catégorie</option>
+            </select>
+        </div>
+        */
     }
     
 }

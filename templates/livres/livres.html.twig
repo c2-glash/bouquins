@@ -15,20 +15,10 @@
 <main id="react-livres">
     <section class="container">
         <h2>Tous les livres : </h2>
-        <form class="form-inline recherche-livres">
-            <div class="form-group">
-                <label for="triLivres">Rechercher des livres par : </label>
-                <select class="custom-select form-control mx-sm-3" id="triLivres">
-                    <option class="formOption" selected>...</option>
-                    <option class="formOption" value="1">Titre</option>
-                    <option class="formOption" value="2">Auteur</option>
-                    <option class="formOption" value="3">Catégorie</option>
-                </select>
-            </div>
+        <form class="recherche-livres">
             <div class="form-group">
                 <input type="text" class="form-control" id="recherche" placeholder="Recherche" />
             </div>
-            <button type="submit" class="btn btn-primary">Lancer la recherche</button>
         </form>
     </section>
     <section>
@@ -41,30 +31,30 @@
                     <div class="card-deck">
                         {% for livre in liste_livres %}
                             <div class="card mb-4">
-                            <div class="card-img-container">
-                                <img class="card-img-top" src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Couverture {{livre.titre}}">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{livre.titre}}</h5>
-                                
-                                <p class="card-text">
-                                <b>Auteur</b> : 
-                                {% for auteur in livre.auteurs %}
-                                    {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
-                                {% endfor %}
-                                </p>
-                                <p class="card-text"><b>Catégorie</b> : 
-                                    {% for categorie in livre.categories %}
-                                        {{categorie.nom}}
+                                <div class="card-img-container">
+                                    <img class="card-img-top" src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Couverture {{livre.titre}}">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{livre.titre}}</h5>
+                                    
+                                    <p class="card-text">
+                                    <b>Auteur</b> : 
+                                    {% for auteur in livre.auteurs %}
+                                        {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
                                     {% endfor %}
-                                </p>
-                                <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
-                                <a href="/livre/{{livre.id}}" class="btn btn-primary">Emprunter</a>
+                                    </p>
+                                    <p class="card-text"><b>Catégorie</b> : 
+                                        {% for categorie in livre.categories %}
+                                            {{categorie.nom}}
+                                        {% endfor %}
+                                    </p>
+                                    <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
+                                    <a href="/livre/{{livre.id}}" class="btn btn-primary">Emprunter</a>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
+                                </div>
                             </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
-                            </div>
-                        </div>
                         {% endfor %}
                         
                         <div class="paginationElementLoader"><button class="btn btn-primary">Charger plus de livres</button></div>
