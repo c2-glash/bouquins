@@ -55,10 +55,16 @@ class Livre
      */
     private $categories;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Propriete::class, mappedBy="livre", orphanRemoval=true)
+     */
+    private $propriete;
+
     public function __construct()
     {
         $this->auteurs = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->propriete = new ArrayCollection();
     }
 
 
@@ -178,6 +184,37 @@ class Livre
         if ($this->categories->contains($category)) {
             $this->categories->removeElement($category);
             $category->removeLivre($this);        
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Propriete[]
+     */
+    public function getPropriete(): Collection
+    {
+        return $this->propriete;
+    }
+
+    public function addPropriete(Propriete $propriete): self
+    {
+        if (!$this->propriete->contains($propriete)) {
+            $this->propriete[] = $propriete;
+            $propriete->setLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePropriete(Propriete $propriete): self
+    {
+        if ($this->propriete->contains($propriete)) {
+            $this->propriete->removeElement($propriete);
+            // set the owning side to null (unless already changed)
+            if ($propriete->getLivre() === $this) {
+                $propriete->setLivre(null);
+            }
         }
 
         return $this;

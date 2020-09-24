@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -39,6 +41,16 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Propriete::class, mappedBy="utilisateur", orphanRemoval=true)
+     */
+    private $proprietes;
+
+    public function __construct()
+    {
+        $this->proprietes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -127,5 +139,36 @@ class Utilisateur implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Propriete[]
+     */
+    public function getProprietes(): Collection
+    {
+        return $this->proprietes;
+    }
+
+    public function addPropriete(Propriete $propriete): self
+    {
+        if (!$this->proprietes->contains($propriete)) {
+            $this->proprietes[] = $propriete;
+            $propriete->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePropriete(Propriete $propriete): self
+    {
+        if ($this->proprietes->contains($propriete)) {
+            $this->proprietes->removeElement($propriete);
+            // set the owning side to null (unless already changed)
+            if ($propriete->getUtilisateur() === $this) {
+                $propriete->setUtilisateur(null);
+            }
+        }
+
+        return $this;
     }
 }
