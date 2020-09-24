@@ -22,7 +22,9 @@
                             {% for livre in categorie.livres %}
                                 <div class="card mb-4">
                                     <div class="card-img-container">
-                                        <img class="card-img-top"src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Card image cap">
+                                        <a href="/livre/{{livre.id}}">
+                                            <img class="card-img-top"src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Card image cap">
+                                        </a>
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">{{livre.titre}}</h5>

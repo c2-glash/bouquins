@@ -9,7 +9,9 @@ export class CardLivre extends React.Component{
         return (
             <div className="card mb-4">
                 <div className="card-img-container">
-                    <img className="card-img-top" src={imgCouverture.default} alt={ 'Couverture' + this.props.titre} />
+                    <a href={'/livre/' + this.props.id }>
+                        <img className="card-img-top" src={imgCouverture.default} alt={ 'Couverture' + this.props.titre} />
+                    </a>
                 </div>
                 <div className="card-body">
                     <h5 className="card-title">{ this.props.titre }</h5>

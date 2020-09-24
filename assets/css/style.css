@@ -320,7 +320,7 @@ body main section .recherche-livres .form-group #recherche, body main section .r
   margin: 0 !important;
 }
 
-body main section .recherche-livres .form-group ul.searchSuggestions {
+body main section .recherche-livres .form-group ul#searchSuggestions {
   list-style: none;
   padding: 0px;
   background-color: #f6f5f5;
@@ -329,13 +329,13 @@ body main section .recherche-livres .form-group ul.searchSuggestions {
   z-index: 2;
 }
 
-body main section .recherche-livres .form-group ul.searchSuggestions li a {
+body main section .recherche-livres .form-group ul#searchSuggestions li a {
   color: #292726;
   padding: 6px 12px;
   display: block;
 }
 
-body main section .recherche-livres .form-group ul.searchSuggestions li a:hover {
+body main section .recherche-livres .form-group ul#searchSuggestions li a:hover {
   background-color: #fd7e14;
   color: #f6f5f5;
   cursor: pointer;

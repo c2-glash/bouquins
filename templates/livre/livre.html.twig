@@ -61,24 +61,26 @@
                             {% for auteur in livre.auteurs %}
 
                                 {# pour chaque livre de l'auteur #}
-                                {% for livreAuteur in auteur.livres %}
+                                {% for livre in auteur.livres %}
 
                                     <div class="card mb-4">
                                         <div class="card-img-container">
-                                            <img class="card-img-top"src="{{ asset('build/images/' ~ livreAuteur.urlCouverture) }}" alt="Card image cap">
+                                            <a href="/livre/{{livre.id}}">
+                                                <img class="card-img-top"src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Card image cap">
+                                            </a>
                                         </div>
                                         <div class="card-body">
-                                            <h5 class="card-title">{{livreAuteur.titre}}</h5>
+                                            <h5 class="card-title">{{livre.titre}}</h5>
                                             <p class="card-text"><b>Catégorie</b> : 
-                                                {% for categorie in livreAuteur.categories %}
+                                                {% for categorie in livre.categories %}
                                                     {{categorie.nom}}
                                                 {% endfor %}
                                             </p>
-                                            <a href="/livre/{{livreAuteur.id}}" class="btn btn-primary">Détails</a>
+                                            <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
                                             <a href="#" class="btn btn-primary">Emprunter</a>
                                         </div>
                                         <div class="card-footer">
-                                            <small class="text-muted">Ajouté à Bouquins le {{ livreAuteur.dateAjout|date("d/m/Y") }}</small>
+                                            <small class="text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
                                         </div>
                                     </div>
 

@@ -54,6 +54,25 @@ export class SearchBar extends React.Component
         
     }
 
+    onFocus(){
+        if(document.getElementById('searchSuggestions') !== null){
+            let listeSuggestions = document.getElementById('searchSuggestions');
+            listeSuggestions.classList.add("d-block");
+            listeSuggestions.classList.remove("d-none");
+        }
+    }
+    onBlur(){
+        //délais pour laisser le temps du click, 300ms
+        setTimeout(() => {
+            if(document.getElementById('searchSuggestions') !== null){
+                let listeSuggestions = document.getElementById('searchSuggestions');
+                listeSuggestions.classList.add("d-none");
+                listeSuggestions.classList.remove("d-block");
+            }
+        }, 300);
+        
+    }
+
     render()
     {
         // Parcourt la liste des suggestions et les transforme en une liste de <li> JSX.
@@ -69,6 +88,7 @@ export class SearchBar extends React.Component
             return (
                 <CardLivre 
                     key =           { index }
+                    id =            { livre.id }
                     titre =         { livre.titre }
                     description =   { livre.description }
                     dateAjout =     { livre.dateAjout}
@@ -88,6 +108,7 @@ export class SearchBar extends React.Component
                 return (
                     <CardLivre 
                         key =           { index }
+                        id =            { livre.id }
                         titre =         { livre.titre }
                         description =   { livre.description }
                         dateAjout =     { livre.dateAjout}
@@ -99,9 +120,7 @@ export class SearchBar extends React.Component
                 )
             });
 
-            
             if(cardsSuggestions.length == 0){
-
                 textNoResults = <div className="paginationElementLoader"><button className="btn btn-primary">Aucun résultat pour cette recherche</button></div>;
             }
         }
@@ -111,14 +130,14 @@ export class SearchBar extends React.Component
                 <section className="container">
                     <div className="creact-container">
                         <h2>Tous les livres :</h2>
-                        <form className="recherche-livres">
+                        <form className="recherche-livres" onFocus={this.onFocus} onBlur={this.onBlur}>
                             <div className="form-group">
                                 <input type="text" className="form-control mx-sm-3" id="recherche" placeholder="Recherche" value={ this.state.search } onChange={ this.onChangeSearch }/>
-                                <ul className="searchSuggestions">
-
+                                <ul id="searchSuggestions">
                                     { listesuggestions }
-
                                 </ul>
+
+                                
                             </div>
                         </form>
                        

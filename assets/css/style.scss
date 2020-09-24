@@ -255,7 +255,7 @@ body{
                     #recherche, #triLivres{
                         margin: 0 !important;
                     }
-                    ul.searchSuggestions{
+                    ul#searchSuggestions{
                         list-style:none;
                         padding:0px;
                         background-color: $colorThemeClear;

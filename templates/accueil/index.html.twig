@@ -22,7 +22,7 @@
                 <div id="classiquesBg" class="parallaxElement parallaxBack">
                 </div>
                 <div class="parallaxElement parallaxBase">
-                    <div class="container">
+                    <div class="container" id="carousel">
                         <div id="carouselSlideControls" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 {% for livre in auteur.livres %}
@@ -34,7 +34,7 @@
                                 {% for livre in auteur.livres %}
                                     <div class="carousel-item">
                                     <img class="d-block w-100" src="{{ asset('build/images/blank_bg.png') }}" alt="First slide">
-                                    <a href="#">
+                                    <a href="/livre/{{livre.id}}">
                                         <div class="carousel-caption d-none d-md-block">
                                             <img class="d-block" src="{{ asset('build/images/' ~ livre.urlCouverture ) }}" alt="Couverture {{ livre.titre }}">
                                             <h5>{{ livre.titre }}</h5>
@@ -75,7 +75,9 @@
                             {% for livre in derniers_ajouts %}
                                 <div class="card mb-4">
                                     <div class="card-img-container">
-                                        <img class="card-img-top" src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Couverture Le seigneur des anneaux">
+                                        <a href="/livre/{{livre.id}}">
+                                            <img class="card-img-top" src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Couverture Le seigneur des anneaux">
+                                        </a>
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">{{ livre.titre }}</h5>
