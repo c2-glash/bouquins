@@ -9,6 +9,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategorieController extends AbstractController
 {
     /**
+     * @Route("/categories", name="categories")
+     */
+    public function pageCategories(CategorieRepository $repository)
+    {
+        return $this->render('categories/categories.html.twig', [
+            'liste_categories' => $repository->findAll(),
+        ]);
+    }
+    
+    /**
      * @Route("/categorie/{id<\d+>}", name="categorie")
      */
     public function pageCategorie($id, CategorieRepository $repository)

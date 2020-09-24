@@ -11,6 +11,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class AuteurController extends AbstractController
 {
     /**
+     * @Route("/auteurs", name="auteurs")
+     */
+    public function pageAuteurs(AuteurRepository $repository)
+    {
+        return $this->render('auteurs/auteurs.html.twig', [
+            'liste_auteurs' => $repository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/auteur/{id<\d+>}", name="auteur")
      */
     public function pageAuteur(Auteur $auteur)
