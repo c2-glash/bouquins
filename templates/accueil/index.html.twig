@@ -73,32 +73,7 @@
                         <div class="card-deck">
 
                             {% for livre in derniers_ajouts %}
-                                <div class="card mb-4">
-                                    <div class="card-img-container">
-                                        <a href="/livre/{{livre.id}}">
-                                            <img class="card-img-top" src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Couverture Le seigneur des anneaux">
-                                        </a>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ livre.titre }}</h5>
-                                        <p class="card-text">
-                                        <b>Auteur</b> : 
-                                            {% for auteur in livre.auteurs %}
-                                                {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
-                                            {% endfor %}
-                                        </p>
-                                        <p class="card-text"><b>Catégorie</b> : 
-                                            {% for categorie in livre.categories %}
-                                                {{categorie.nom}}
-                                            {% endfor %}
-                                        </p>
-                                        <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
-                                        <a href="/livre/{{livre.id}}" class="btn btn-primary">Emprunter</a>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
-                                    </div>
-                                </div>
+                                {% include "layout/cardLivre.html.twig" %}
                             {% endfor %}
 
                         </div>

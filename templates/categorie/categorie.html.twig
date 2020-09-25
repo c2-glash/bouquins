@@ -20,27 +20,7 @@
                     <div class="container">
                         <div class="card-deck">
                             {% for livre in categorie.livres %}
-                                <div class="card mb-4">
-                                    <div class="card-img-container">
-                                        <a href="/livre/{{livre.id}}">
-                                            <img class="card-img-top"src="{{ asset('build/images/' ~ livre.urlCouverture) }}" alt="Card image cap">
-                                        </a>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{livre.titre}}</h5>
-                                        <p class="card-text">
-                                        Auteur : 
-                                            {% for auteur in livre.auteurs %}
-                                                {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
-                                            {% endfor %}
-                                        </p>
-                                        <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
-                                        <a href="#" class="btn btn-primary">Emprunter</a>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
-                                    </div>
-                                </div>
+                                {% include "layout/cardLivre.html.twig" %}
                             {% endfor %}
                         </div>
                     </div>

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un livre la collection{% endblock %}
+{% set headerh1 = 'Liste de mes emprunts' %}
+{% set pageType = 'GestionCompte' %}
+
+{% block body %}
+
+{% include './layout/header.html.twig' %}
+    <main>
+        <section class="container">
+            <div class="mes-livres-container">
+                {% for emprunt in app.user.emprunts %}
+                    
+                        <div class="media mes-livres">
+                            <figure class="figure mr-3">
+                                <img src="{{ asset('build/images/' ~ emprunt.propriete.livre.urlCouverture) }}" class="figure-img img-fluid rounded" alt="Couverture {{emprunt.propriete.livre.titre}}">
+                                
+                            </figure>
+                            <div class="media-body">
+                                <h5 class="mt-0">{{emprunt.propriete.livre.titre}}</h5>
+                                <p><b>Auteur : </b>
+                                    {% for auteur in emprunt.propriete.livre.auteurs %}
+                                        {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
+                                    {% endfor %}
+                                <br/><b>Categorie : </b>
+                                    {% for categorie in emprunt.propriete.livre.categories %}
+                                        {{categorie.nom}}
+                                    {% endfor %}
+                                </p>
+                                <button class="btn btn-primary">Terminer l'emprunt</a>
+                            </div>
+                        </div>
+
+                {% endfor %}
+            </div>
+        </section>
+
+
+    </main>
+{% include './layout/footer.html.twig' %}
+{% endblock %}

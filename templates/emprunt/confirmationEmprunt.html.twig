@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmer un emprunt{% endblock %}
+{% set headerh1 = 'Demande d\'emprunt' %}
+{% set pageType = 'GestionCompte' %}
+
+{% block body %}
+
+{% include './layout/header.html.twig' %}
+    <main>
+        <section class="container">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% if livre.estDisponible == true %}
+                {{ form_start(emprunt_form) }}
+                    
+                    {{ form_row(emprunt_form.propriete, {label: 'Choix du proprietaire du livre'} ) }}
+                    <input type="submit" class="btn btn-primary" value="Confirmer la demande d'emprunt">
+
+                {{ form_end(emprunt_form) }}
+            {% endif %}
+
+    </section>
+
+
+    </main>
+{% include './layout/footer.html.twig' %}
+{% endblock %}

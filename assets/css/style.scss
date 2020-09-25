@@ -41,15 +41,18 @@ body{
     th, td{padding:10px;border:1px solid $colorThemeDark;}
     th{background-color:#f6f5f588;} 
 
-
-    form{
-        .alert-primary{
+    .alert{
+        margin-bottom:0px;
+        &.alert-primary{
             background-color: rgba(253, 126, 20, 77);
             border-color: $colorThemeOrange;
             color:$colorThemeDark;
             a{
                 color:$colorThemeClear;}
         }
+    }
+
+    form{
         .btn{padding:4px 12px;}
         .custom-file-label::after {
             content:'Parcourir';

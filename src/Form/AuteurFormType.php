@@ -20,7 +20,7 @@ class AuteurFormType extends AbstractType
             ->add('prenom', TextType::class)
             ->add('description', TextareaType::class)
             ->add('url_photo', FileType::class, [
-                'label' => 'Illustration (image .jpg / .png)',
+                'label' => 'Photo (image .jpg / .png)',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [

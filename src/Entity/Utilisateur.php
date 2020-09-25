@@ -47,9 +47,15 @@ class Utilisateur implements UserInterface
      */
     private $proprietes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Emprunt::class, mappedBy="utilisateur", orphanRemoval=true)
+     */
+    private $emprunts;
+
     public function __construct()
     {
         $this->proprietes = new ArrayCollection();
+        $this->emprunts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,6 +172,37 @@ class Utilisateur implements UserInterface
             // set the owning side to null (unless already changed)
             if ($propriete->getUtilisateur() === $this) {
                 $propriete->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Emprunt[]
+     */
+    public function getEmprunts(): Collection
+    {
+        return $this->emprunts;
+    }
+
+    public function addEmprunt(Emprunt $emprunt): self
+    {
+        if (!$this->emprunts->contains($emprunt)) {
+            $this->emprunts[] = $emprunt;
+            $emprunt->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmprunt(Emprunt $emprunt): self
+    {
+        if ($this->emprunts->contains($emprunt)) {
+            $this->emprunts->removeElement($emprunt);
+            // set the owning side to null (unless already changed)
+            if ($emprunt->getUtilisateur() === $this) {
+                $emprunt->setUtilisateur(null);
             }
         }
 

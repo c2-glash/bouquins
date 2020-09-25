@@ -19,7 +19,7 @@ export class CardLivre extends React.Component{
                     <p className="card-text"><b>Auteur</b> : { this.props.prenomAuteur} { this.props.nomAuteur }</p>
                     <p className="card-text"><b>Catégorie</b> : { this.props.categorie }</p>
                     <a href={'/livre/' + this.props.id} className="btn btn-primary">Détails</a>
-                    <a href={'/livre/' + this.props.id} className="btn btn-primary">Emprunter</a>
+                    <a href={'/emprunter/' + this.props.id} className="btn btn-primary">Emprunter</a>
                 </div>
                 <div className="card-footer">
                     <small className="text-muted">Ajouté à Bouquins le { this.props.dateAjout }</small>

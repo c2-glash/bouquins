@@ -89,13 +89,17 @@ body th {
   background-color: #f6f5f588;
 }
 
-body form .alert-primary {
+body .alert {
+  margin-bottom: 0px;
+}
+
+body .alert.alert-primary {
   background-color: #fd7e14;
   border-color: #fd7e14;
   color: #292726;
 }
 
-body form .alert-primary a {
+body .alert.alert-primary a {
   color: #f6f5f5;
 }
 

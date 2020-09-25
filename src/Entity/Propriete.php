@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProprieteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +30,16 @@ class Propriete
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $utilisateur;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Emprunt::class, mappedBy="propriete", orphanRemoval=true)
+     */
+    private $emprunt;
+
+    public function __construct()
+    {
+        $this->emprunt = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -57,4 +69,51 @@ class Propriete
 
         return $this;
     }
+
+    //check si propriete est disponible
+    public function estDisponible(): bool
+    { 
+        //recuperation des emprunts de la propriete
+        //pour chaque emprunt, si un n'a pas de date de rendu, c'est qu'il n'est pas dispo.
+        foreach($this->getEmprunt() as $emprunt){
+            if($emprunt->getDateRendu() === null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
+    /**
+     * @return Collection|Emprunt[]
+     */
+    public function getEmprunt(): Collection
+    {
+        return $this->emprunt;
+    }
+
+    public function addEmprunt(Emprunt $emprunt): self
+    {
+        if (!$this->emprunt->contains($emprunt)) {
+            $this->emprunt[] = $emprunt;
+            $emprunt->setPropriete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmprunt(Emprunt $emprunt): self
+    {
+        if ($this->emprunt->contains($emprunt)) {
+            $this->emprunt->removeElement($emprunt);
+            // set the owning side to null (unless already changed)
+            if ($emprunt->getPropriete() === $this) {
+                $emprunt->setPropriete(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
