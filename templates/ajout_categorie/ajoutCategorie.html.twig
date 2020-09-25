@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un livre la collection{% endblock %}
-{% set headerh1 = 'Ajouter un livre à la collection' %}
+{% block title %}Ajouter une Catégorie{% endblock %}
+{% set headerh1 = 'Ajouter une catégorie' %}
 {% set pageType = 'GestionCompte' %}
 
 {% block body %}
@@ -15,16 +15,15 @@
                     </div>
                 {% endfor %}
 
-                {{ form_start(livre_form) }}
-                    {{ form_widget(livre_form) }}
-                    <input type="submit" class="btn btn-primary" value="Ajouter un livre">
-                {{ form_end(livre_form) }}
+                {{ form_start(categorie_form) }}
+                    {{ form_widget(categorie_form) }}
+                    <input type="submit" class="btn btn-primary" value="Ajouter une catégorie">
+                {{ form_end(categorie_form) }}
         </section>
 
         <section class="container">
-            <p>Si l'auteur ou la catégorie que vous cherchez n'apparaissent pas dans leurs listes respectives, vous pouvez les ajouter ici :</p>
+            <a href="/ajout/livre" class="btn btn-primary">Ajouter un livre</a>
             <a href="/ajout/auteur" class="btn btn-primary">Ajouter un auteur</a>
-            <a href="/ajout/categorie" class="btn btn-primary">Ajouter une catégorie</a>
         </section>
     </main>
 {% include './layout/footer.html.twig' %}

@@ -48,7 +48,7 @@ class AjoutLivreController extends AbstractController
                 // Move the file to the directory where brochures are stored
                 try {
                     $urlCouverture->move(
-                        $this->getParameter('couverture_directory'),
+                        $this->getParameter('couverture_directory'),//dans config/services.taml
                         $newFilename
                     );
                 } catch (FileException $e) {
