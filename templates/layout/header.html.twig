@@ -60,7 +60,7 @@
                                 {% if headerh5 is defined %}
                                     <h5>{{headerh5}}</h5>
                                 {% endif %}
-                                {% if app.user %}
+                                {% if app.user or isAccueil %}
                                     {% if headerp is defined %}
                                         <p>{{headerp}}</p>
                                     {% endif %}
