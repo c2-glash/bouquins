@@ -79,7 +79,7 @@ class AjoutLivreController extends AbstractController
             $this->addFlash('success', 'Votre livre a été ajouté.');
         }
         
-        return $this->render('ajout_livre/ajoutLivre.html.twig', [
+        return $this->render('ajout/ajoutLivre.html.twig', [
             'controller_name' => 'AjoutLivreController',
             'livre_form' => $form->createView(),
         ]);

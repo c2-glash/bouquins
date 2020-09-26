@@ -9,7 +9,8 @@ export class SearchBar extends React.Component
     state = {
         search      : '',   // Saisie en cours de l'utilisateur
         suggestions : [],   // Liste des suggestions
-        dbdata      : []
+        dbdata      : [],
+        userdetails : [],
     };
 
     
@@ -35,6 +36,26 @@ export class SearchBar extends React.Component
 
             })
             
+
+        // Exécution d'une requête HTTP GET vers l'API
+        window.fetch('https://localhost:8000/api/user')
+            .then((httpResponse) =>
+            {
+                // Traduit la réponse HTTP brute en du JSON.
+                return httpResponse.json();
+            })
+            .then((jsonResults) =>
+            {
+                // Stockage des données
+                this.userDetails = jsonResults;
+
+                this.setState(
+                {
+                    userdetails : jsonResults
+                });
+
+                
+            })
     }
 
     onChangeSearch = (event) =>
@@ -72,9 +93,10 @@ export class SearchBar extends React.Component
         }, 300);
         
     }
-
+    
     render()
     {
+        let userIsLoggued = this.state.userdetails.loggued;
         // Parcourt la liste des suggestions et les transforme en une liste de <li> JSX.
         const listesuggestions = this.state.suggestions.map((suggestion, index) => {
             //affichage des résultat à partir de 2 chars dans la recherche 
@@ -82,7 +104,7 @@ export class SearchBar extends React.Component
                 return <li key={ index }><a href={'/livre/' + suggestion.id }>{ suggestion.titre }</a></li>
             }
         });
-
+        
         //affichage complet par défaut
         let cardsSuggestions = this.database.map((livre, index) => {
             return (
@@ -91,11 +113,12 @@ export class SearchBar extends React.Component
                     id =            { livre.id }
                     titre =         { livre.titre }
                     description =   { livre.description }
-                    dateAjout =     { livre.dateAjout}
+                    dateAjout =     { livre.date_ajout}
                     categorie =     { livre.categories[0].nom }
                     urlCouverture = { livre.url_couverture }
                     nomAuteur =     { livre.auteurs[0].nom }
                     prenomAuteur =  { livre.auteurs[0].prenom }
+                    estDisponible = { livre.est_disponible }
                 ></CardLivre>
             )
         });

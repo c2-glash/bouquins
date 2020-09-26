@@ -54,7 +54,7 @@ body{
 
     form{
         .btn{padding:4px 12px;}
-        .custom-file-label::after {
+        .custom-file-label::after { 
             content:'Parcourir';
         }
     }

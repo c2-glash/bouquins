@@ -3,12 +3,37 @@
 namespace App\Controller;
 
 use App\Repository\LivreRepository;
+use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ApiController extends AbstractController
-{
+{   
+    /**
+     * @Route("api/user", name="api_user")
+     */
+    public function checkUser(UtilisateurRepository $utilisateurRepository)
+    {
+        $user = '';
+        if($this->getUser() === null){
+            $utilisateurActuel = [
+                'loggued' => 'false',
+            ];
+            return new JsonResponse($utilisateurActuel);
+        }
+        $user = $this->getUser();
+        $utilisateurActuel = [
+            'loggued' => 'true',
+            'id' => $user->getId(),
+            'username' => $user->getUsername(),
+            'roles' => $user->getRoles(),
+            
+        ];
+        return new JsonResponse($utilisateurActuel);
+        
+    }
+
     /**
      * @Route("api/livres", name="api_livres")
      */
@@ -16,6 +41,8 @@ class ApiController extends AbstractController
     {
         $tousLesLivres = [];
         $livres = $livreRepository->findAll();
+        
+        
 
         foreach($livres as $livre){
             
@@ -52,8 +79,8 @@ class ApiController extends AbstractController
                 'titre' => $livre->getTitre(),
                 'description' => $livre->getDescription(),
                 'url_couverture' => $livre->getUrlCouverture(),
-                'date_ajout' => $livre->getDateAjout(),
-                'est_emprunte' => $livre->getEstEmprunte(),
+                'date_ajout' => date_format($livre->getDateAjout(), 'd/m/Y'),
+                'est_disponible' => $livre->estDisponible(),
                 'auteurs' => $auteursDuLivre,
                 'categories' => $categoriesDuLivre,
             ];

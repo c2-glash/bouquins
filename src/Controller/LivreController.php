@@ -13,7 +13,7 @@ class LivreController extends AbstractController
      */
     public function pageLivres(LivreRepository $repository)
     {
-        return $this->render('livres/livres.html.twig', [
+        return $this->render('livre/livres.html.twig', [
             'liste_livres' => $repository->findAll(),
         ]);
     }

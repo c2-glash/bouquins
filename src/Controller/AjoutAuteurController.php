@@ -67,7 +67,7 @@ class AjoutAuteurController extends AbstractController
             $this->addFlash('success', 'Votre auteur a été ajouté.');
         }
         
-        return $this->render('ajout_auteur/ajoutAuteur.html.twig', [
+        return $this->render('ajout/ajoutAuteur.html.twig', [
             'controller_name' => 'AjoutAuteurController',
             'auteur_form' => $form->createView(),
         ]);

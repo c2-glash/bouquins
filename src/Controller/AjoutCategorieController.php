@@ -67,7 +67,7 @@ class AjoutCategorieController extends AbstractController
             $this->addFlash('success', 'Votre catégorie a été ajouté.');
         }
         
-        return $this->render('ajout_categorie/ajoutCategorie.html.twig', [
+        return $this->render('ajout/ajoutCategorie.html.twig', [
             'controller_name' => 'AjoutCategorieController',
             'categorie_form' => $form->createView(),
         ]);

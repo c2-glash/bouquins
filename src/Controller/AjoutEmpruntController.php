@@ -17,7 +17,7 @@ class AjoutEmpruntController extends AbstractController
     /**
      * @Route("/emprunter/{id<\d+>}", name="emprunter")
      */
-    public function ajoutAuteur(
+    public function ajoutEmprunt(
         Request $request, 
         EntityManagerInterface $manager,
         Livre $livre

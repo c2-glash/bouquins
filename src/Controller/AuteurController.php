@@ -15,7 +15,7 @@ class AuteurController extends AbstractController
      */
     public function pageAuteurs(AuteurRepository $repository)
     {
-        return $this->render('auteurs/auteurs.html.twig', [
+        return $this->render('auteur/auteurs.html.twig', [
             'liste_auteurs' => $repository->findAll(),
         ]);
     }
