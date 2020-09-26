@@ -10,7 +10,7 @@ export class SearchBar extends React.Component
         search      : '',   // Saisie en cours de l'utilisateur
         suggestions : [],   // Liste des suggestions
         dbdata      : [],
-        userdetails : [],
+        detailsutilisateur : [],
     };
 
     
@@ -47,11 +47,11 @@ export class SearchBar extends React.Component
             .then((jsonResults) =>
             {
                 // Stockage des données
-                this.userDetails = jsonResults;
+                this.detailsUtilisateur = jsonResults;
 
                 this.setState(
                 {
-                    userdetails : jsonResults
+                    detailsutilisateur : jsonResults
                 });
 
                 
@@ -96,7 +96,6 @@ export class SearchBar extends React.Component
     
     render()
     {
-        let userIsLoggued = this.state.userdetails.loggued;
         // Parcourt la liste des suggestions et les transforme en une liste de <li> JSX.
         const listesuggestions = this.state.suggestions.map((suggestion, index) => {
             //affichage des résultat à partir de 2 chars dans la recherche 
@@ -106,6 +105,7 @@ export class SearchBar extends React.Component
         });
         
         //affichage complet par défaut
+
         let cardsSuggestions = this.database.map((livre, index) => {
             return (
                 <CardLivre 
@@ -118,7 +118,7 @@ export class SearchBar extends React.Component
                     urlCouverture = { livre.url_couverture }
                     nomAuteur =     { livre.auteurs[0].nom }
                     prenomAuteur =  { livre.auteurs[0].prenom }
-                    estDisponible = { livre.est_disponible }
+                    estEmpruntable = { livre.est_empruntable }
                 ></CardLivre>
             )
         });
@@ -139,6 +139,8 @@ export class SearchBar extends React.Component
                         urlCouverture = { livre.url_couverture }
                         nomAuteur =     { livre.auteurs[0].nom }
                         prenomAuteur =  { livre.auteurs[0].prenom }
+                        estDisponible = { livre.est_disponible }
+                        estloggue =     { utilisateurLoggue }
                     ></CardLivre>
                 )
             });

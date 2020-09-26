@@ -18,17 +18,16 @@ class ApiController extends AbstractController
         $user = '';
         if($this->getUser() === null){
             $utilisateurActuel = [
-                'loggued' => 'false',
+                'loggue' => false,
             ];
             return new JsonResponse($utilisateurActuel);
         }
         $user = $this->getUser();
         $utilisateurActuel = [
-            'loggued' => 'true',
+            'loggue' => true,
             'id' => $user->getId(),
             'username' => $user->getUsername(),
             'roles' => $user->getRoles(),
-            
         ];
         return new JsonResponse($utilisateurActuel);
         
@@ -37,15 +36,25 @@ class ApiController extends AbstractController
     /**
      * @Route("api/livres", name="api_livres")
      */
-    public function TousLesLivres(LivreRepository $livreRepository)
+    public function TousLesLivres(LivreRepository $livreRepository, UtilisateurRepository $utilisateurRepository)
     {
         $tousLesLivres = [];
         $livres = $livreRepository->findAll();
-        
+
+        $utilisateurloggue = true;
+        if($this->getUser() === null){
+            $utilisateurloggue = false;
+        }
+       
         
 
         foreach($livres as $livre){
-            
+
+            $livreDisponible = $livre->estDisponible();
+            $livreEmpruntable = false;
+            if($livreDisponible === true && $utilisateurloggue === true){
+                $livreEmpruntable = true;
+            }
             /*recuperation des auteurs du livre*/
             $auteurs = $livre->getAuteurs();
             $auteursDuLivre = [];
@@ -80,9 +89,11 @@ class ApiController extends AbstractController
                 'description' => $livre->getDescription(),
                 'url_couverture' => $livre->getUrlCouverture(),
                 'date_ajout' => date_format($livre->getDateAjout(), 'd/m/Y'),
-                'est_disponible' => $livre->estDisponible(),
                 'auteurs' => $auteursDuLivre,
                 'categories' => $categoriesDuLivre,
+                'utilisateur_loggue' => $utilisateurloggue,
+                'est_disponible' => $livre->estDisponible(),
+                'est_empruntable' => $livreEmpruntable,
             ];
         }
 

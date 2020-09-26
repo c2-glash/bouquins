@@ -74,6 +74,10 @@ body small, body p {
   line-height: 1.75em;
 }
 
+body small {
+  font-size: 75%;
+}
+
 body table {
   width: 100%;
   max-width: 500px;
