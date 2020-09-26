@@ -212,6 +212,8 @@ body header .navbar #navbarSupportedContent .navbar-nav .nav-link:focus {
 
 body header .navbar .nav-item.dropdown .dropdown-menu {
   background-color: transparent;
+  border: none;
+  border-radius: 0;
 }
 
 body header .navbar .nav-item.dropdown .dropdown-menu .dropdown-item {

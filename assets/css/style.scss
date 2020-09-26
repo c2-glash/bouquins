@@ -141,6 +141,8 @@ body{
                 &.dropdown{
                     .dropdown-menu{
                         background-color:transparent;
+                        border:none;
+                        border-radius:0;
                         .dropdown-item{
                             color: $colorThemeClearTransparent;
                             font-weight: 300;

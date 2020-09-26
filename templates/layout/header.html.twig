@@ -26,9 +26,9 @@
                                 Mon compte
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="">Emprunter un livre</a>
-                                    <a class="dropdown-item" href="/ajout/livre">Ajouter un livre</a>
                                     <a class="dropdown-item" href="/meslivres">Mes livres</a>
+                                    <a class="dropdown-item" href="">Mes emprunts</a>
+                                    <a class="dropdown-item" href="/logout">Deconnexion</a>
                                 </div>
                             </li>
 
@@ -45,13 +45,19 @@
             </nav>
             <div class="row">
                 {% if layoutHeader2 is defined %}
-                    <div class="col col-12 col-md-4 layoutHeader2">
+                    <div class="col col-11 col-md-4 layoutHeader2">
                     </div>
-                    <div class="col col-12 col-md-8 layoutHeader2">
+                    <div class="col col-11 col-md-8 layoutHeader2">
                         <h1>{{ headerh1 }}</h1>
                     </div>
                 {% else %}
-                    <div class="col col-12 {% if displayLoginForm is defined %}col-md-8{% else %}col-md-12{% endif %}">
+                    <div class="col col-11 
+                    {% if displayLoginForm is defined %}
+                        {% if app.user %}col-md-11{% else %}col-md-8{% endif %}
+                        
+                    {% else %}
+                        col-md-11
+                    {% endif %}">
                         {% if headerh1 is defined %}
                             <h1>{{ headerh1 }}</h1>
                         {% endif %}
@@ -72,41 +78,43 @@
                         {% endif %}
                     </div>
                     {% if displayLoginForm is defined %}
-                        <div class="col col-12 col-md-4">
+                        {% if app.user %}{% else %}
+                            <div class="col col-12 col-md-4">
 
-                            {# formulaire de connexion #}
-                            <form method="post" id="hpLogin">
-                                <h5>Connexion</h5>
+                                {# formulaire de connexion #}
+                                <form method="post" id="hpLogin">
+                                    <h5>Connexion</h5>
 
-                                {# si l'utilisateur est déjà connecté #}
-                                {% if app.user %}
-                                    <div class="alert alert-primary">
-                                        Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
-                                    </div>
-                                {% endif %}
+                                    {# si l'utilisateur est déjà connecté #}
+                                    {% if app.user %}
+                                        <div class="alert alert-primary">
+                                            Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+                                        </div>
+                                    {% endif %}
 
-                                {# si une erreur survient #}
-                                {% if login_error() %}
-                                    <div class="alert alert-danger">{{ login_error().messageKey|trans(login_error().messageData, 'security') }}</div>
-                                {% endif %}
+                                    {# si une erreur survient #}
+                                    {% if login_error() %}
+                                        <div class="alert alert-danger">{{ login_error().messageKey|trans(login_error().messageData, 'security') }}</div>
+                                    {% endif %}
 
-                                {% if not app.user %}
-                                    <div class="form-group">
-                                        <input class="form-control" type="email" value="{{ last_username ?? '' }}" name="loginEmail" id="inputEmail" placeholder="Identifiant" required autofocus>
-                                    </div>
+                                    {% if not app.user %}
+                                        <div class="form-group">
+                                            <input class="form-control" type="email" value="{{ last_username ?? '' }}" name="loginEmail" id="inputEmail" placeholder="Identifiant" required autofocus>
+                                        </div>
 
-                                    <div class="form-group">
-                                        <input class="form-control" type="password" name="loginPassword" id="inputPassword" placeholder ="Mot de passe" required>
-                                    </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="password" name="loginPassword" id="inputPassword" placeholder ="Mot de passe" required>
+                                        </div>
 
-                                    {# un champ caché pour la protection des failles CSRF #}
-                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                        {# un champ caché pour la protection des failles CSRF #}
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                                    <input type="submit" class="btn btn-primary" role="button" value="Connexion">
-                                {% endif %}
-                            </form>
-                            
-                        </div>
+                                        <input type="submit" class="btn btn-primary" role="button" value="Connexion">
+                                    {% endif %}
+                                </form>
+                                
+                            </div>
+                        {% endif %}
                     {% endif %}
                 {% endif %}
             </div>

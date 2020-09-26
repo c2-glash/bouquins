@@ -9,6 +9,7 @@
 {% include './layout/header.html.twig' %}
     <main>
         <section class="container">
+            <a href="/ajout/livre" class="btn btn-primary">Ajouter un nouveau livre</a>
             <div class="mes-livres-container">
                 {% for propriete in app.user.proprietes %}
                     
