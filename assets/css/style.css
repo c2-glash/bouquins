@@ -371,31 +371,51 @@ body main section .recherche-livres .form-group ul#searchSuggestions li a:hover 
 }
 
 body main .mes-livres-container {
+  margin: 0 -10px 0 -10px;
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -10px 0 -10px;
 }
 
 body main .mes-livres-container .mes-livres {
   width: calc(50% - 20px);
   margin: 10px;
+  display: flex;
+  flex-flow: column;
 }
 
-body main .mes-livres-container .mes-livres figure {
+body main .mes-livres-container .mes-livres .media-body {
+  display: flex;
+  padding: 20px 1.25rem;
+}
+
+body main .mes-livres-container .mes-livres .media-body figure {
+  min-width: 120px;
   max-width: 120px;
 }
 
-body main .mes-livres-container .mes-livres figure img {
+body main .mes-livres-container .mes-livres .media-body figure img {
   height: auto;
   max-height: 200px;
 }
 
+body main .mes-livres-container .mes-livres .media-body .media-content {
+  flex-flow: column;
+}
+
+body main .mes-livres-container .mes-livres .media-footer {
+  padding: 0.75rem 1.25rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  align-self: end;
+  width: 100%;
+}
+
 body main .media {
   background-color: #f6f5f5;
-  padding: 20px;
   margin: 20px 0;
   color: #292726;
   border-radius: 0.25rem;
+  display: block;
 }
 
 body main .media figure {

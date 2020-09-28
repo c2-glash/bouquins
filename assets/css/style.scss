@@ -298,30 +298,44 @@ body{
                         }
                     }
                 }
-                
             }
-            
         }
         .mes-livres-container{
+            margin:0 -10px 0 -10px;
             display:flex;
             flex-wrap: wrap;
-            margin:0 -10px 0 -10px;
             .mes-livres{
                 width:calc(50% - 20px);
                 margin:10px;
-                figure{
-                    max-width:120px;
-                    img{height:auto;max-height:200px;}
+                display: flex;
+                flex-flow: column;
+                .media-body{
+                    display:flex;
+                    padding:20px 1.25rem;
+                    figure{
+                        min-width:120px;
+                        max-width:120px;
+                        img{height:auto;max-height:200px;}
+                    }
+                    .media-content{
+                        flex-flow:column;
+                    }
+                }
+                .media-footer{
+                    padding: 0.75rem 1.25rem;
+                    background-color: rgba(0, 0, 0, 0.03);
+                    border-top: 1px solid rgba(0, 0, 0, 0.125);
+                    align-self: end;
+                    width: 100%;
                 }
             }
         }
         .media{
             background-color: $colorThemeClear;
-            padding:20px;
             margin:20px 0;
             color: $colorThemeDark;
             border-radius: 0.25rem;
-
+            display:block;
             figure{
                 max-width:200px;
                 width: auto;

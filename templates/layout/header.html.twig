@@ -1,4 +1,4 @@
-{% block  header %}
+{% block header %}
     <header>
         <section class="container">
             <nav class="navbar navbar-expand-lg navbar-dark">
@@ -27,7 +27,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="/meslivres">Mes livres</a>
-                                    <a class="dropdown-item" href="">Mes emprunts</a>
+                                    <a class="dropdown-item" href="/mesemprunts">Mes emprunts</a>
                                     <a class="dropdown-item" href="/logout">Deconnexion</a>
                                 </div>
                             </li>
@@ -66,7 +66,7 @@
                                 {% if headerh5 is defined %}
                                     <h5>{{headerh5}}</h5>
                                 {% endif %}
-                                {% if app.user or isAccueil %}
+                                {% if app.user or isAccueil is defined %}
                                     {% if headerp is defined %}
                                         <p>{{headerp}}</p>
                                     {% endif %}

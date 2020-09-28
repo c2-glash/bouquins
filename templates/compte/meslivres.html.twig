@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes livres{% endblock %}
+{% set headerh1 = 'Mes livres' %}
+{% set pageType = 'GestionCompte' %}
+
+{% block body %}
+
+{% include './layout/header.html.twig' %}
+    <main>
+        <section class="container">
+            <a href="/ajout/livre" class="btn btn-primary">Ajouter un nouveau livre</a>
+            <div class="mes-livres-container">
+                {% for propriete in app.user.proprietes %}
+                    
+                    <article class="media mes-livres">
+                        
+                        <div class="media-body">
+                            <figure class="figure mr-3">
+                                <img src="{{ asset('build/images/' ~ propriete.livre.urlCouverture) }}" class="figure-img img-fluid rounded" alt="J. R. R. Tolkien">
+                            </figure>
+                            <div class="media-content">
+                                <h5 class="mt-0">{{propriete.livre.titre}}</h5>
+                                
+                                <p><b>Auteur : </b>
+                                    {% for auteur in propriete.livre.auteurs %}
+                                        {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
+                                    {% endfor %}
+                                <br/><b>Categorie : </b>
+                                    {% for categorie in propriete.livre.categories %}
+                                        {{categorie.nom}}
+                                    {% endfor %}
+                                </p>
+                                {#<a href="" class="btn btn-primary">modifier</a> <button class="btn btn-danger">Supprimer</a>#}
+                            </div>
+                        </div>
+                        <div class="media-footer">
+                            <small class="text-muted">Ajouté le {{ propriete.livre.dateAjout|date("d/m/Y") }}.</small>
+                        </div>
+                        
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+
+
+    </main>
+{% include './layout/footer.html.twig' %}
+{% endblock %}

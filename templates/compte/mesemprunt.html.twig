@@ -12,12 +12,12 @@
             <div class="mes-livres-container">
                 {% for emprunt in app.user.emprunts %}
                     
-                        <div class="media mes-livres">
+                    <article class="media mes-livres">
+                        <div class="media-body">
                             <figure class="figure mr-3">
                                 <img src="{{ asset('build/images/' ~ emprunt.propriete.livre.urlCouverture) }}" class="figure-img img-fluid rounded" alt="Couverture {{emprunt.propriete.livre.titre}}">
-                                
                             </figure>
-                            <div class="media-body">
+                            <div class="media-content">
                                 <h5 class="mt-0">{{emprunt.propriete.livre.titre}}</h5>
                                 <p><b>Auteur : </b>
                                     {% for auteur in emprunt.propriete.livre.auteurs %}
@@ -28,9 +28,12 @@
                                         {{categorie.nom}}
                                     {% endfor %}
                                 </p>
-                                <button class="btn btn-primary">Terminer l'emprunt</a>
                             </div>
                         </div>
+                        <div class="media-footer">
+                            <small class="text-muted">Emprunté le {{ emprunt.dateEmprunt|date("d/m/Y") }}. Propriétaire : {{emprunt.propriete.utilisateur.username}}</small>
+                        </div>
+                    </article>
 
                 {% endfor %}
             </div>

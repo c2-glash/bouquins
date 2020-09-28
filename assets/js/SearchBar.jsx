@@ -119,6 +119,7 @@ export class SearchBar extends React.Component
                     nomAuteur =     { livre.auteurs[0].nom }
                     prenomAuteur =  { livre.auteurs[0].prenom }
                     estEmpruntable = { livre.est_empruntable }
+                    estloggue =     { livre.utilisateur_loggue }
                 ></CardLivre>
             )
         });
@@ -140,7 +141,7 @@ export class SearchBar extends React.Component
                         nomAuteur =     { livre.auteurs[0].nom }
                         prenomAuteur =  { livre.auteurs[0].prenom }
                         estDisponible = { livre.est_disponible }
-                        estloggue =     { utilisateurLoggue }
+                        estloggue =     { livre.utilisateur_loggue } 
                     ></CardLivre>
                 )
             });

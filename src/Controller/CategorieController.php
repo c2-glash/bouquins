@@ -26,8 +26,6 @@ class CategorieController extends AbstractController
         return $this->render('categorie/categorie.html.twig', [
             'id' => $id,
             'categorie' => $repository->find($id),
-
-            //dd($repository->find($id))
         ]);
     }
     
