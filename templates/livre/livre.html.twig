@@ -28,8 +28,12 @@
                     </p>
                     <p>{{livre.description}}</p>
                     <small class="form-text text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
-                    <a href="#" class="btn btn-primary">Emprunter</a>
-
+                    
+                    {% if is_granted("ROLE_USER") %}
+                        {% if livre.estDisponible %}
+                            <a href="#" class="btn btn-primary">Emprunter</a>
+                        {% endif %}
+                    {% endif %}
                     {# affichage des liens vers les fiches des auteurs, avec les noms complets des auteurs si il y en a plus d'un #}
                     {% if livre.auteurs|length == 1 %}
                         {% for auteur in livre.auteurs %}
