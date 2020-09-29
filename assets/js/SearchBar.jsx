@@ -140,7 +140,7 @@ export class SearchBar extends React.Component
                         urlCouverture = { livre.url_couverture }
                         nomAuteur =     { livre.auteurs[0].nom }
                         prenomAuteur =  { livre.auteurs[0].prenom }
-                        estDisponible = { livre.est_disponible }
+                        estEmpruntable = { livre.est_empruntable }
                         estloggue =     { livre.utilisateur_loggue } 
                     ></CardLivre>
                 )

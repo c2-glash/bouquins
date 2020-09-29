@@ -21,17 +21,19 @@
                 <div class="parallaxElement parallaxBase">
                     <div class="container">
                         {% for auteur in liste_auteurs %}
-                            <div class="media">
-                                <figure class="figure mr-3">
-                                    <img src="{{ asset('build/images/' ~ auteur.urlPhoto) }}" class="figure-img img-fluid rounded" alt="{{auteur.prenom}} {{auteur.nom}}">
-                                    <figcaption class="figure-caption">{{auteur.prenom}} {{auteur.nom}}</figcaption>
-                                </figure>
+                            <article class="media">
                                 <div class="media-body">
-                                    <h5 class="mt-0">{{auteur.prenom}} {{auteur.nom}}</h5>
-                                    <p>{{auteur.description}}</p>
-                                    <a class="btn btn-primary" href="auteur/{{auteur.id}}" role="button">Détails de l'auteur</a>
+                                    <figure class="figure mr-3">
+                                        <img src="{{ asset('build/images/' ~ auteur.urlPhoto) }}" class="figure-img img-fluid rounded" alt="{{auteur.prenom}} {{auteur.nom}}">
+                                        <figcaption class="figure-caption">{{auteur.prenom}} {{auteur.nom}}</figcaption>
+                                    </figure>
+                                    <div class="media-content">
+                                        <h5 class="mt-0">{{auteur.prenom}} {{auteur.nom}}</h5>
+                                        <p>{{auteur.description}}</p>
+                                        <a class="btn btn-primary" href="auteur/{{auteur.id}}" role="button">Détails de l'auteur</a>
+                                    </div>
                                 </div>
-                            </div>
+                            </article>
                         {% endfor %}
                         
                         <div class="paginationElementLoader"><button class="btn btn-primary">Charger plus d'auteurs</button></div>

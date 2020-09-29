@@ -40,18 +40,20 @@ body{
     table{width:100%; max-width:500px;border-collapse: collapse;}
     th, td{padding:10px;border:1px solid $colorThemeDark;}
     th{background-color:#f6f5f588;} 
-
-    .alert{
-        margin-bottom:0px;
-        &.alert-primary{
-            background-color: rgba(253, 126, 20, 77);
-            border-color: $colorThemeOrange;
-            color:$colorThemeDark;
-            a{
-                color:$colorThemeClear;}
+    
+    .alert-container{
+        padding-bottom:10px;
+        .alert{ 
+            
+            &.alert-primary{
+                background-color: rgba(253, 126, 20, 77);
+                border-color: $colorThemeOrange;
+                color:$colorThemeDark;
+                a{
+                    color:$colorThemeClear;}
+            }
         }
     }
-
     form{
         .btn{padding:4px 12px;}
         .custom-file-label::after { 
@@ -309,26 +311,21 @@ body{
                 margin:10px;
                 display: flex;
                 flex-flow: column;
-                .media-body{
-                    display:flex;
-                    padding:20px 1.25rem;
-                    figure{
-                        min-width:120px;
-                        max-width:120px;
-                        img{height:auto;max-height:200px;}
-                    }
-                    .media-content{
-                        flex-flow:column;
-                    }
-                }
-                .media-footer{
-                    padding: 0.75rem 1.25rem;
-                    background-color: rgba(0, 0, 0, 0.03);
-                    border-top: 1px solid rgba(0, 0, 0, 0.125);
-                    align-self: end;
-                    width: 100%;
-                }
             }
+        }
+        .media-body{
+            display:flex;
+            padding:20px 1.25rem;
+            .media-content{
+                flex-flow:column;
+            }
+        }
+        .media-footer{
+            padding: 0.75rem 1.25rem;
+            background-color: rgba(0, 0, 0, 0.03);
+            border-top: 1px solid rgba(0, 0, 0, 0.125);
+            align-self: end;
+            width: 100%;
         }
         .media{
             background-color: $colorThemeClear;
@@ -337,10 +334,10 @@ body{
             border-radius: 0.25rem;
             display:block;
             figure{
-                max-width:200px;
-                width: auto;
                 height: auto;
                 margin-bottom:0;
+                min-width:150px;
+                max-width:150px;
                 img{
                     object-fit: cover;
                     width: 100%;

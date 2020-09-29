@@ -24,9 +24,11 @@
                         {% for categorie in liste_categories %}
                             <div class="media">
                                 <div class="media-body">
-                                    <h5 class="mt-0">{{categorie.nom}}</h5> 
-                                    <p>{{categorie.description}}</p>
-                                    <a class="btn btn-primary" href="categorie/{{categorie.id}}" role="button">Détails de la catégorie</a>
+                                    <div class="media-content">
+                                        <h5 class="mt-0">{{categorie.nom}}</h5>
+                                        <p>{{categorie.description}}</p>
+                                        <a class="btn btn-primary" href="categorie/{{categorie.id}}" role="button">Détails de la catégorie</a>
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}

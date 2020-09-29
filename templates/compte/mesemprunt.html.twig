@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un livre la collection{% endblock %}
-{% set headerh1 = 'Liste de mes emprunts' %}
+{% block title %}Mes emprunts{% endblock %}
+{% set headerh1 = 'Mes emprunts' %}
 {% set pageType = 'GestionCompte' %}
 
 {% block body %}
@@ -11,30 +11,32 @@
         <section class="container">
             <div class="mes-livres-container">
                 {% for emprunt in app.user.emprunts %}
-                    
-                    <article class="media mes-livres">
-                        <div class="media-body">
-                            <figure class="figure mr-3">
-                                <img src="{{ asset('build/images/' ~ emprunt.propriete.livre.urlCouverture) }}" class="figure-img img-fluid rounded" alt="Couverture {{emprunt.propriete.livre.titre}}">
-                            </figure>
-                            <div class="media-content">
-                                <h5 class="mt-0">{{emprunt.propriete.livre.titre}}</h5>
-                                <p><b>Auteur : </b>
-                                    {% for auteur in emprunt.propriete.livre.auteurs %}
-                                        {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
-                                    {% endfor %}
-                                <br/><b>Categorie : </b>
-                                    {% for categorie in emprunt.propriete.livre.categories %}
-                                        {{categorie.nom}}
-                                    {% endfor %}
-                                </p>
+                    {% if emprunt.dateRendu %}
+                        
+                    {% else %}
+                        <article class="media mes-livres">
+                            <div class="media-body">
+                                <figure class="figure mr-3">
+                                    <img src="{{ asset('build/images/' ~ emprunt.propriete.livre.urlCouverture) }}" class="figure-img img-fluid rounded" alt="Couverture {{emprunt.propriete.livre.titre}}">
+                                </figure>
+                                <div class="media-content">
+                                    <h5 class="mt-0">{{emprunt.propriete.livre.titre}}</h5>
+                                    <p><b>Auteur : </b>
+                                        {% for auteur in emprunt.propriete.livre.auteurs %}
+                                            {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
+                                        {% endfor %}
+                                    <br/><b>Categorie : </b>
+                                        {% for categorie in emprunt.propriete.livre.categories %}
+                                            {{categorie.nom}}
+                                        {% endfor %}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="media-footer">
-                            <small class="text-muted">Emprunté le {{ emprunt.dateEmprunt|date("d/m/Y") }}. Propriétaire : {{emprunt.propriete.utilisateur.username}}</small>
-                        </div>
-                    </article>
-
+                            <div class="media-footer">
+                                <small class="text-muted">Emprunté le {{ emprunt.dateEmprunt|date("d/m/Y") }}. Propriétaire : {{emprunt.propriete.utilisateur.username}}</small>
+                            </div>
+                        </article>
+                    {% endif %}
                 {% endfor %}
             </div>
         </section>

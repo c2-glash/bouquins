@@ -2,6 +2,9 @@
 
 {% block title %}Mes livres{% endblock %}
 {% set headerh1 = 'Mes livres' %}
+{% set headerh5 = 'Vous avez un nouveau livre?' %}
+{% set headerbtntext = 'Ajouter un nouveau livre' %}
+{% set headerbtnlink = '/ajout/livre' %}
 {% set pageType = 'GestionCompte' %}
 
 {% block body %}
@@ -9,7 +12,6 @@
 {% include './layout/header.html.twig' %}
     <main>
         <section class="container">
-            <a href="/ajout/livre" class="btn btn-primary">Ajouter un nouveau livre</a>
             <div class="mes-livres-container">
                 {% for propriete in app.user.proprietes %}
                     
@@ -35,7 +37,12 @@
                             </div>
                         </div>
                         <div class="media-footer">
-                            <small class="text-muted">Ajouté le {{ propriete.livre.dateAjout|date("d/m/Y") }}.</small>
+                            <small class="text-muted">Ajouté le {{ propriete.livre.dateAjout|date("d/m/Y") }}. 
+                                {% for emprunteur in propriete.emprunt %}
+                                    Emprunté par
+                                    {{emprunteur.utilisateur.username}}
+                                {% endfor %}
+                            </small>
                         </div>
                         
                     </article>

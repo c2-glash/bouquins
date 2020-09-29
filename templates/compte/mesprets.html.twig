@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes prets{% endblock %}
+{% set headerh1 = 'Mes prets' %}
+{% set pageType = 'GestionCompte' %}
+
+{% block body %}
+
+{% include './layout/header.html.twig' %}
+    <main>
+        <section class="container">
+            <div class="mes-livres-container">
+                {% for propriete in app.user.proprietes %}
+                    {% if propriete.livre.estDisponible == false %}
+                        <article class="media mes-livres">
+                            <div class="media-body">
+                                <figure class="figure mr-3">
+                                    <img src="{{ asset('build/images/' ~ propriete.livre.urlCouverture) }}" class="figure-img img-fluid rounded" alt="Couverture {{propriete.livre.titre}}">
+                                </figure>
+                                <div class="media-content">
+                                    <h5 class="mt-0">{{propriete.livre.titre}}</h5>
+                                    <p><b>Auteur : </b>
+                                        {% for auteur in propriete.livre.auteurs %}
+                                            {% if auteur.prenom %}{{auteur.prenom}} {% endif %}{{auteur.nom}}
+                                        {% endfor %}
+                                    <br/><b>Categorie : </b>
+                                        {% for categorie in propriete.livre.categories %}
+                                            {{categorie.nom}}
+                                        {% endfor %}
+                                    </p>
+                                    {% for emprunt1 in propriete.emprunt %}
+                                        <a href="/retourner/{{emprunt1.id}}" class="btn btn-primary">Retour du livre</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="media-footer">
+                                <small class="text-muted">
+                                {% for emprunt1 in propriete.emprunt %}
+                                    Emprunté le
+                                    {{emprunt1.DateEmprunt|date("d/m/Y")}}
+                                {% endfor %}
+                                {% for emprunt1 in propriete.emprunt %}
+                                     par
+                                    {{emprunt1.utilisateur.username}}
+                                {% endfor %}
+                                
+                                </small>
+                            </div>
+                        </article>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+
+
+    </main>
+{% include './layout/footer.html.twig' %}
+{% endblock %}

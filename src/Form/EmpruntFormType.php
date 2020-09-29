@@ -17,7 +17,7 @@ class EmpruntFormType extends AbstractType
     {
         $builder
             //->add('dateEmprunt') : ajouté automatiquement dans le controller
-            //->add('dateRendu') : ajouté automatiquement dans le controller
+            //->add('dateRendu') : pas de date de rendu lors de l'emprunt
             ->add('propriete', EntityType::class, [
                 'class' => Propriete::class,
                 'multiple' => false,

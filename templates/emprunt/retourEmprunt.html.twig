@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Retour d'un emprunt{% endblock %}
+{% set headerh1 = 'Retour d\'un emprunt' %}
+{% set pageType = 'GestionCompte' %}
+
+{% block body %}
+
+{% include './layout/header.html.twig' %}
+    <main>
+        <section class="container">
+            
+            {% for message in app.flashes('success') %}
+            <div class="alert-container">
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            </div>
+            {% endfor %}
+
+            {% for message in app.flashes('error') %}
+            <div class="alert-container">
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            </div>
+            {% endfor %}
+
+            {% if app.user.username is defined %}
+                {% if proprietaire.username == app.user.username %}
+                    {% if not emprunt.daterendu %}
+                        <p>Veuillez confirmer que "{{livre.titre}}" a bien été rendu en cliquant sur le bouton ci-dessous.</p>
+                        {{ form_start(retour_form) }}
+                            <input type="submit" class="btn btn-primary" value="Confirmer le retour d'emprunt">
+                        {{ form_end(retour_form) }}
+                    {% endif %}
+                {% endif %}
+            {% else %}
+            <div class="alert-container">
+                <div class="alert alert-danger">
+                    Seul le propriétaire d'un livre peut confirmer son retour.
+                </div>
+            </div>
+            {% endif %}
+            
+
+    </section>
+
+
+    </main>
+{% include './layout/footer.html.twig' %}
+{% endblock %}

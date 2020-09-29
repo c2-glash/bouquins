@@ -147,6 +147,19 @@ class Livre
         return false;
     }
 
+    //check si le livre est non disponible
+    public function falseEstDisponible(): bool
+    { 
+        //recup des propriétés du livre
+        foreach($this->getPropriete() as $propriete){
+            //check si la propriété est disponible
+            if($propriete->estDisponible()){
+                return false;
+            }
+        }     
+        return false;
+    }
+
     /**
      * @return Collection|Auteur[]
      */

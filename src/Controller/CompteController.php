@@ -25,4 +25,13 @@ class CompteController extends AbstractController
     {
         return $this->render('compte/mesemprunt.html.twig');
     }
+
+    /**
+     * @Route("/mesprets", name="mesprets")
+     */
+    
+     public function mesPrets()
+    {
+        return $this->render('compte/mesprets.html.twig');
+    }
 }

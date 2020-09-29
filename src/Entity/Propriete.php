@@ -83,8 +83,6 @@ class Propriete
         return true;
     }
 
-
-
     /**
      * @return Collection|Emprunt[]
      */

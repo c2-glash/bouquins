@@ -93,17 +93,17 @@ body th {
   background-color: #f6f5f588;
 }
 
-body .alert {
-  margin-bottom: 0px;
+body .alert-container {
+  padding-bottom: 10px;
 }
 
-body .alert.alert-primary {
+body .alert-container .alert.alert-primary {
   background-color: #fd7e14;
   border-color: #fd7e14;
   color: #292726;
 }
 
-body .alert.alert-primary a {
+body .alert-container .alert.alert-primary a {
   color: #f6f5f5;
 }
 
@@ -383,26 +383,16 @@ body main .mes-livres-container .mes-livres {
   flex-flow: column;
 }
 
-body main .mes-livres-container .mes-livres .media-body {
+body main .media-body {
   display: flex;
   padding: 20px 1.25rem;
 }
 
-body main .mes-livres-container .mes-livres .media-body figure {
-  min-width: 120px;
-  max-width: 120px;
-}
-
-body main .mes-livres-container .mes-livres .media-body figure img {
-  height: auto;
-  max-height: 200px;
-}
-
-body main .mes-livres-container .mes-livres .media-body .media-content {
+body main .media-body .media-content {
   flex-flow: column;
 }
 
-body main .mes-livres-container .mes-livres .media-footer {
+body main .media-footer {
   padding: 0.75rem 1.25rem;
   background-color: rgba(0, 0, 0, 0.03);
   border-top: 1px solid rgba(0, 0, 0, 0.125);
@@ -419,10 +409,10 @@ body main .media {
 }
 
 body main .media figure {
-  max-width: 200px;
-  width: auto;
   height: auto;
   margin-bottom: 0;
+  min-width: 150px;
+  max-width: 150px;
 }
 
 body main .media figure img {

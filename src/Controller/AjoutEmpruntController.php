@@ -22,7 +22,7 @@ class AjoutEmpruntController extends AbstractController
         EntityManagerInterface $manager,
         Livre $livre
     ){
-        // creation d'un form pour nouveau auteur
+        // creation d'un form pour nouvel emprunt
         $emprunt = new Emprunt();
         $form = $this->createForm(EmpruntFormType::class, $emprunt, ['proprietes' => $livre->getPropriete() ]);
 
