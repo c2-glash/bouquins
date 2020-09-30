@@ -31,11 +31,11 @@
                 {% endif %}
 
                 <div class="form-group">
-                    <input class="input" type="email" value="{{ last_username }}" name="loginEmail" id="inputEmail" placeholder="Identifiant" required autofocus>
+                    <input class="form-control" type="email" value="{{ last_username }}" name="loginEmail" id="inputEmail" placeholder="Identifiant" required autofocus>
                 </div>
 
                 <div class="form-group">
-                    <input class="input" type="password" name="loginPassword" id="inputPassword" placeholder ="Mot de passe" required>
+                    <input class="form-control" type="password" name="loginPassword" id="inputPassword" placeholder ="Mot de passe" required>
                 </div>
 
                 {# un champ caché pour la protection des failles CSRF #}

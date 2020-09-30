@@ -26,16 +26,16 @@
             </div>
             {% endfor %}
 
-            {% if app.user.username is defined %}
-                {% if proprietaire.username == app.user.username %}
-                    {% if not emprunt.daterendu %}
-                        <p>Veuillez confirmer que "{{livre.titre}}" a bien été rendu en cliquant sur le bouton ci-dessous.</p>
-                        {{ form_start(retour_form) }}
-                            <input type="submit" class="btn btn-primary" value="Confirmer le retour d'emprunt">
-                        {{ form_end(retour_form) }}
-                    {% endif %}
+            
+            {% if proprietaire.username == app.user.username %}
+                {% if not emprunt.daterendu %}
+                    <p>Veuillez confirmer que "{{livre.titre}}" a bien été rendu en cliquant sur le bouton ci-dessous.</p>
+                    {{ form_start(retour_form) }}
+                        <input type="submit" class="btn btn-primary" value="Confirmer le retour d'emprunt">
+                    {{ form_end(retour_form) }}
                 {% endif %}
-            {% else %}
+            {% endif %}
+
             <div class="alert-container">
                 <div class="alert alert-danger">
                     Seul le propriétaire d'un livre peut confirmer son retour.

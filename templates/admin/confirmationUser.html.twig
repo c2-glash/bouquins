@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateurs{% endblock %}
-{% set headerh1 = 'Utilisateurs' %}
+{% block title %}Confirmation utilisateur{% endblock %}
+{% set headerh1 = 'Confirmation utilisateur' %}
 {% set pageType = 'GestionCompte' %}
 
 {% block body %}
@@ -9,23 +9,45 @@
 {% include './layout/header.html.twig' %}
     <main>
         <section class="container">
-            <div class="admin-utilisateurs-container">
-                {% for utilisateur in liste_users %}
-                    <article class="media">
-                        <div class="media-body">
-                            <div class="media-content">
-                                <h6 class="mt-0">{{utilisateur.username}}</h6>
-                                <p>Ajouté le {{utilisateur.dateajout|date("d/m/Y")}}</p>
-                            </div>
-                            <p>Roles : 
-                            {% for role in utilisateur.roles %}
-                                {{role}}
-                            {% endfor %}
-                            </p>
-                        </div>
-                    </article>
-                {% endfor %}
+
+            {% for message in app.flashes('success') %}
+            <div class="alert-container">
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
             </div>
+            {% endfor %}
+
+            {% for message in app.flashes('error') %}
+            <div class="alert-container">
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            </div>
+            {% endfor %}
+
+            {% if not ('ROLE_ADMIN' in utilisateur.roles) %}
+                {% if not ('ROLE_CONFIRMED' in utilisateur.roles) %}
+                    <p>Veuillez confirmer que "{{utilisateur.username}}" est un utilisateur digne de confiance.</p>
+                    {{ form_start(user_confirmation_form) }}
+                        <input type="submit" class="btn btn-primary" value="Confirmer">
+                    {{ form_end(user_confirmation_form) }}
+                {% else %}
+                    <div class="alert-container">
+                        <div class="alert alert-danger">
+                            L'utilisateur est déja confirmé.
+                        </div>
+                    </div>
+                    
+                {% endif %}
+            {% else %}
+                <div class="alert-container">
+                    <div class="alert alert-danger">
+                        L'utilisateur est admin.
+                    </div>
+                </div>
+                
+            {% endif %}
         </section>
 
 

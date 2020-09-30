@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+{% set headerh1 = 'Utilisateurs' %}
+{% set pageType = 'GestionCompte' %}
+
+{% block body %}
+
+{% include './layout/header.html.twig' %}
+    <main>
+        <section class="container">
+            <div class="admin-utilisateurs-container">
+                {% for utilisateur in liste_users %}
+                    <article class="media">
+                        <div class="media-body row">
+                            <div class="media-content col col-12 col-sm-3">
+                                <h6 class="mt-0">{{utilisateur.username}}</h6>
+                            </div>
+                            <div class="media-content col col-12 col-sm-3">
+                                <p><b>Ajouté le</b> {{utilisateur.dateajout|date("d/m/Y")}}</p>
+                            </div>
+                            <div class="media-content col col-12 col-sm-3">
+                                <p><b>Roles</b> : 
+                                {% for role in utilisateur.roles %}
+                                    {{role}}
+                                {% endfor %}
+                                </p>
+                            </div>
+                            <div class="media-content col col-12 col-sm-3">
+                            {% if not ('ROLE_CONFIRMED' in utilisateur.roles) %}
+                                {% if not ('ROLE_ADMIN' in utilisateur.roles) %}
+                                    <a href="/admin/userconfirmation/{{utilisateur.id}}" class="btn btn-primary">Confirmer l'utilisateur</a>
+                                {% endif %}
+                            {% endif %}
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+
+
+    </main>
+{% include './layout/footer.html.twig' %}
+{% endblock %}
