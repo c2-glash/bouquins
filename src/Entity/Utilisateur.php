@@ -52,6 +52,11 @@ class Utilisateur implements UserInterface
      */
     private $emprunts;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_ajout;
+
     public function __construct()
     {
         $this->proprietes = new ArrayCollection();
@@ -205,6 +210,18 @@ class Utilisateur implements UserInterface
                 $emprunt->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateAjout(): ?\DateTimeInterface
+    {
+        return $this->date_ajout;
+    }
+
+    public function setDateAjout(?\DateTimeInterface $date_ajout): self
+    {
+        $this->date_ajout = $date_ajout;
 
         return $this;
     }

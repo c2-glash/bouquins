@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RetourEmpruntController extends AbstractController
 {
     /**
-     * @Route("/retourner/{id<\d+>}", name="retourner")
+     * @Route("compte/retourner/{id<\d+>}", name="retourner")
      */
     public function retourEmprunt(
         Emprunt $emprunt,

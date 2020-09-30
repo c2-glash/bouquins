@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+{% set headerh1 = 'Utilisateurs' %}
+{% set pageType = 'GestionCompte' %}
+
+{% block body %}
+
+{% include './layout/header.html.twig' %}
+    <main>
+        <section class="container">
+            <div class="admin-utilisateurs-container">
+                {% for utilisateur in liste_users %}
+                    <article class="media">
+                        <div class="media-body">
+                            <div class="media-content">
+                                <h6 class="mt-0">{{utilisateur.username}}</h6>
+                                <p>Ajouté le {{utilisateur.dateajout|date("d/m/Y")}}</p>
+                            </div>
+                            <p>Roles : 
+                            {% for role in utilisateur.roles %}
+                                {{role}}
+                            {% endfor %}
+                            </p>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+
+
+    </main>
+{% include './layout/footer.html.twig' %}
+{% endblock %}

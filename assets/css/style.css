@@ -238,6 +238,7 @@ body header section {
 
 body main {
   background-color: #292726;
+  padding-bottom: 20px;
   /*soulignement orange sur titres h2*/
 }
 

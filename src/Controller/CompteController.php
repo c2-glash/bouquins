@@ -11,7 +11,7 @@ use function PHPSTORM_META\map;
 class CompteController extends AbstractController
 {
     /**
-     * @Route("/meslivres", name="meslivres")
+     * @Route("/compte/meslivres", name="meslivres")
      */
     public function mesLivres()
     {
@@ -19,7 +19,7 @@ class CompteController extends AbstractController
     }
     
     /**
-     * @Route("/mesemprunts", name="mesemprunts")
+     * @Route("/compte/mesemprunts", name="mesemprunts")
      */
     public function mesEmprunts()
     {
@@ -27,7 +27,7 @@ class CompteController extends AbstractController
     }
 
     /**
-     * @Route("/mesprets", name="mesprets")
+     * @Route("/compte/mesprets", name="mesprets")
      */
     
      public function mesPrets()

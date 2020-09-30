@@ -32,8 +32,21 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
+
+
+
+    role_hierarchy:
+        ROLE_ADMIN:         [ROLE_USER, ROLE_CONFIRMED]
+        ROLE_CONFIRMED:     ROLE_USER
+        ROLE_USER:
+
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        #acces compte pour tous les utilisateurs
+        - { path: ^/compte, roles: ROLE_CONFIRMED }
+        #acces pages d'ajout de livres/auteurs/categories pour les utilisateurs confirmés
+        - { path: ^/ajout, roles: ROLE_CONFIRMED }
+        #acces page administration
+        - { path: ^/admin, roles: ROLE_ADMIN }

@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AjoutEmpruntController extends AbstractController
 {
     /**
-     * @Route("/emprunter/{id<\d+>}", name="emprunter")
+     * @Route("/compte/emprunter/{id<\d+>}", name="emprunter")
      */
     public function ajoutEmprunt(
         Request $request, 
