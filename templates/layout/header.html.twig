@@ -26,19 +26,16 @@
                                 Mon compte
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="/compte/meslivres">Mes livres</a>
-                                    <a class="dropdown-item" href="/compte/mesemprunts">Mes emprunts</a>
-                                    <a class="dropdown-item" href="/compte/mesprets">Mes prêts</a>
+                                    {% if is_granted('ROLE_CONFIRMED') %}
+                                        <a class="dropdown-item" href="/compte/meslivres">Mes livres</a>
+                                        <a class="dropdown-item" href="/compte/mesemprunts">Mes emprunts</a>
+                                        <a class="dropdown-item" href="/compte/mesprets">Mes prêts</a>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="dropdown-item" href="/admin/users">Gestion utilisateurs</a>
+                                    {% endif %}
                                     <a class="dropdown-item" href="/logout">Deconnexion</a>
                                 </div>
-                            </li>
-
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"></a>
                             </li>
                         {% endif %}
                     </ul>
@@ -46,18 +43,18 @@
             </nav>
             <div class="row">
                 {% if layoutHeader2 is defined %}
-                    <div class="col col-11 col-md-4 layoutHeader2">
+                    <div class="col col-10 col-md-4 layoutHeader2">
                     </div>
-                    <div class="col col-11 col-md-8 layoutHeader2">
+                    <div class="col col-10 col-md-8 layoutHeader2">
                         <h1>{{ headerh1 }}</h1>
                     </div>
                 {% else %}
-                    <div class="col col-11 
+                    <div class="col col-10 
                     {% if displayLoginForm is defined %}
-                        {% if app.user %}col-md-11{% else %}col-md-8{% endif %}
+                        {% if app.user %}col-md-10{% else %}col-md-8{% endif %}
                         
                     {% else %}
-                        col-md-11
+                        col-md-10
                     {% endif %}">
                         {% if headerh1 is defined %}
                             <h1>{{ headerh1 }}</h1>

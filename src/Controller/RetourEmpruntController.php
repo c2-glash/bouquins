@@ -21,7 +21,7 @@ class RetourEmpruntController extends AbstractController
         Request $request, 
         EntityManagerInterface $manager
     ){
-        // creation d'un form pour nouvel emprunt
+        // creation d'un form pour retour emprunt
         $form = $this->createForm(RetourEmpruntFormType::class, $emprunt);
 
         // recuperation de la requete (pour lire les données POST)
@@ -29,7 +29,7 @@ class RetourEmpruntController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
 
-            //set de la date de demande d'emprunt du livre
+            //set de la date de demande de retour du livre
             $emprunt->setDateRendu(new \DateTime());
 
             //persist pour stocker les donnes en BDD
