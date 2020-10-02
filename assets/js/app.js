@@ -14,8 +14,8 @@ import '../css/app.css';
 
 //JS compilé dans un seul fichier
 import './bootstrap.js';
-import './accueil.js';
 import './headerLayout2.js';
+import './accueil.js';
 
 //react
 import React    from 'react';

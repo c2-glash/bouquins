@@ -31,7 +31,7 @@
                     {# affichage des liens vers les fiches des auteurs #}
                     {% if livre.auteurs|length == 1 %}
                         {% for auteur in livre.auteurs %}
-                            <a href="/auteur/{{auteur.id}}" class="btn btn-primary">Fiche de l'auteur</a>
+                            <p><a href="/auteur/{{auteur.id}}" class="btn btn-primary">Fiche de l'auteur</a></p>
                         {% endfor %}
                     {% else %}
                         <p>

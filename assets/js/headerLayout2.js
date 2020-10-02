@@ -1,5 +1,5 @@
 //lancement si #imageUne existe sur la page
-if(document.getElementById('#imageUne') !== null){
+if(document.getElementById('imageUne') !== null){
     
     //modification de margin-top sur les pages livres & auteurs pour l'image couverture / auteur
     let imageUne = document.querySelector('#imageUne');
