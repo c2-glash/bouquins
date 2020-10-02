@@ -18,7 +18,7 @@
         </p>
         <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
         
-        {% if is_granted("ROLE_USER") %}
+        {% if is_granted("ROLE_CONFIRME") %}
             {% if livre.estDisponible %}
                 <a href="/compte/emprunter/{{livre.id}}" class="btn btn-primary">Emprunter</a>
             {% endif %}

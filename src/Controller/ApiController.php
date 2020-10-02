@@ -15,6 +15,7 @@ class ApiController extends AbstractController
      */
     public function checkUser(UtilisateurRepository $utilisateurRepository)
     {
+        //si user non loggué = retourne juste loggué = false
         $user = '';
         if($this->getUser() === null){
             $utilisateurActuel = [
@@ -22,6 +23,7 @@ class ApiController extends AbstractController
             ];
             return new JsonResponse($utilisateurActuel);
         }
+        //sinon on récupere toutes les autres infos dont on a besoin
         $user = $this->getUser();
         $utilisateurActuel = [
             'loggue' => true,
@@ -41,21 +43,25 @@ class ApiController extends AbstractController
         $tousLesLivres = [];
         $livres = $livreRepository->findAll();
 
-        $utilisateurloggue = true;
+        //check si utilisateur et loggué + a le role "ROLE_CONFIRMED"
+        $utilisateurConfirme = false;
         if($this->getUser() === null){
-            $utilisateurloggue = false;
+            $utilisateurConfirme = false;
+        } else if($this->isGranted('ROLE_CONFIRMED'))
+        {
+            $utilisateurConfirme = true;
         }
-       
         
-
         foreach($livres as $livre){
-
-            $livreDisponible = $livre->estDisponible();
+            
+            /*check si le livre est empruntable basé sur si le user 
+             est log, a le bon role et la dispo du livre*/
             $livreEmpruntable = false;
-            if($livreDisponible === true && $utilisateurloggue === true){
+            if($livre->estDisponible() === true && $utilisateurConfirme === true){
                 $livreEmpruntable = true;
             }
-            /*recuperation des auteurs du livre*/
+
+            //recuperation des auteurs du livre
             $auteurs = $livre->getAuteurs();
             $auteursDuLivre = [];
             
@@ -69,7 +75,7 @@ class ApiController extends AbstractController
                 ];
             }
             
-            /*recuperation des categories du livre*/
+            //recuperation des categories du livre
             $categories = $livre->getCategories();
             $categoriesDuLivre = [];
             
@@ -82,7 +88,7 @@ class ApiController extends AbstractController
                 ];
             }
 
-            /*stockage des données livres dans un tableau*/
+            //stockage des données livres dans un tableau
             $tousLesLivres[] = [
                 'id' => $livre->getId(),
                 'titre' => $livre->getTitre(),
@@ -91,7 +97,7 @@ class ApiController extends AbstractController
                 'date_ajout' => date_format($livre->getDateAjout(), 'd/m/Y'),
                 'auteurs' => $auteursDuLivre,
                 'categories' => $categoriesDuLivre,
-                'utilisateur_loggue' => $utilisateurloggue,
+                'utilisateur_loggue' => $utilisateurConfirme,
                 'est_disponible' => $livre->estDisponible(),
                 'est_empruntable' => $livreEmpruntable,
             ];
