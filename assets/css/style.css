@@ -108,10 +108,6 @@ body .alert-container .alert.alert-primary a {
   color: #f6f5f5;
 }
 
-body form .btn {
-  padding: 4px 12px;
-}
-
 body form .custom-file-label::after {
   content: 'Parcourir';
 }

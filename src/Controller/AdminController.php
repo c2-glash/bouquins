@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Livre;
 use App\Entity\Utilisateur;
 use App\Form\ConfirmationUserFormType;
+use App\Repository\LivreRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,5 +56,18 @@ class AdminController extends AbstractController
             'utilisateur' => $utilisateur,
         ]);
     }
+
+     /**
+     * @Route("/admin/testsdd", name="testsdd")
+     */
+    public function pageTestDd(LivreRepository $livreRepository)
+    {
+        return $this->render('admin/users.html.twig', [
+           dump($this->getUser()->getProprietes()),
+           dump($livreRepository->findAll()),
+           die,
+        ]);
+    }
+
 
 }

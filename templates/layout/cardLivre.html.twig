@@ -17,9 +17,10 @@
             {% endfor %}
         </p>
         <a href="/livre/{{livre.id}}" class="btn btn-primary">Détails</a>
+        
         {% if is_granted("ROLE_USER") %}
             {% if livre.estDisponible %}
-                <a href="/emprunter/{{livre.id}}" class="btn btn-primary">Emprunter</a>
+                <a href="/compte/emprunter/{{livre.id}}" class="btn btn-primary">Emprunter</a>
             {% endif %}
         {% endif %}
     </div>

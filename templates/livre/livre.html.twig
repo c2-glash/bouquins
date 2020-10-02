@@ -27,24 +27,59 @@
                         {% endfor %}
                     </p>
                     <p>{{livre.description}}</p>
-                    <small class="form-text text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
                     
-                    {% if is_granted("ROLE_USER") %}
-                        {% if livre.estDisponible %}
-                            <a href="#" class="btn btn-primary">Emprunter</a>
-                        {% endif %}
-                    {% endif %}
-                    {# affichage des liens vers les fiches des auteurs, avec les noms complets des auteurs si il y en a plus d'un #}
+                    {# affichage des liens vers les fiches des auteurs #}
                     {% if livre.auteurs|length == 1 %}
                         {% for auteur in livre.auteurs %}
                             <a href="/auteur/{{auteur.id}}" class="btn btn-primary">Fiche de l'auteur</a>
                         {% endfor %}
                     {% else %}
-                        {% for auteur in livre.auteurs %}
-                            <a href="/auteur/{{auteur.id}}" class="btn btn-primary">Fiche de l'auteur 
-                            {% if auteur.prenom is defined %}{{auteur.prenom}} {% endif %}{{auteur.nom}}</a>
-                        {% endfor %}
+                        <p>
+                            {% for auteur in livre.auteurs %}
+                                <a href="/auteur/{{auteur.id}}" class="btn btn-primary">Fiche de l'auteur 
+                                {% if auteur.prenom is defined %}{{auteur.prenom}} {% endif %}{{auteur.nom}}</a>
+                            {% endfor %}
+                        </p>
                     {% endif %}
+
+                    {# dans le cas ou l'utilisateur est confirmé #}
+                    {% if is_granted("ROLE_USER") %}
+                        {# affichage du bouton d'emprunt du livre #}
+                        {% if livre.estDisponible %}
+                            <p><a href="/compte/emprunter/{{livre.id}}" class="btn btn-primary">Emprunter</a></p>
+                        {% endif %}
+
+                        {# form de propriété a afficher seulement lorsque le user est #}
+                        {% if current_user is null %}
+                        {% else %}
+                            {% if propriete_user %}
+                                <small class="form-text text-muted">Vous êtes propriétaire de ce livre</small>
+                            {% else %}
+                                {{ form_start(propriete_form) }}
+                                    <input type="submit" class="btn btn-success" value="Je possède aussi ce livre">
+                                {{ form_end(propriete_form) }}
+                            {% endif %}
+                        {% endif %}
+
+                        {# messages d'erreur liés au form de propriete #}
+                        {% for message in app.flashes('success') %}
+                            <div class="alert-container">
+                                <div class="alert alert-success">
+                                    {{ message }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('error') %}
+                            <div class="alert-container">
+                                <div class="alert alert-danger">
+                                    {{ message }}
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    {% endif %}
+
+                    <small class="form-text text-muted">Ajouté à Bouquins le {{ livre.dateAjout|date("d/m/Y") }}</small>
 
                 </div>
             </div>

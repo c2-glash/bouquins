@@ -147,19 +147,6 @@ class Livre
         return false;
     }
 
-    //check si le livre est non disponible
-    public function falseEstDisponible(): bool
-    { 
-        //recup des propriétés du livre
-        foreach($this->getPropriete() as $propriete){
-            //check si la propriété est disponible
-            if($propriete->estDisponible()){
-                return false;
-            }
-        }     
-        return false;
-    }
-
     /**
      * @return Collection|Auteur[]
      */
@@ -246,5 +233,18 @@ class Livre
 
         return $this;
     }
+
+
+    /*//check si le livre est propriete de l'utilisateur
+    public function estProprieteUtilisateur($utilisateur): bool
+    {
+        //Proprietaires du livre
+        $proprietaires = $this->getPropriete();
+        //si l'utilisateur est dans la liste des proprios du livre : 
+        if(in_array($utilisateur, [$proprietaires])){
+            return true;
+        }
+        return false;
+    }*/
 
 }
