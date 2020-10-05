@@ -58,18 +58,21 @@ class LivreController extends AbstractController
         $form->handleRequest($request);
 
         // vérification de la validité du formulaire
-        if($form->isSubmitted() && $form->isValid()) {
-            //recuperation utilisateur
-            $propriete->setUtilisateur($this->getUser());
-            //recuperation livre
-            $propriete->setLivre($livreRepository->find($id)    );
-            //persist pour stocker les donnes en BDD
-            $manager->persist($propriete);
-            $manager->flush();
-            //ajout du message en superglobale
-            $this->addFlash('success', 'Vous êtes à présent propriétaire de ce livre.');
-        } 
-
+        if($form->isSubmitted()){
+            if($form->isValid()){
+                //recuperation utilisateur
+                $propriete->setUtilisateur($this->getUser());
+                //recuperation livre
+                $propriete->setLivre($livreRepository->find($id)    );
+                //persist pour stocker les donnes en BDD
+                $manager->persist($propriete);
+                $manager->flush();
+                //ajout du message en superglobale
+                $this->addFlash('success', 'Vous êtes à présent propriétaire de ce livre.');
+            } else {
+                $this->addFlash('error', 'Erreur lors de l\'ajout de la propriété, veuillez ré-essayer. Si l\'erreur persiste, veuillez contacter Bouquins.');
+            }
+        }
 
         return $this->render('livre/livre.html.twig', [
             'livre' => $livreRepository->find($id),

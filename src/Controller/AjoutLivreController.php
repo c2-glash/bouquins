@@ -64,52 +64,56 @@ class AjoutLivreController extends AbstractController
         } else {
             $this->addFlash('success', 'Envoyé test');
             // vérification de la validité du formulaire
-            if($form->isSubmitted() && $form->isValid()) {
+            if($form->isSubmitted()){
+                if($form->isValid()){
 
-                /** @var UploadedFile $urlCouverture */
-                /* url_couverture configuré dans config/services.yaml */
-                $urlCouverture = $form->get('url_couverture')->getData();
-                
-                // this condition is needed because the 'couverture' field is not required
-                // so the file must be processed only when a file is uploaded
-                if ($urlCouverture) {
-                    $originalFilename = pathinfo($urlCouverture->getClientOriginalName(), PATHINFO_FILENAME);
-                    // this is needed to safely include the file name as part of the URL
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename.'-'.uniqid().'.'.$urlCouverture->guessExtension();
+                    /** @var UploadedFile $urlCouverture */
+                    /* url_couverture configuré dans config/services.yaml */
+                    $urlCouverture = $form->get('url_couverture')->getData();
+                    
+                    // this condition is needed because the 'couverture' field is not required
+                    // so the file must be processed only when a file is uploaded
+                    if ($urlCouverture) {
+                        $originalFilename = pathinfo($urlCouverture->getClientOriginalName(), PATHINFO_FILENAME);
+                        // this is needed to safely include the file name as part of the URL
+                        $safeFilename = $slugger->slug($originalFilename);
+                        $newFilename = $safeFilename.'-'.uniqid().'.'.$urlCouverture->guessExtension();
 
-                    // Move the file to the directory where brochures are stored
-                    try {
-                        $urlCouverture->move(
-                            $this->getParameter('couverture_directory'),//dans config/services.yaml
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-                        //ajout du message d'erreur d'upload en superglobale
-                        $this->addFlash('error', 'Une erreur d\'upload est survenue.');
+                        // Move the file to the directory where brochures are stored
+                        try {
+                            $urlCouverture->move(
+                                $this->getParameter('couverture_directory'),//dans config/services.yaml
+                                $newFilename
+                            );
+                        } catch (FileException $e) {
+                            //ajout du message d'erreur d'upload en superglobale
+                            $this->addFlash('error', 'Une erreur d\'upload est survenue.');
+                        }
+
+                        // updates the 'urlCouverture' property to store the image file name
+                        // instead of its contents
+                        $livre->setUrlCouverture($newFilename);
                     }
+                    //set de la date d'ajout du livre
+                    $livre->setDateAjout(new \DateTime());
+                    
+                    //definition de la propriete avec id user et id livre
+                    $propriete = new Propriete();
+                    $propriete->setUtilisateur($this->getUser());
 
-                    // updates the 'urlCouverture' property to store the image file name
-                    // instead of its contents
-                    $livre->setUrlCouverture($newFilename);
+                    //creation de la propriété à partir de addPropriete() du livre
+                    $livre->addPropriete($propriete);
+                    
+                    //persist pour stocker les donnes en BDD
+                    //$manager->persist($propriete);
+                    $manager->persist($livre);
+                    
+                    $manager->flush();
+                    //ajout du message en superglobale
+                    $this->addFlash('success', 'Votre livre a été ajouté.');
+                } else {
+                    $this->addFlash('error', 'Erreur lors de l\'ajout du livre, veuillez ré-essayer. Si l\'erreur persiste, veuillez contacter Bouquins.');
                 }
-                //set de la date d'ajout du livre
-                $livre->setDateAjout(new \DateTime());
-                
-                //definition de la propriete avec id user et id livre
-                $propriete = new Propriete();
-                $propriete->setUtilisateur($this->getUser());
-
-                //creation de la propriété à partir de addPropriete() du livre
-                $livre->addPropriete($propriete);
-                
-                //persist pour stocker les donnes en BDD
-                //$manager->persist($propriete);
-                $manager->persist($livre);
-                
-                $manager->flush();
-                //ajout du message en superglobale
-                $this->addFlash('success', 'Votre livre a été ajouté.');
             }
         }
         

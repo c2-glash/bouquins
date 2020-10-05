@@ -26,8 +26,6 @@ class LivreFormType extends AbstractType
             ->add('url_couverture', FileType::class, [
                 'label' => 'Couverture (image .jpg / .png)',
                 'mapped' => false,
-                'required' => false,
-
                 'constraints' => [
                     new File([
                         'maxSize' => '600k',

@@ -31,23 +31,26 @@ class AjoutEmpruntController extends AbstractController
 
         if($livre->estDisponible() === false){
             $this->addFlash('error', 'Le livre "'. $livre->getTitre() . '" n\'est pas disponible pour le moment.');
-        } else if($form->isSubmitted() && $form->isValid()) {
+        } else if($form->isSubmitted()){
             // Vérifier la validité du formulaire
+            if($form->isValid()){
 
-            //set de la date de demande d'emprunt du livre
-            $emprunt->setDateEmprunt(new \DateTime());
+                //set de la date de demande d'emprunt du livre
+                $emprunt->setDateEmprunt(new \DateTime());
 
-            //ajout de l'id user actuel en emprunteur
-            $emprunt->setUtilisateur($this->getUser());
+                //ajout de l'id user actuel en emprunteur
+                $emprunt->setUtilisateur($this->getUser());
 
-            //persist pour stocker les donnes en BDD
-            $manager->persist($emprunt);
-            
-            $manager->flush();
-            //ajout du message en superglobale
-            $this->addFlash('success', 'Votre demande d\'emprunt est enregistrée. Pour récupérer le livre, vous pouvez contacter son propriétaire ');
+                //persist pour stocker les donnes en BDD
+                $manager->persist($emprunt);
+                
+                $manager->flush();
+                //ajout du message en superglobale
+                $this->addFlash('success', 'Votre demande d\'emprunt est enregistrée. Pour récupérer le livre, vous pouvez contacter son propriétaire ');
+            } else {
+                $this->addFlash('error', 'Erreur lors de l\'emprunt, veuillez ré-essayer. Si l\'erreur persiste, veuillez contacter Bouquins.');
+            }
         }
-
         return $this->render('emprunt/confirmationEmprunt.html.twig', [
             'controller_name' => 'AjoutEmpruntController',
             'emprunt_form' => $form->createView(),

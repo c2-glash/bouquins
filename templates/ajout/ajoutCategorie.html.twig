@@ -15,6 +15,12 @@
                     </div>
                 {% endfor %}
 
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
                 {{ form_start(categorie_form) }}
                     {{ form_widget(categorie_form) }}
                     <input type="submit" class="btn btn-primary" value="Ajouter une catégorie">

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un auteur{% endblock %}
-{% set headerh1 = 'Ajouter un auteur' %}
+{% block title %}Contact{% endblock %}
+{% set headerh1 = 'Contactez Bouquins' %}
 {% set pageType = 'GestionCompte' %}
 
 {% block body %}
@@ -21,15 +21,10 @@
                     </div>
                 {% endfor %}
 
-                {{ form_start(auteur_form) }}
-                    {{ form_widget(auteur_form) }}
-                    <input type="submit" class="btn btn-primary" value="Ajouter un auteur">
-                {{ form_end(auteur_form) }}
-        </section>
-
-        <section class="container">
-            <a href="/ajout/livre" class="btn btn-primary">Ajouter un livre</a>
-            <a href="/ajout/categorie" class="btn btn-primary">Ajouter une catégorie</a>
+                {{ form_start(contact_form) }}
+                    {{ form_widget(contact_form) }}
+                    <input type="submit" class="btn btn-primary" value="Envoyer">
+                {{ form_end(contact_form) }}
         </section>
     </main>
 {% include './layout/footer.html.twig' %}

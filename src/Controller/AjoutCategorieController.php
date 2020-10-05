@@ -28,43 +28,47 @@ class AjoutCategorieController extends AbstractController
         // recuperation de la requete (pour lire les données POST)
         $form->handleRequest($request);
 
-        // 3. Vérifier la validité du formulaire
-        if($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted()){
+            // Vérifier la validité du formulaire
+            if($form->isValid()){
 
-            /** @var UploadedFile $urlIllustration */
-            /* url_Illustration configuré dans config/services.yaml */
-            $urlIllustration = $form->get('url_illustration')->getData();
-            
-            // this condition is needed because the 'Illustration' field is not required
-            // so the PDF file must be processed only when a file is uploaded
-            if ($urlIllustration) {
-                $originalFilename = pathinfo($urlIllustration->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$urlIllustration->guessExtension();
+                /** @var UploadedFile $urlIllustration */
+                /* url_Illustration configuré dans config/services.yaml */
+                $urlIllustration = $form->get('url_illustration')->getData();
+                
+                // this condition is needed because the 'Illustration' field is not required
+                // so the PDF file must be processed only when a file is uploaded
+                if ($urlIllustration) {
+                    $originalFilename = pathinfo($urlIllustration->getClientOriginalName(), PATHINFO_FILENAME);
+                    // this is needed to safely include the file name as part of the URL
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename.'-'.uniqid().'.'.$urlIllustration->guessExtension();
 
-                // Move the file to the directory where brochures are stored
-                try {
-                    $urlIllustration->move(
-                        $this->getParameter('illustration_directory'),//dans config/services.taml
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    //ajout du message d'erreur d'upload en superglobale
-                    $this->addFlash('error', 'Une erreur d\'upload est survenue.');
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $urlIllustration->move(
+                            $this->getParameter('illustration_directory'),//dans config/services.taml
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        //ajout du message d'erreur d'upload en superglobale
+                        $this->addFlash('error', 'Une erreur d\'upload est survenue.');
+                    }
+
+                    // updates the 'urlIllustration' property to store the image file name
+                    // instead of its contents
+                    $categorie->setUrlIllustration($newFilename);
                 }
-
-                // updates the 'urlIllustration' property to store the image file name
-                // instead of its contents
-                $categorie->setUrlIllustration($newFilename);
+                
+                //persist pour stocker les donnes en BDD
+                $manager->persist($categorie);
+                
+                $manager->flush();
+                //ajout du message en superglobale
+                $this->addFlash('success', 'Votre catégorie a été ajouté.');
+            } else {
+                $this->addFlash('error', 'Erreur lors de l\'ajout de la catégorie, veuillez ré-essayer. Si l\'erreur persiste, veuillez contacter Bouquins.');
             }
-            
-            //persist pour stocker les donnes en BDD
-            $manager->persist($categorie);
-            
-            $manager->flush();
-            //ajout du message en superglobale
-            $this->addFlash('success', 'Votre catégorie a été ajouté.');
         }
         
         return $this->render('ajout/ajoutCategorie.html.twig', [

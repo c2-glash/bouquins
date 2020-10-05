@@ -28,43 +28,47 @@ class AjoutAuteurController extends AbstractController
         // recuperation de la requete (pour lire les données POST)
         $form->handleRequest($request);
 
-        // 3. Vérifier la validité du formulaire
-        if($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted()){
+            // Vérifier la validité du formulaire
+            if($form->isValid()){
 
-            /** @var UploadedFile $urlPhoto */
-            /* url_Photo configuré dans config/services.yaml */
-            $urlPhoto = $form->get('url_photo')->getData();
-            
-            // this condition is needed because the 'Photo' field is not required
-            // so the PDF file must be processed only when a file is uploaded
-            if ($urlPhoto) {
-                $originalFilename = pathinfo($urlPhoto->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$urlPhoto->guessExtension();
+                /** @var UploadedFile $urlPhoto */
+                /* url_Photo configuré dans config/services.yaml */
+                $urlPhoto = $form->get('url_photo')->getData();
+                
+                // this condition is needed because the 'Photo' field is not required
+                // so the PDF file must be processed only when a file is uploaded
+                if ($urlPhoto) {
+                    $originalFilename = pathinfo($urlPhoto->getClientOriginalName(), PATHINFO_FILENAME);
+                    // this is needed to safely include the file name as part of the URL
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename.'-'.uniqid().'.'.$urlPhoto->guessExtension();
 
-                // Move the file to the directory where brochures are stored
-                try {
-                    $urlPhoto->move(
-                        $this->getParameter('photo_directory'),//dans config/services.taml
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    //ajout du message d'erreur d'upload en superglobale
-                    $this->addFlash('error', 'Une erreur d\'upload est survenue.');
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $urlPhoto->move(
+                            $this->getParameter('photo_directory'),//dans config/services.taml
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        //ajout du message d'erreur d'upload en superglobale
+                        $this->addFlash('error', 'Une erreur d\'upload est survenue.');
+                    }
+
+                    // updates the 'urlPhoto' property to store the image file name
+                    // instead of its contents
+                    $auteur->setUrlPhoto($newFilename);
                 }
-
-                // updates the 'urlPhoto' property to store the image file name
-                // instead of its contents
-                $auteur->setUrlPhoto($newFilename);
+                
+                //persist pour stocker les donnes en BDD
+                $manager->persist($auteur);
+                
+                $manager->flush();
+                //ajout du message en superglobale
+                $this->addFlash('success', 'Votre auteur a été ajouté.');
+            } else {
+                $this->addFlash('error', 'Erreur lors de l\'ajout de l\'auteur, veuillez ré-essayer. Si l\'erreur persiste, veuillez contacter Bouquins.');
             }
-            
-            //persist pour stocker les donnes en BDD
-            $manager->persist($auteur);
-            
-            $manager->flush();
-            //ajout du message en superglobale
-            $this->addFlash('success', 'Votre auteur a été ajouté.');
         }
         
         return $this->render('ajout/ajoutAuteur.html.twig', [
