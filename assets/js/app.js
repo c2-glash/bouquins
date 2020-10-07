@@ -16,14 +16,16 @@ import '../css/app.css';
 import './bootstrap.js';
 import './headerLayout2.js';
 import './accueil.js';
+import './rechercheLivre.js';
 
 //react
-import React    from 'react';
-import ReactDOM from 'react-dom';
+import React         from 'react';
+import ReactDOM      from 'react-dom';
 import { SearchBar } from './SearchBar';
 
-//Si le container react-livres est présent sur la page, on lance react
-const reactLivres = document.getElementById('react-livres');
-if(reactLivres !== undefined){
+//Lancement react quand #react-livres est présent
+if(document.getElementById('react-livres') !== null){
+    const reactLivres = document.getElementById('react-livres');
     ReactDOM.render(<SearchBar />, reactLivres);    
 }
+

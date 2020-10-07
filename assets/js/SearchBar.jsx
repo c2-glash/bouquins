@@ -188,16 +188,6 @@ export class SearchBar extends React.Component
                 </section>
             </div>
         );
-        /*
-        <div className="form-group">
-            <label htmlFor="triLivres">Rechercher des livres par : </label>
-            <select className="custom-select form-control mx-sm-3" id="triLivres">
-                <option className="formOption" value="1" defaultValue>titre de livre</option>
-                <option className="formOption" value="2">nom de l'auteur</option>
-                <option className="formOption" value="3">nom de la catégorie</option>
-            </select>
-        </div>
-        */
     }
     
 }

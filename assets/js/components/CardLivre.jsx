@@ -5,13 +5,18 @@ import React from 'react';
 export class CardLivre extends React.Component{
     render(){
         //recuperation de l'image + hash du gestionnaire d'assets
-        const imgCouverture = require('../../img/' + this.props.urlCouverture);
+        let imgCouverture;
+        if(this.props.urlCouverture){
+            imgCouverture = require('../../img/' + this.props.urlCouverture);
+        }
+        
         return (
             <div className="card mb-4">
                 <div className="card-img-container">
+                    {this.props.urlCouverture && 
                     <a href={'/livre/' + this.props.id }>
                         <img className="card-img-top" src={imgCouverture.default} alt={ 'Couverture' + this.props.titre} />
-                    </a>
+                    </a>}
                 </div>
                 <div className="card-body">
                     <h5 className="card-title">{ this.props.titre }</h5>

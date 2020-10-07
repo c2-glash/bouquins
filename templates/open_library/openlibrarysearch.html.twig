@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche Open Library API{% endblock %}
+{% set headerh1 = 'Recherche Open Library API' %}
+
+
+{% block body %}
+
+{% include './layout/header.html.twig' %}
+    <main>
+        <section class="container">
+            <h5>Recherche par ISBN</h5>
+            <form class="form-inline" id="rechercheolisbn">
+                <input type="text" name="rechercheisbn" id="rechercheisbn" class="form-control mr-sm-2">
+                <input type="submit" class="btn btn-primary" value="Envoyer">
+            </form>
+            <h5>Recherche par titre de livre</h5>
+            <form class="form-inline" id="rechercheoltitre">
+                <input type="text" name="recherchetitre" id="recherchetitre" class="form-control mr-sm-2">
+                <input type="submit" class="btn btn-primary" value="Envoyer">
+            </form>
+        </section>
+        {# Container react #}
+        <section class="container" id="resultatsOpenLibrary">
+        </section>
+        <section class="container" id="resultatsOpenLibraryAuteur">
+        </section>
+    </main>
+{% include './layout/footer.html.twig' %}
+{% endblock %}
