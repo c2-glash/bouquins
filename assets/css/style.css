@@ -112,6 +112,10 @@ body form .custom-file-label::after {
   content: 'Parcourir';
 }
 
+body form.formRechercheAPI input.form-control {
+  flex-grow: 1;
+}
+
 body .btn {
   font-family: 'Oswald', sans-serif;
   font-size: 1.2rem;
@@ -149,13 +153,6 @@ body header {
 
 body header#headerLivres {
   min-height: 0;
-  /*h1:after{
-                content:'';
-                width:100px;
-                height:3px;
-                background-color: $colorThemeOrange;
-                display:block;
-            }*/
 }
 
 body header#headerPage404 {
@@ -362,6 +359,46 @@ body main section .recherche-livres .form-group ul#searchSuggestions li a {
 }
 
 body main section .recherche-livres .form-group ul#searchSuggestions li a:hover {
+  background-color: #fd7e14;
+  color: #f6f5f5;
+  cursor: pointer;
+}
+
+body main section#resultatsOpenLibrary .liste-resultats-titre {
+  list-style: none;
+  padding: 0px;
+  background-color: #f6f5f5;
+  width: 100%;
+  padding: 0;
+}
+
+body main section#resultatsOpenLibrary .liste-resultats-titre li {
+  height: 60px;
+  padding: 3px;
+  display: block;
+  cursor: pointer;
+}
+
+body main section#resultatsOpenLibrary .liste-resultats-titre li p {
+  color: #292726;
+  height: 54px;
+  margin: 0;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 54px;
+  /*pour l'ellipse*/
+  width: calc(80% - 80px);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+body main section#resultatsOpenLibrary .liste-resultats-titre li img {
+  padding-right: 6px;
+  height: 54px;
+}
+
+body main section#resultatsOpenLibrary .liste-resultats-titre li:hover {
   background-color: #fd7e14;
   color: #f6f5f5;
   cursor: pointer;

@@ -58,6 +58,9 @@ body{
         .custom-file-label::after { 
             content:'Parcourir';
         }
+        &.formRechercheAPI{
+            input.form-control{flex-grow: 1;}
+        }
     }
     .btn{
         font-family:'Oswald', sans-serif;
@@ -93,13 +96,6 @@ body{
         padding-bottom:100px;
         &#headerLivres{
             min-height:0;
-            /*h1:after{
-                content:'';
-                width:100px;
-                height:3px;
-                background-color: $colorThemeOrange;
-                display:block;
-            }*/
         }
         &#headerPage404{
             height:100vh;
@@ -296,6 +292,48 @@ body{
                                 color: $colorThemeClear;
                                 cursor: pointer;
                             }
+                        }
+                    }
+                }
+            }
+            &#resultatsOpenLibrary{
+                .liste-resultats-titre{
+                    list-style: none;
+                    padding: 0px;
+                    background-color: #f6f5f5;
+                    width: 100%;
+                    padding:0;
+                    li{
+                        height:60px;
+                        padding: 3px;
+                        display: block;
+                        cursor: pointer;
+                        p{
+                            color: #292726;
+                            height:54px;
+                            margin:0;
+                            display:inline-block;
+                            vertical-align: top;
+                            line-height:54px;
+                            /*pour l'ellipse*/
+                            width: calc(80% - 80px);
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            
+                            
+                            
+
+
+                        }
+                        img{
+                            padding-right:6px;
+                            height:54px;
+                        }
+                        &:hover{
+                            background-color: $colorThemeOrange;
+                            color: $colorThemeClear;
+                            cursor: pointer;
                         }
                     }
                 }
