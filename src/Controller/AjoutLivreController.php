@@ -92,9 +92,7 @@ class AjoutLivreController extends AbstractController
                     if (!$imageExterneCouverture) {
                         die('Base64 value is not a valid image');
                     }
-
-                    dd($imageExterneCouverture);
-                    /*// this condition is needed because the 'couverture' field is not required
+                    // this condition is needed because the 'couverture' field is not required
                     // so the file must be processed only when a file is uploaded
                     if ($urlCouverture) {
                         $originalFilename = pathinfo($urlCouverture->getClientOriginalName(), PATHINFO_FILENAME);
@@ -132,7 +130,7 @@ class AjoutLivreController extends AbstractController
                     
                     $manager->flush();
                     //ajout du message en superglobale
-                    $this->addFlash('success', 'Votre livre a été ajouté.');*/
+                    $this->addFlash('success', 'Votre livre a été ajouté.');
                 } else {
                     $this->addFlash('error', 'Erreur lors de l\'ajout du livre, veuillez ré-essayer. Si l\'erreur persiste, veuillez contacter Bouquins.');
                 }
