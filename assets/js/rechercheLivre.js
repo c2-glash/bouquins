@@ -7,6 +7,7 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
      * Exemple recherche isbn : https://openlibrary.org/isbn/1436233283.json
      * Exemple recherche auteur : https://openlibrary.org/authors/OL79034A.json
      * Exemple recherche par titre : http://openlibrary.org/search.json?title=dune
+     * Exemple URL image : https://covers.openlibrary.org/b/id/1847148-L.jpg  //-L, -M, -S
      */
 
     //recuperation de l'element allant contenir les resultats de recherche
@@ -40,8 +41,9 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
 
     //recuperation des champs du formuaire à remplir
     const champTitre = document.getElementById('livre_form_titre');
-    const champDescription = document.getElementById('livre_form_description');
-    const champCouverture = document.getElementById('livre_form_url_couverture');
+    const champIsbn = document.getElementById('livre_form_isbn');
+    //const champDescription = document.getElementById('livre_form_description');
+    //const champCouverture = document.getElementById('livre_form_url_couverture');
     const champAuteur = document.getElementById('livre_form_auteurs');
 
     //fonction chargement contenu ajax
@@ -105,7 +107,7 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
         for(let i = 0; i < JSONtoHTMLIsbn.authors.length; i++){
 
             //lancement de la fonction ajaxHTML avec l'url de recherche auteur
-            ajaxHTML(`https://openlibrary.org/${JSONtoHTMLIsbn.authors[i].key}.json`)
+            ajaxHTML(`https://openlibrary.org${JSONtoHTMLIsbn.authors[i].key}.json`)
             .then(function (response){//reponse retourne le resolve de la fn dans ajaxHTML
    
                 //parsage du json stocké
@@ -208,6 +210,9 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
                     //set value du champ titre
                     champTitre.setAttribute('value', JSONtoHTMLTitre.docs[resultatLivre].title);
                     
+                    //set value du champ isbn
+                    champIsbn.setAttribute('value', JSONtoHTMLTitre.docs[resultatLivre].isbn[0]);
+
                     //de-selection du champ auteur avant de lancer la boucle de selection
                     champAuteur.selectedIndex = - 1;
 

@@ -61,6 +61,11 @@ class Livre
      */
     private $propriete;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $isbn;
+
     public function __construct()
     {
         $this->auteurs = new ArrayCollection();
@@ -246,5 +251,17 @@ class Livre
         }
         return false;
     }*/
+
+    public function getIsbn(): ?int
+    {
+        return $this->isbn;
+    }
+
+    public function setIsbn(?int $isbn): self
+    {
+        $this->isbn = $isbn;
+
+        return $this;
+    }
 
 }

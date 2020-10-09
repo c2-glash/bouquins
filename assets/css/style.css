@@ -116,6 +116,13 @@ body form.formRechercheAPI input.form-control {
   flex-grow: 1;
 }
 
+body form .custom-file .filenameInput {
+  color: #292726;
+  padding: 6px 12px;
+  z-index: 2;
+  position: absolute;
+}
+
 body .btn {
   font-family: 'Oswald', sans-serif;
   font-size: 1.2rem;

@@ -17,6 +17,8 @@ import './bootstrap.js';
 import './headerLayout2.js';
 import './accueil.js';
 import './rechercheLivre.js';
+import './uploadFichierForm.js';
+
 
 //react
 import React         from 'react';

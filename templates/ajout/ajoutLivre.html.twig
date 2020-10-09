@@ -29,7 +29,6 @@
 
         {# Containers de chargement des resultats de recherche #}
         <section class="container" id="resultatsOpenLibrary">
-            <ul class="liste-resultats-titre"><li class="resultatlivre" data-resultat-livre="0"><img src="https://covers.openlibrary.org/b/id/6525465-S.jpg" alt="couverture Leviathan"><p>Leviathan - Thomas Hobbes </p></li><li class="resultatlivre" data-resultat-livre="1"><img src="https://covers.openlibrary.org/b/id/3992233-S.jpg" alt="couverture Leviathan"><p>Leviathan - Paul Auster </p></li><li class="resultatlivre" data-resultat-livre="2"><img src="https://covers.openlibrary.org/b/id/8819882-S.jpg" alt="couverture Leviathan"><p>Leviathan - Thomas Hobbes </p></li><li class="resultatlivre" data-resultat-livre="3"><img src="https://covers.openlibrary.org/b/id/1727140-S.jpg" alt="couverture Leviathan"><p>Leviathan - Eric Jay Dolin </p></li><li class="resultatlivre" data-resultat-livre="4"><img src="https://covers.openlibrary.org/b/id/10228842-S.jpg" alt="couverture Leviathan"><p>Leviathan - Thomas Hobbes </p></li><li class="resultatlivre" data-resultat-livre="5"><img src="https://covers.openlibrary.org/b/id/undefined-S.jpg" alt="couverture Leviathan"><p>Leviathan - Arno Schmidt </p></li><li class="resultatlivre" data-resultat-livre="6"><img src="https://covers.openlibrary.org/b/id/9048760-S.jpg" alt="couverture Leviathan"><p>Leviathan - Paul Auster </p></li><li class="resultatlivre" data-resultat-livre="7"><img src="https://covers.openlibrary.org/b/id/undefined-S.jpg" alt="couverture Leviathans"><p>Leviathans - Alfred D. Chandler Bruce Mazlish </p></li><li class="resultatlivre" data-resultat-livre="8"><img src="https://covers.openlibrary.org/b/id/990035-S.jpg" alt="couverture Leviathan"><p>Leviathan - Jens Harder </p></li><li class="resultatlivre" data-resultat-livre="9"><img src="https://covers.openlibrary.org/b/id/2131926-S.jpg" alt="couverture Leviathan"><p>Leviathan - Thomas Hobbes </p></li></ul>
         </section>
 
         <section class="container">
@@ -45,6 +44,7 @@
                 </div>
             {% endfor %}
 
+            <h5>Creation du livre</h5>
             {{ form_start(livre_form) }}
                 {{ form_widget(livre_form) }}
                 <input type="submit" class="btn btn-primary" value="Ajouter un livre">

@@ -62,7 +62,7 @@ class AjoutLivreController extends AbstractController
             $this->addFlash('error', 'Ce livre existe déjà sur ce site à l\'adresse suivante : /livre/' . $livreId . ' . Vous pouvez aller sur sa page et vous déclarer propriétaire.');
 
         } else {
-            $this->addFlash('success', 'Envoyé test');
+
             // vérification de la validité du formulaire
             if($form->isSubmitted()){
                 if($form->isValid()){
@@ -70,8 +70,31 @@ class AjoutLivreController extends AbstractController
                     /** @var UploadedFile $urlCouverture */
                     /* url_couverture configuré dans config/services.yaml */
                     $urlCouverture = $form->get('url_couverture')->getData();
+
+                    //recuperation de l'url entrée dans le champ
+                    $urlExterneCouverture = $form->get('url_externe_couverture')->getData();
                     
-                    // this condition is needed because the 'couverture' field is not required
+                    /**
+                     * pour la conversion en B64 : https://stackoverflow.com/questions/4343715/php-how-to-convert-an-image-from-url-to-base64
+                     * pour le passage de b64 à image : https://base64.guru/developers/php/examples/decode-image
+                     */
+
+                    //recuperation de l'image et converseion en base 64
+                    $dataExterneCouverture = base64_encode(file_get_contents($urlExterneCouverture));
+                    
+                    // decodage de l'image b64 en binaire
+                    $binExterneCouverture = base64_decode($dataExterneCouverture);
+
+                    //creation de l'image à partir des données binaires
+                    $imageExterneCouverture = imageCreateFromString($binExterneCouverture);
+
+                    //Si l'image n'a pas été chargée correctement, on stoppe (pour éviter les fichiers corrompus etc)
+                    if (!$imageExterneCouverture) {
+                        die('Base64 value is not a valid image');
+                    }
+
+                    dd($imageExterneCouverture);
+                    /*// this condition is needed because the 'couverture' field is not required
                     // so the file must be processed only when a file is uploaded
                     if ($urlCouverture) {
                         $originalFilename = pathinfo($urlCouverture->getClientOriginalName(), PATHINFO_FILENAME);
@@ -79,11 +102,10 @@ class AjoutLivreController extends AbstractController
                         $safeFilename = $slugger->slug($originalFilename);
                         $newFilename = $safeFilename.'-'.uniqid().'.'.$urlCouverture->guessExtension();
 
-                        // Move the file to the directory where brochures are stored
+                        // Stockage du fichier dans le dossier défini dans config/services.yaml
                         try {
                             $urlCouverture->move(
-                                $this->getParameter('couverture_directory'),//dans config/services.yaml
-                                $newFilename
+                                $this->getParameter('couverture_directory'),//
                             );
                         } catch (FileException $e) {
                             //ajout du message d'erreur d'upload en superglobale
@@ -110,7 +132,7 @@ class AjoutLivreController extends AbstractController
                     
                     $manager->flush();
                     //ajout du message en superglobale
-                    $this->addFlash('success', 'Votre livre a été ajouté.');
+                    $this->addFlash('success', 'Votre livre a été ajouté.');*/
                 } else {
                     $this->addFlash('error', 'Erreur lors de l\'ajout du livre, veuillez ré-essayer. Si l\'erreur persiste, veuillez contacter Bouquins.');
                 }

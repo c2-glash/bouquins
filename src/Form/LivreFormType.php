@@ -8,6 +8,7 @@ use App\Entity\Livre;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,7 +23,13 @@ class LivreFormType extends AbstractType
 
         $builder
             ->add('titre', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('isbn', IntegerType::class, [
+                'label' => 'ISBN',
+                'mapped' => false,
+            ])
+            ->add('description', TextareaType::class,[
+                'mapped' => false,
+            ])
             ->add('url_couverture', FileType::class, [
                 'label' => 'Couverture (image .jpg / .png)',
                 'mapped' => false,
@@ -37,6 +44,9 @@ class LivreFormType extends AbstractType
                         'mimeTypesMessage' => 'Veuillez sélectionner un fichier de type .png, jpg ou jepg.',
                     ])
                 ],
+            ])
+            ->add('url_externe_couverture', TextType::class, [
+                'mapped' => false,
             ])
             ->add('auteurs', EntityType::class, [
                 'class' => Auteur::class,
