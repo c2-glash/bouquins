@@ -75,25 +75,6 @@ class AjoutLivreController extends AbstractController
 
                     //recuperation de l'url entrée dans le champ
                     $urlExterneCouverture = $form->get('url_externe_couverture')->getData();
-                    
-                    /**
-                     * pour la conversion en B64 : https://stackoverflow.com/questions/4343715/php-how-to-convert-an-image-from-url-to-base64
-                     * pour le passage de b64 à image : https://base64.guru/developers/php/examples/decode-image
-                     */
-
-                    //recuperation de l'image et converseion en base 64
-                    $dataExterneCouverture = base64_encode(file_get_contents($urlExterneCouverture));
-                    
-                    // decodage de l'image b64 en binaire
-                    $binExterneCouverture = base64_decode($dataExterneCouverture);
-
-                    //creation de l'image à partir des données binaires en .png
-                    $imageExterneCouverture = imageCreateFromString($binExterneCouverture);
-
-                    //Si l'image n'a pas été chargée correctement, on stoppe (pour éviter les fichiers corrompus etc)
-                    if (!$imageExterneCouverture) {
-                        die('Base64 value is not a valid image');
-                    }
 
                     //si j'ai une couverture uploadee par l'utilisateur
                     if ($urlCouverture) {
@@ -120,29 +101,44 @@ class AjoutLivreController extends AbstractController
                         //recuperation du nom du fichier à partir de l'url et supp extension
                         //https://www.php.net/manual/en/function.pathinfo.php
                         
-                        //suppression de l'extension d'origine du fichier
-                        $nomCouvertureExterne = pathinfo($urlExterneCouverture);
-                        
-                        //Passage du nom de fichier par slug pour la sécurité
-                        $nomCouvertureExterneSecurise = $slugger->slug($nomCouvertureExterne['filename']);
-                        
-                        //Ajout de l'extention .png
-                        $nouveaunomCouvertureExterne = $nomCouvertureExterneSecurise.'-'.uniqid().'.png';
+                        //verification fichier image
+                        //https://www.php.net/manual/en/function.get-headers.php
+                        $couvertureExtension = pathinfo($urlExterneCouverture)['extension'];
+                        if(
+                            $couvertureExtension === 'jpg' ||
+                            $couvertureExtension === 'jpeg' ||
+                            $couvertureExtension === 'png'
+                        ){
+                            //suppression de l'extension d'origine du fichier
+                            $nomCouvertureExterne = pathinfo($urlExterneCouverture);
+                            
+                            //Passage du nom de fichier par slug pour la sécurité
+                            $nomCouvertureExterneSecurise = $slugger->slug($nomCouvertureExterne['filename']);
+                            
+                            //Ajout de l'extention .png
+                            $nouveaunomCouvertureExterne = $nomCouvertureExterneSecurise.'-'.uniqid().'.png';
 
-                        //recuperation de l'image depuis l'URL passée
-                        $newFile = '../assets/img/' . $nouveaunomCouvertureExterne;
-                    
-                        // Stockage du fichier dans le dossier défini dans config/services.yaml
-                        try {
-                           //PHP copy() pour mettre la nouvelle image dans le dossier assets : https://www.php.net/manual/fr/function.copy.php
-                            copy($urlExterneCouverture, $newFile);
-                        } catch (FileException $e) {
-                            //ajout du message d'erreur d'upload en superglobale
-                            $this->addFlash('error', 'Une erreur d\'upload est survenue.');
+                            //recuperation de l'image depuis l'URL passée
+                            $nouvelleCouverture = '../assets/img/' . $nouveaunomCouvertureExterne;
+
+                            try {
+                            //PHP copy() pour mettre la nouvelle image dans le dossier assets : https://www.php.net/manual/fr/function.copy.php
+                                copy($urlExterneCouverture, $nouvelleCouverture);
+                                if(filesize($nouvelleCouverture) > 500000){
+                                    unlink($nouvelleCouverture);
+                                    $this->addFlash('error', 'L\'image est trop lourde, l\'upload à échoué, mais le livre a bien été créé.');
+                                
+                                }
+                            } catch (FileException $e) {
+                                //ajout du message d'erreur d'upload en superglobale
+                                $this->addFlash('error', 'Une erreur d\'upload est survenue.');
+                            }
+
+                            //Stockage du nom du fichier (et pas du contenu du fichier)
+                            $livre->setUrlCouverture($nouveaunomCouvertureExterne);
                         }
 
-                        //Stockage du nom du fichier (et pas du contenu du fichier)
-                        $livre->setUrlCouverture($nouveaunomCouvertureExterne);
+                        
                     }
 
                     //set de la date d'ajout du livre
