@@ -22,13 +22,17 @@ class LivreFormType extends AbstractType
         //https://symfony.com/doc/current/reference/forms/types.html
 
         $builder
-            ->add('titre', TextType::class)
+            ->add('titre', TextType::class, [
+                'attr' => ['placeholder' => 'Le titre du livre'],
+            ])
             ->add('isbn', IntegerType::class, [
+                'attr' => ['placeholder' => 'L\'ISNB du livre (son code barre, 13 chiffres)'],
                 'label' => 'ISBN',
                 'required' => false,
             ])
             ->add('description', TextareaType::class,[
                 'required' => false,
+                'attr' => ['placeholder' => 'Une description c\'est mieux !'],
             ])
             ->add('url_couverture', FileType::class, [
                 'label' => 'Couverture (image .jpg / .png)',
@@ -46,6 +50,8 @@ class LivreFormType extends AbstractType
                 ],
             ])
             ->add('url_externe_couverture', TextType::class, [
+                'label' => 'Upload d\'une couverture via URL (image .jpg / .png)',
+                'attr' => ['placeholder' => 'https://uneurlversuneimage.jpg'],
                 'mapped' => false,
                 'required' => false,
             ])
