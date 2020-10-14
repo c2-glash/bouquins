@@ -25,14 +25,14 @@ class LivreFormType extends AbstractType
             ->add('titre', TextType::class)
             ->add('isbn', IntegerType::class, [
                 'label' => 'ISBN',
-                'mapped' => false,
+                'required' => false,
             ])
             ->add('description', TextareaType::class,[
-                'mapped' => false,
+                'required' => false,
             ])
             ->add('url_couverture', FileType::class, [
                 'label' => 'Couverture (image .jpg / .png)',
-                'mapped' => false,
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '600k',
@@ -47,6 +47,7 @@ class LivreFormType extends AbstractType
             ])
             ->add('url_externe_couverture', TextType::class, [
                 'mapped' => false,
+                'required' => false,
             ])
             ->add('auteurs', EntityType::class, [
                 'class' => Auteur::class,

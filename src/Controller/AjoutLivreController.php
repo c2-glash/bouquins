@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints\Image;
 
 class AjoutLivreController extends AbstractController
 {
@@ -85,15 +87,15 @@ class AjoutLivreController extends AbstractController
                     // decodage de l'image b64 en binaire
                     $binExterneCouverture = base64_decode($dataExterneCouverture);
 
-                    //creation de l'image à partir des données binaires
+                    //creation de l'image à partir des données binaires en .png
                     $imageExterneCouverture = imageCreateFromString($binExterneCouverture);
 
                     //Si l'image n'a pas été chargée correctement, on stoppe (pour éviter les fichiers corrompus etc)
                     if (!$imageExterneCouverture) {
                         die('Base64 value is not a valid image');
                     }
-                    // this condition is needed because the 'couverture' field is not required
-                    // so the file must be processed only when a file is uploaded
+
+                    //si j'ai une couverture uploadee par l'utilisateur
                     if ($urlCouverture) {
                         $originalFilename = pathinfo($urlCouverture->getClientOriginalName(), PATHINFO_FILENAME);
                         // this is needed to safely include the file name as part of the URL
@@ -113,7 +115,36 @@ class AjoutLivreController extends AbstractController
                         // updates the 'urlCouverture' property to store the image file name
                         // instead of its contents
                         $livre->setUrlCouverture($newFilename);
+                    } // sinon, si j'ai une URL de couverture externe
+                    elseif ($urlExterneCouverture) {
+                        //recuperation du nom du fichier à partir de l'url et supp extension
+                        //https://www.php.net/manual/en/function.pathinfo.php
+                        
+                        //suppression de l'extension d'origine du fichier
+                        $nomCouvertureExterne = pathinfo($urlExterneCouverture);
+                        
+                        //Passage du nom de fichier par slug pour la sécurité
+                        $nomCouvertureExterneSecurise = $slugger->slug($nomCouvertureExterne['filename']);
+                        
+                        //Ajout de l'extention .png
+                        $nouveaunomCouvertureExterne = $nomCouvertureExterneSecurise.'-'.uniqid().'.png';
+
+                        //recuperation de l'image depuis l'URL passée
+                        $newFile = '../assets/img/' . $nouveaunomCouvertureExterne;
+                    
+                        // Stockage du fichier dans le dossier défini dans config/services.yaml
+                        try {
+                           //PHP copy() pour mettre la nouvelle image dans le dossier assets : https://www.php.net/manual/fr/function.copy.php
+                            copy($urlExterneCouverture, $newFile);
+                        } catch (FileException $e) {
+                            //ajout du message d'erreur d'upload en superglobale
+                            $this->addFlash('error', 'Une erreur d\'upload est survenue.');
+                        }
+
+                        //Stockage du nom du fichier (et pas du contenu du fichier)
+                        $livre->setUrlCouverture($nouveaunomCouvertureExterne);
                     }
+
                     //set de la date d'ajout du livre
                     $livre->setDateAjout(new \DateTime());
                     

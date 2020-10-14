@@ -43,7 +43,7 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
     const champTitre = document.getElementById('livre_form_titre');
     const champIsbn = document.getElementById('livre_form_isbn');
     //const champDescription = document.getElementById('livre_form_description');
-    //const champCouverture = document.getElementById('livre_form_url_couverture');
+    const champCouvertureUrl = document.getElementById('livre_form_url_externe_couverture');
     const champAuteur = document.getElementById('livre_form_auteurs');
 
     //fonction chargement contenu ajax
@@ -203,24 +203,30 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
 
                 //au clic -> lancement fn pour charger les values des champs du form
                 resultatsSelect[i].addEventListener("click", function() {
-
+                    console.log('chargement data dans les champs');
                     //recuperation de l'index du résultat cliqué
                     let resultatLivre = this.getAttribute('data-resultat-livre');
-
+                    
                     //set value du champ titre
                     champTitre.setAttribute('value', JSONtoHTMLTitre.docs[resultatLivre].title);
+                    console.log(`set ${JSONtoHTMLTitre.docs[resultatLivre].title}`);
                     
                     //set value du champ isbn
                     champIsbn.setAttribute('value', JSONtoHTMLTitre.docs[resultatLivre].isbn[0]);
+                    console.log(`set ${JSONtoHTMLTitre.docs[resultatLivre].isbn[0]}`);
 
+                    //set value du champ URl couverture externe
+                    champCouvertureUrl.setAttribute('value', `https://covers.openlibrary.org/b/id/${JSONtoHTMLTitre.docs[i].cover_i}-L.jpg`);
+                    console.log(`set ${JSONtoHTMLTitre.docs[i].cover_i}`);
+                    
                     //de-selection du champ auteur avant de lancer la boucle de selection
                     champAuteur.selectedIndex = - 1;
-
+                
                     //selection du champ auteur : pour chaque auteur du livre/resultat cliqué : 
                     for(i = 0; i < JSONtoHTMLTitre.docs[resultatLivre].author_name.length; i++){
                         
                         auteurLivre = JSONtoHTMLTitre.docs[resultatLivre].author_name[i];
-
+                        console.log(`set ${JSONtoHTMLTitre.docs[resultatLivre].author_name[i]}`);
                         //pour chaque option du champ select auteur du form
                         for(j = 0; j < champAuteur.options.length; j++){
 
