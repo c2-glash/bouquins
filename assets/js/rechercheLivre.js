@@ -28,6 +28,10 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
     let auteurLivre = '';
     let titreLivre = '';
 
+    //definition var auteurs non existants et boolean existance auteur
+    let auteursNonExistant = '';
+    let compteAuteurExistant = 0;
+
     //definition variables de stockage du Json en HTML
     let JSONtoHTMLIsbn = '';
     let JSONtoHTMLAuteur = '';
@@ -42,7 +46,6 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
     //recuperation des champs du formuaire à remplir
     const champTitre = document.getElementById('livre_form_titre');
     const champIsbn = document.getElementById('livre_form_isbn');
-    //const champDescription = document.getElementById('livre_form_description');
     const champCouvertureUrl = document.getElementById('livre_form_url_externe_couverture');
     const champAuteur = document.getElementById('livre_form_auteurs');
 
@@ -178,6 +181,9 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
         //pour bloquer l'envoi du form
         event.preventDefault();
 
+        //suppression de l'éventuel message d'erreur précédent
+        formResult.innerHTML = ``;
+
         //recuperation du contenu des champs du form
         let inputData = document.querySelector('input[name="recherchetitre"]').value;
 
@@ -189,8 +195,8 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
             <div class="alert alert-danger">
                 Veuillez renseigner le champ titre du livre avant de lancer la recherche.
             </div>`;
-        
         } 
+
         //sinon on peut soumettre la requete à openlib  
         else {
 
@@ -279,7 +285,7 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
                         for(i = 0; i < JSONtoHTMLTitre.docs[resultatLivre].author_name.length; i++){
                             
                             auteurLivre = JSONtoHTMLTitre.docs[resultatLivre].author_name[i];
-                            console.log(`set ${JSONtoHTMLTitre.docs[resultatLivre].author_name[i]}`);
+
                             //pour chaque option du champ select auteur du form
                             for(j = 0; j < champAuteur.options.length; j++){
 
@@ -287,21 +293,29 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
                                 if(auteurLivre === champAuteur.options[j].innerText){
                                     //on selectionne l'option du select correspondante
                                     champAuteur.selectedIndex = j;
-                                } else {
-                                    //lancer une creation d'auteur pour l'auteur non existant
-                                    //via modal
+                                    //on incrémente le compteur d'auteurs existants
+                                    compteAuteurExistant++;
                                 }
                             }
+                        }
+
+                        //on affiche le message d'erreur si le nombre d'auteurs du livre est différent du compte d'auteurs existants
+                        if(compteAuteurExistant !== JSONtoHTMLTitre.docs[resultatLivre].author_name.length){
+                            formResult.innerHTML += `
+                            <div class="alert alert-danger">
+                                Un ou plusieurs auteurs de ce livre n'ont pas été créés, veuillez procéder à leur création avant de créer ce livre.
+                            </div>`;
                         }
                     })
                 }
             }).catch(function (requeteAjaxHTML){
                 //en cas d'échec de la requete
                 console.log(`erreur : ${requeteAjaxHTML}`);
+
                 //affichage du message d'erreur
-                formResult.innerHTML = `
+                formResult.innerHTML += `
                 <div class="alert alert-danger">
-                    Aucun résultat disponible sur Openlibrary.org pour cet recherche, ou la requete a échouée. Essayez de changer les mot-clés ou tentez une recherche par ISBN.
+                    Aucun résultat disponible sur Openlibrary.org pour cette recherche, ou la requete a échouée. Essayez de changer les mot-clés ou tentez une recherche par ISBN.
                 </div>`;
             })
         }
