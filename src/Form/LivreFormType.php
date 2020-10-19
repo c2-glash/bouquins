@@ -35,7 +35,7 @@ class LivreFormType extends AbstractType
                 'attr' => ['placeholder' => 'Une description c\'est mieux !'],
             ])
             ->add('url_couverture', FileType::class, [
-                'label' => 'Couverture (image .jpg / .png)',
+                'label' => 'Upload d\'une couverture via votre machine (image .jpg / .png)',
                 'required' => false,
                 'constraints' => [
                     new File([
