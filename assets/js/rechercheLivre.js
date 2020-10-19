@@ -236,6 +236,7 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
                                 champAuteur.selectedIndex = j;
                             } else {
                                 //lancer une creation d'auteur pour l'auteur non existant
+                                //via modal
                             }
                         }
                     }

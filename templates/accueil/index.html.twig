@@ -3,10 +3,21 @@
 {% block title %}Accueil{% endblock %}
 {% set isAccueil = true %}
 {% set headerh1 = 'Bienvenue sur Bouquins' %}
-{% set headerh5 = 'Bouquins permet la gestion du prêt et du suivi de ses livres.' %}
-{% set headerp = 'Si certains ouvrages t\'intéressent, ou que tu désires aussi faire partager les livres qui ramassent la poussière sur tes étagères, l\'inscription se passe ici : ' %}
-{% set headerbtntext = 'Inscription' %}
-{% set headerbtnlink = '/inscription' %}
+
+{# Si l'utilisateur est log, on affiche : #}
+{% if app.user %}
+    {% set headerh5 = '' %}
+    {% set headerp = 'Bon retour sur Bouquins ! De nouveaux livres à ajouter ? C\'est par ici :' %}
+    {% set headerbtntext = 'Ajouter un livre' %}
+    {% set headerbtnlink = '/ajout/livre' %}
+
+{# Sinon : #}
+{% else %}
+    {% set headerh5 = 'Bouquins permet la gestion du prêt et du suivi de tes livres.' %}
+    {% set headerp = 'Si certains ouvrages t\'intéressent, ou que tu désires aussi faire partager les livres qui ramassent la poussière sur tes étagères, l\'inscription se passe ici : ' %}
+    {% set headerbtntext = 'Inscription' %}
+    {% set headerbtnlink = '/inscription' %}
+{% endif %}
 {% set displayLoginForm = true %}
 
 {% block body %}
