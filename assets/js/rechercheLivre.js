@@ -96,12 +96,12 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
         } 
 
         //verification que l'input ne contient que des chiffres
-        else if(inputData.match(/^[0-9]+$/) === null || inputData.length !== 13) {
+        else if(inputData.match(/^[0-9]+$/) === null || inputData.length < 10) {
 
             //affichage du message d'erreur
             formResult.innerHTML = `
             <div class="alert alert-danger">
-                Un ISBN ne peut contenir que 13 chiffres.
+                Un ISBN ne peut contenir que 10 (en ommettant 978) ou 13 chiffres (en commencant avec 978).
             </div>`;
         }
 
@@ -136,6 +136,7 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
     }
 
     //fn de recherche d'auteur lancée par la fn de recherche par ISBN
+    //et affichage resultats + chargement data disponible dans les champs du form
     function LancementRechercheAuteur()
     {
         //reset variable nomAuteur
@@ -162,6 +163,41 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
                         <li class="resultatlivre"><img src="https://covers.openlibrary.org/b/id/${couvertureLivre}-S.jpg" alt="couverture ${titreLivre}"/><p>${titreLivre} - ${nomAuteur}</p></li>
                     </ul>`;
                 }
+
+                //apres affichage, lancement boucle fn 
+                //pour retourner le data attribute de chaque element au click
+                let resultatsSelect = document.getElementsByClassName('resultatlivre');
+
+                for(let i = 0; i < resultatsSelect.length; i++) {
+
+                    //au clic -> lancement fn pour charger les values des champs du form
+                    resultatsSelect[i].addEventListener("click", function() {
+                        console.log('chargement data dans les champs');
+                        
+                        //recuperation de l'index du résultat cliqué
+                        let resultatLivre = this.getAttribute('data-resultat-livre');
+                        
+                        //set value du champ titre
+                        champTitre.setAttribute('value', JSONtoHTMLIsbn.title);
+                        console.log(`set ${JSONtoHTMLIsbn.title}`);
+                        
+                        //set value du champ isbn
+                        champIsbn.setAttribute('value', JSONtoHTMLIsbn.isbn_13[0]);
+                        console.log(`set ${JSONtoHTMLIsbn.isbn_13[0]}`);
+
+                        //set value du champ URl couverture externe
+                        champCouvertureUrl.setAttribute('value', `https://covers.openlibrary.org/b/id/${JSONtoHTMLIsbn.covers[0]}-L.jpg`);
+                        console.log(`set ${JSONtoHTMLIsbn.covers[0]}`);
+                        
+                        //de-selection du champ auteur avant de lancer la boucle de selection
+                        champAuteur.selectedIndex = - 1;
+
+                        //ajout de la selection des auteurs + msg erreur si l'auteur n'existe pas encore
+                    })
+                }
+
+
+
             }).catch(function (requeteAjaxHTML){
                 //en cas d'échec de la requete
                 console.log(`erreur : ${requeteAjaxHTML}`);
@@ -263,6 +299,7 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
                     //au clic -> lancement fn pour charger les values des champs du form
                     resultatsSelect[i].addEventListener("click", function() {
                         console.log('chargement data dans les champs');
+                        
                         //recuperation de l'index du résultat cliqué
                         let resultatLivre = this.getAttribute('data-resultat-livre');
                         
@@ -303,7 +340,7 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
                         if(compteAuteurExistant !== JSONtoHTMLTitre.docs[resultatLivre].author_name.length){
                             formResult.innerHTML += `
                             <div class="alert alert-danger">
-                                Un ou plusieurs auteurs de ce livre n'ont pas été créés, veuillez procéder à leur création avant de créer ce livre.
+                                Un ou plusieurs auteurs de ce livre n'ont pas été créés, <a href="/ajout/auteur">veuillez procéder à leur création</a> avant de créer ce livre.
                             </div>`;
                         }
                     })
