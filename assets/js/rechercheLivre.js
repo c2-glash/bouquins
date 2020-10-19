@@ -162,6 +162,12 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
             }).catch(function (requeteAjaxHTML){
                 //en cas d'échec de la requete
                 console.log(`erreur : ${requeteAjaxHTML}`);
+
+                //affichage du message d'erreur
+                formResult.innerHTML = `
+                <div class="alert alert-danger">
+                    L'auteur du livre n'a pas été trouve sur Openlibrary.org, ou la requete a échouée.
+                </div>`;
             })
         }
     }
@@ -245,6 +251,7 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
                 //apres affichage, lancement boucle fn 
                 //pour retourner le data attribute de chaque element au click
                 let resultatsSelect = document.getElementsByClassName('resultatlivre');
+
                 for(let i = 0; i < resultatsSelect.length; i++) {
 
                     //au clic -> lancement fn pour charger les values des champs du form
@@ -291,6 +298,11 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
             }).catch(function (requeteAjaxHTML){
                 //en cas d'échec de la requete
                 console.log(`erreur : ${requeteAjaxHTML}`);
+                //affichage du message d'erreur
+                formResult.innerHTML = `
+                <div class="alert alert-danger">
+                    Aucun résultat disponible sur Openlibrary.org pour cet recherche, ou la requete a échouée. Essayez de changer les mot-clés ou tentez une recherche par ISBN.
+                </div>`;
             })
         }
     }
