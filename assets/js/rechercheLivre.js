@@ -75,27 +75,61 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
         //pour bloquer l'envoi du form
         event.preventDefault();
 
+        //suppression de l'éventuel message d'erreur précédent
+        formResult.innerHTML = ``;
+
         //recuperation du contenu des champs du form
         let inputData = document.querySelector('input[name="rechercheisbn"]').value;
+        
+        //verification que le champ de recherche est correctement renseigné
+        if(inputData === ""){
 
-        //lancement de la fonction ajaxHTML avec l'url de recherche isbn
-        ajaxHTML(`https://openlibrary.org/isbn/${inputData}.json`)
-        .then(function (response){//reponse retourne le resolve de la fn dans ajaxHTML
-            
-            //parsage du json et stockage stocké
-            JSONtoHTMLIsbn = JSON.parse(response);
-            
-            //stockage des éléments du livre à afficher
-            titreLivre = JSONtoHTMLIsbn.title;
-            couvertureLivre = JSONtoHTMLIsbn.covers[0];
-            
-            //lancement de la fn recherche auteur car nom de l'auteur non stocké dans le json récupéré par la requete
-            LancementRechercheAuteur();
-            
-        }).catch(function (requeteAjaxHTML){
-            //en cas d'échec de la requete
-            console.log(`erreur : ${requeteAjaxHTML}`);
-        })
+            //affichage du message d'erreur
+            formResult.innerHTML = `
+            <div class="alert alert-danger">
+                Veuillez renseigner l'ISBN avant de lancer la recherche.
+            </div>`;
+        
+        } 
+
+        //verification que l'input ne contient que des chiffres
+        else if(inputData.match(/^[0-9]+$/) === null || inputData.length !== 13) {
+
+            //affichage du message d'erreur
+            formResult.innerHTML = `
+            <div class="alert alert-danger">
+                Un ISBN ne peut contenir que 13 chiffres.
+            </div>`;
+        }
+
+        //sinon on peut soumettre la requete à openlib  
+        else { 
+
+            //lancement de la fonction ajaxHTML avec l'url de recherche isbn
+            ajaxHTML(`https://openlibrary.org/isbn/${inputData}.json`)
+            .then(function (response){//reponse retourne le resolve de la fn dans ajaxHTML
+
+                //parsage du json et stockage stocké
+                JSONtoHTMLIsbn = JSON.parse(response);
+                
+                //stockage des éléments du livre à afficher
+                titreLivre = JSONtoHTMLIsbn.title;
+                couvertureLivre = JSONtoHTMLIsbn.covers[0];
+                
+                //lancement de la fn recherche auteur car nom de l'auteur non stocké dans le json récupéré par la requete
+                LancementRechercheAuteur();
+                
+            }).catch(function (requeteAjaxHTML){
+                //en cas d'échec de la requete
+                console.log(`erreur : ${requeteAjaxHTML}`);
+                
+                //affichage du message d'erreur
+                formResult.innerHTML = `
+                <div class="alert alert-danger">
+                    Aucun résultat disponible sur Openlibrary.org pour cet ISBN. Vérifiez l'isbn ou essayez une recherche par titre de livre.
+                </div>`;
+            })
+        }
     }
 
     //fn de recherche d'auteur lancée par la fn de recherche par ISBN
@@ -109,7 +143,7 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
             //lancement de la fonction ajaxHTML avec l'url de recherche auteur
             ajaxHTML(`https://openlibrary.org${JSONtoHTMLIsbn.authors[i].key}.json`)
             .then(function (response){//reponse retourne le resolve de la fn dans ajaxHTML
-   
+
                 //parsage du json stocké
                 JSONtoHTMLAuteur = JSON.parse(response);
                 
@@ -130,7 +164,6 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
                 console.log(`erreur : ${requeteAjaxHTML}`);
             })
         }
-        
     }
 
     //fn de recherche par titre retoutnant plusieurs resultats
@@ -142,109 +175,123 @@ if(document.getElementById('resultatsOpenLibrary') !== null){
         //recuperation du contenu des champs du form
         let inputData = document.querySelector('input[name="recherchetitre"]').value;
 
-        //lancement de la fonction ajaxHTML avec l'url de recherche par titre
-        ajaxHTML(`https://openlibrary.org/search.json?title=${inputData}`)
-        .then(function (response){//reponse retourne le resolve de la fn dans ajaxHTML
-            
-            //parsage du json stocké
-            JSONtoHTMLTitre = JSON.parse(response);
+        //verification que le champ de recherche n'est pas vide
+        if(inputData === ""){
 
-            //limite du nombre de résultats affichés (voir let limiteResultats = x; en debut de page)
-            if(JSONtoHTMLTitre.docs.length < limiteResultats){
-                limiteResultats = JSONtoHTMLTitre.docs.length;
-            }
+            //affichage du message d'erreur
+            formResult.innerHTML = `
+            <div class="alert alert-danger">
+                Veuillez renseigner le champ titre du livre avant de lancer la recherche.
+            </div>`;
+        
+        } 
+        //sinon on peut soumettre la requete à openlib  
+        else {
 
-            //début de liste résultats
-            listeResultatsHTML = '<ul class="liste-resultats-titre">';
-
-            for(i = 0; i < limiteResultats; i++ ){
-
-                //definition des éléments du livre à afficher
-                titreLivre = JSONtoHTMLTitre.docs[i].title;
-                couvertureLivre = `https://covers.openlibrary.org/b/id/${JSONtoHTMLTitre.docs[i].cover_i}-S.jpg`;
-
-                //chargement image filler si la couverture n'est pas disponible
-                if(JSONtoHTMLTitre.docs[i].cover_i === undefined){
-                    couvertureLivre = 'https://via.placeholder.com/42x54/292726.png?text=@';
-                }
+            //lancement de la fonction ajaxHTML avec l'url de recherche par titre
+            ajaxHTML(`https://openlibrary.org/search.json?title=${inputData}`)
+            .then(function (response){//reponse retourne le resolve de la fn dans ajaxHTML
                 
-                //reset variable auteurLivre si plusieurs recherches sont lancées
-                auteurLivre = '';
+                //parsage du json stocké
+                JSONtoHTMLTitre = JSON.parse(response);
 
-                //verification existance d'un auteur
-                if(JSONtoHTMLTitre.docs[i].author_name !== undefined){
+                //limite du nombre de résultats affichés (voir let limiteResultats = x; en debut de page)
+                if(JSONtoHTMLTitre.docs.length < limiteResultats){
+                    limiteResultats = JSONtoHTMLTitre.docs.length;
+                }
 
-                    //boucle sur tous les auteurs
-                    for(j = 0; j < JSONtoHTMLTitre.docs[i].author_name.length; j++){
+                //début de liste résultats
+                listeResultatsHTML = '<ul class="liste-resultats-titre">';
 
-                        //gestion des espaces entre noms d'auteurs et titre
-                        if(j > 0){
-                            auteurLivre += ` & ${JSONtoHTMLTitre.docs[i].author_name[j]} `;
-                        } else {
-                            auteurLivre += ` - ${JSONtoHTMLTitre.docs[i].author_name[j]}`;
-                        }
+                for(i = 0; i < limiteResultats; i++ ){
+
+                    //definition des éléments du livre à afficher
+                    titreLivre = JSONtoHTMLTitre.docs[i].title;
+                    couvertureLivre = `https://covers.openlibrary.org/b/id/${JSONtoHTMLTitre.docs[i].cover_i}-S.jpg`;
+
+                    //chargement image filler si la couverture n'est pas disponible
+                    if(JSONtoHTMLTitre.docs[i].cover_i === undefined){
+                        couvertureLivre = 'https://via.placeholder.com/42x54/292726.png?text=@';
                     }
-                }
-
-                //creation li HTML pour chaque résultat et ajout à la liste
-                listeResultatsHTML += `<li class="resultatlivre" data-resultat-livre="${i}"><img src="${couvertureLivre}" alt="couverture ${titreLivre}"/><p>${titreLivre}${auteurLivre}</p></li>`;
-            }
-
-            //fin de la liste de résultats
-            listeResultatsHTML += '</ul>';
-
-            //affichage du HTML
-            formResult.innerHTML = listeResultatsHTML;
-
-            //apres affichage, lancement boucle fn 
-            //pour retourner le data attribute de chaque element au click
-            let resultatsSelect = document.getElementsByClassName('resultatlivre');
-            for(let i = 0; i < resultatsSelect.length; i++) {
-
-                //au clic -> lancement fn pour charger les values des champs du form
-                resultatsSelect[i].addEventListener("click", function() {
-                    console.log('chargement data dans les champs');
-                    //recuperation de l'index du résultat cliqué
-                    let resultatLivre = this.getAttribute('data-resultat-livre');
                     
-                    //set value du champ titre
-                    champTitre.setAttribute('value', JSONtoHTMLTitre.docs[resultatLivre].title);
-                    console.log(`set ${JSONtoHTMLTitre.docs[resultatLivre].title}`);
-                    
-                    //set value du champ isbn
-                    champIsbn.setAttribute('value', JSONtoHTMLTitre.docs[resultatLivre].isbn[0]);
-                    console.log(`set ${JSONtoHTMLTitre.docs[resultatLivre].isbn[0]}`);
+                    //reset variable auteurLivre si plusieurs recherches sont lancées
+                    auteurLivre = '';
 
-                    //set value du champ URl couverture externe
-                    champCouvertureUrl.setAttribute('value', `https://covers.openlibrary.org/b/id/${JSONtoHTMLTitre.docs[i].cover_i}-L.jpg`);
-                    console.log(`set ${JSONtoHTMLTitre.docs[i].cover_i}`);
-                    
-                    //de-selection du champ auteur avant de lancer la boucle de selection
-                    champAuteur.selectedIndex = - 1;
-                
-                    //selection du champ auteur : pour chaque auteur du livre/resultat cliqué : 
-                    for(i = 0; i < JSONtoHTMLTitre.docs[resultatLivre].author_name.length; i++){
-                        
-                        auteurLivre = JSONtoHTMLTitre.docs[resultatLivre].author_name[i];
-                        console.log(`set ${JSONtoHTMLTitre.docs[resultatLivre].author_name[i]}`);
-                        //pour chaque option du champ select auteur du form
-                        for(j = 0; j < champAuteur.options.length; j++){
+                    //verification existance d'un auteur
+                    if(JSONtoHTMLTitre.docs[i].author_name !== undefined){
 
-                            //si le nom de l'auteur sélectionné dans les resultat est identique a l'auteur du champ select du form
-                            if(auteurLivre === champAuteur.options[j].innerText){
-                                //on selectionne l'option du select correspondante
-                                champAuteur.selectedIndex = j;
+                        //boucle sur tous les auteurs
+                        for(j = 0; j < JSONtoHTMLTitre.docs[i].author_name.length; j++){
+
+                            //gestion des espaces entre noms d'auteurs et titre
+                            if(j > 0){
+                                auteurLivre += ` & ${JSONtoHTMLTitre.docs[i].author_name[j]} `;
                             } else {
-                                //lancer une creation d'auteur pour l'auteur non existant
-                                //via modal
+                                auteurLivre += ` - ${JSONtoHTMLTitre.docs[i].author_name[j]}`;
                             }
                         }
                     }
-                })
-            }
-        }).catch(function (requeteAjaxHTML){
-            //en cas d'échec de la requete
-            console.log(`erreur : ${requeteAjaxHTML}`);
-        })
+
+                    //creation li HTML pour chaque résultat et ajout à la liste
+                    listeResultatsHTML += `<li class="resultatlivre" data-resultat-livre="${i}"><img src="${couvertureLivre}" alt="couverture ${titreLivre}"/><p>${titreLivre}${auteurLivre}</p></li>`;
+                }
+
+                //fin de la liste de résultats
+                listeResultatsHTML += '</ul>';
+
+                //affichage du HTML
+                formResult.innerHTML = listeResultatsHTML;
+
+                //apres affichage, lancement boucle fn 
+                //pour retourner le data attribute de chaque element au click
+                let resultatsSelect = document.getElementsByClassName('resultatlivre');
+                for(let i = 0; i < resultatsSelect.length; i++) {
+
+                    //au clic -> lancement fn pour charger les values des champs du form
+                    resultatsSelect[i].addEventListener("click", function() {
+                        console.log('chargement data dans les champs');
+                        //recuperation de l'index du résultat cliqué
+                        let resultatLivre = this.getAttribute('data-resultat-livre');
+                        
+                        //set value du champ titre
+                        champTitre.setAttribute('value', JSONtoHTMLTitre.docs[resultatLivre].title);
+                        console.log(`set ${JSONtoHTMLTitre.docs[resultatLivre].title}`);
+                        
+                        //set value du champ isbn
+                        champIsbn.setAttribute('value', JSONtoHTMLTitre.docs[resultatLivre].isbn[0]);
+                        console.log(`set ${JSONtoHTMLTitre.docs[resultatLivre].isbn[0]}`);
+
+                        //set value du champ URl couverture externe
+                        champCouvertureUrl.setAttribute('value', `https://covers.openlibrary.org/b/id/${JSONtoHTMLTitre.docs[i].cover_i}-L.jpg`);
+                        console.log(`set ${JSONtoHTMLTitre.docs[i].cover_i}`);
+                        
+                        //de-selection du champ auteur avant de lancer la boucle de selection
+                        champAuteur.selectedIndex = - 1;
+                    
+                        //selection du champ auteur : pour chaque auteur du livre/resultat cliqué : 
+                        for(i = 0; i < JSONtoHTMLTitre.docs[resultatLivre].author_name.length; i++){
+                            
+                            auteurLivre = JSONtoHTMLTitre.docs[resultatLivre].author_name[i];
+                            console.log(`set ${JSONtoHTMLTitre.docs[resultatLivre].author_name[i]}`);
+                            //pour chaque option du champ select auteur du form
+                            for(j = 0; j < champAuteur.options.length; j++){
+
+                                //si le nom de l'auteur sélectionné dans les resultat est identique a l'auteur du champ select du form
+                                if(auteurLivre === champAuteur.options[j].innerText){
+                                    //on selectionne l'option du select correspondante
+                                    champAuteur.selectedIndex = j;
+                                } else {
+                                    //lancer une creation d'auteur pour l'auteur non existant
+                                    //via modal
+                                }
+                            }
+                        }
+                    })
+                }
+            }).catch(function (requeteAjaxHTML){
+                //en cas d'échec de la requete
+                console.log(`erreur : ${requeteAjaxHTML}`);
+            })
+        }
     }
 }
