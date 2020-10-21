@@ -10,15 +10,15 @@ import '../css/bootstrap.css';
 import '../css/style.scss';
 import '../css/responsive.scss';
 import '../css/parallax.scss';
-import '../css/app.css';
+import '../css/chargement.scss';
 
 //JS compilé dans un seul fichier
 import './bootstrap.js';
 import './headerLayout2.js';
+import './chargement.js';
 import './accueil.js';
 import './rechercheLivre.js';
 import './uploadFichierForm.js';
-
 
 //react
 import React         from 'react';
