@@ -6,6 +6,8 @@
  */
 
 // CSS compilé dans un seul fichier
+import '../css/normalize.css';
+import '../css/base.css';
 import '../css/bootstrap.css';
 import '../css/style.scss';
 import '../css/responsive.scss';
